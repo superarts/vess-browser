@@ -10,34 +10,68 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Browser View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="VessBrowser" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="BrowserViewController" customModule="VessBrowser" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hQB-Rz-X3l">
-                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="559"/>
                                 <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <wkWebViewConfiguration key="configuration">
                                     <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
                                     <wkPreferences key="preferences"/>
                                 </wkWebViewConfiguration>
                             </wkWebView>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eOT-Ha-AkT">
+                                <rect key="frame" x="0.0" y="623" width="375" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="a8r-de-TWp"/>
+                                </constraints>
+                                <items>
+                                    <barButtonItem systemItem="rewind" id="iAG-ud-XZw">
+                                        <connections>
+                                            <action selector="actionBack" destination="BYZ-38-t0r" id="EZE-AM-xzi"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="7d4-gx-wTD"/>
+                                    <barButtonItem systemItem="organize" id="gIr-7f-Znt"/>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="7a7-KA-WyB"/>
+                                    <barButtonItem systemItem="fastForward" id="Woa-cf-DlW">
+                                        <connections>
+                                            <action selector="actionForward" destination="BYZ-38-t0r" id="c8a-xa-7Fi"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="XIX-2k-NDq">
+                                <rect key="frame" x="0.0" y="621" width="375" height="2"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="2" id="eJJ-Bn-hV5"/>
+                                </constraints>
+                            </progressView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="hQB-Rz-X3l" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Vpk-Q0-l2y"/>
-                            <constraint firstItem="hQB-Rz-X3l" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="g0N-Fn-Gfy"/>
-                            <constraint firstItem="hQB-Rz-X3l" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="u4Y-5B-SUO"/>
-                            <constraint firstItem="hQB-Rz-X3l" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="xBX-kW-DdC"/>
+                            <constraint firstItem="eOT-Ha-AkT" firstAttribute="top" secondItem="XIX-2k-NDq" secondAttribute="bottom" id="07e-bT-CUE"/>
+                            <constraint firstItem="hQB-Rz-X3l" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="2tv-O7-aad"/>
+                            <constraint firstItem="eOT-Ha-AkT" firstAttribute="top" secondItem="hQB-Rz-X3l" secondAttribute="bottom" id="B7C-tq-4G2"/>
+                            <constraint firstItem="eOT-Ha-AkT" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="G6d-wQ-mVh"/>
+                            <constraint firstItem="eOT-Ha-AkT" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="Ppv-Df-Ccd"/>
+                            <constraint firstAttribute="trailing" secondItem="XIX-2k-NDq" secondAttribute="trailing" id="Q4Y-mN-h9V"/>
+                            <constraint firstItem="eOT-Ha-AkT" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="hHh-sK-UOa"/>
+                            <constraint firstItem="hQB-Rz-X3l" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="phK-GL-5yx"/>
+                            <constraint firstItem="XIX-2k-NDq" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="src-TK-ouM"/>
+                            <constraint firstItem="hQB-Rz-X3l" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="vLR-90-Tcp"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" id="2Ei-91-U5u"/>
                     <connections>
+                        <outlet property="progressBar" destination="XIX-2k-NDq" id="7SM-yV-KGB"/>
                         <outlet property="webView" destination="hQB-Rz-X3l" id="OBv-4f-IeE"/>
                     </connections>
                 </viewController>
