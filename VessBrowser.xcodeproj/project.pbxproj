@@ -8,8 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		B3056D2F22191C5B0069AB5B /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3056D2E22191C5B0069AB5B /* StoreKit.framework */; };
+		B3056D31221A483E0069AB5B /* WebsiteList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B3056D30221A483E0069AB5B /* WebsiteList.storyboard */; };
+		B3056D36221A487D0069AB5B /* WebsiteListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3056D35221A487D0069AB5B /* WebsiteListViewController.swift */; };
 		B3D246BB22165CA10083A76D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D246BA22165CA10083A76D /* AppDelegate.swift */; };
-		B3D246BD22165CA10083A76D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D246BC22165CA10083A76D /* ViewController.swift */; };
+		B3D246BD22165CA10083A76D /* BrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D246BC22165CA10083A76D /* BrowserViewController.swift */; };
 		B3D246C022165CA10083A76D /* Browser.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B3D246BE22165CA10083A76D /* Browser.storyboard */; };
 		B3D246C222165CA20083A76D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3D246C122165CA20083A76D /* Assets.xcassets */; };
 		B3D246C522165CA20083A76D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B3D246C322165CA20083A76D /* LaunchScreen.storyboard */; };
@@ -29,9 +31,11 @@
 /* Begin PBXFileReference section */
 		B3056D2C221919870069AB5B /* VessBrowser.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = VessBrowser.entitlements; sourceTree = "<group>"; };
 		B3056D2E22191C5B0069AB5B /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		B3056D30221A483E0069AB5B /* WebsiteList.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = WebsiteList.storyboard; sourceTree = "<group>"; };
+		B3056D35221A487D0069AB5B /* WebsiteListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebsiteListViewController.swift; sourceTree = "<group>"; };
 		B3D246B722165CA10083A76D /* VessBrowser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VessBrowser.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3D246BA22165CA10083A76D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		B3D246BC22165CA10083A76D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		B3D246BC22165CA10083A76D /* BrowserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowserViewController.swift; sourceTree = "<group>"; };
 		B3D246BF22165CA10083A76D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Browser.storyboard; sourceTree = "<group>"; };
 		B3D246C122165CA20083A76D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B3D246C422165CA20083A76D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -68,6 +72,33 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		B3056D32221A48440069AB5B /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				B3056D38221A488D0069AB5B /* Storyboard */,
+				B3056D37221A48860069AB5B /* ViewController */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		B3056D37221A48860069AB5B /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				B3D246BC22165CA10083A76D /* BrowserViewController.swift */,
+				B3056D35221A487D0069AB5B /* WebsiteListViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		B3056D38221A488D0069AB5B /* Storyboard */ = {
+			isa = PBXGroup;
+			children = (
+				B3D246BE22165CA10083A76D /* Browser.storyboard */,
+				B3056D30221A483E0069AB5B /* WebsiteList.storyboard */,
+			);
+			path = Storyboard;
+			sourceTree = "<group>";
+		};
 		B3D246AE22165CA10083A76D = {
 			isa = PBXGroup;
 			children = (
@@ -90,10 +121,9 @@
 		B3D246B922165CA10083A76D /* VessBrowser */ = {
 			isa = PBXGroup;
 			children = (
+				B3056D32221A48440069AB5B /* UI */,
 				B3056D2C221919870069AB5B /* VessBrowser.entitlements */,
 				B3D246BA22165CA10083A76D /* AppDelegate.swift */,
-				B3D246BC22165CA10083A76D /* ViewController.swift */,
-				B3D246BE22165CA10083A76D /* Browser.storyboard */,
 				B3D246C122165CA20083A76D /* Assets.xcassets */,
 				B3D246C322165CA20083A76D /* LaunchScreen.storyboard */,
 				B3D246C622165CA20083A76D /* Info.plist */,
@@ -202,6 +232,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B3056D31221A483E0069AB5B /* WebsiteList.storyboard in Resources */,
 				B3D246C522165CA20083A76D /* LaunchScreen.storyboard in Resources */,
 				B3D246C222165CA20083A76D /* Assets.xcassets in Resources */,
 				B3D246C022165CA10083A76D /* Browser.storyboard in Resources */,
@@ -222,7 +253,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B3D246BD22165CA10083A76D /* ViewController.swift in Sources */,
+				B3056D36221A487D0069AB5B /* WebsiteListViewController.swift in Sources */,
+				B3D246BD22165CA10083A76D /* BrowserViewController.swift in Sources */,
 				B3D246BB22165CA10083A76D /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

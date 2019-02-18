@@ -47,8 +47,8 @@ class BrowserViewController: UIViewController {
 
 	func nextBrowser() -> BrowserViewController {
 		let storyboard = UIStoryboard(name: "Browser", bundle: nil)
-		if let browser = storyboard.instantiateInitialViewController() as? BrowserViewController {
-			return browser
+		if let controller = storyboard.instantiateInitialViewController() as? BrowserViewController {
+			return controller
 		}
 		fatalError("BROWSER failed initializing nextBrowser")
 	}
@@ -59,6 +59,14 @@ class BrowserViewController: UIViewController {
 
 	@IBAction func actionForward() {
 		webView.goForward()
+	}
+
+	@IBAction func actionHome() {
+		let storyboard = UIStoryboard(name: "WebsiteList", bundle: nil)
+		guard let controller = storyboard.instantiateViewController(withIdentifier: "WebsiteListViewController") as? WebsiteListViewController else {
+			fatalError("BROWSER failed initializing WebsiteList")
+		}
+		navigationController?.pushViewController(controller, animated: true)
 	}
 }
 

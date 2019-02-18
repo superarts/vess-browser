@@ -13,7 +13,7 @@
         <!--Browser View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="BrowserViewController" customModule="VessBrowser" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="BrowserViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BYZ-38-t0r" customClass="BrowserViewController" customModule="VessBrowser" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -38,7 +38,11 @@
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="7d4-gx-wTD"/>
-                                    <barButtonItem systemItem="organize" id="gIr-7f-Znt"/>
+                                    <barButtonItem systemItem="organize" id="gIr-7f-Znt">
+                                        <connections>
+                                            <action selector="actionHome" destination="BYZ-38-t0r" id="HUa-Wp-v4C"/>
+                                        </connections>
+                                    </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="7a7-KA-WyB"/>
                                     <barButtonItem systemItem="fastForward" id="Woa-cf-DlW">
                                         <connections>
