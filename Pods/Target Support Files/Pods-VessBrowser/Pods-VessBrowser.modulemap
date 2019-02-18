@@ -1,0 +1,6 @@
+framework module Pods_VessBrowser {
+  umbrella header "Pods-VessBrowser-umbrella.h"
+
+  export *
+  module * { export * }
+}
