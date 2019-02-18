@@ -11,6 +11,8 @@
 		B3056D2F22191C5B0069AB5B /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3056D2E22191C5B0069AB5B /* StoreKit.framework */; };
 		B3056D31221A483E0069AB5B /* WebsiteList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B3056D30221A483E0069AB5B /* WebsiteList.storyboard */; };
 		B3056D36221A487D0069AB5B /* WebsiteListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3056D35221A487D0069AB5B /* WebsiteListViewController.swift */; };
+		B3056D3A221A6D300069AB5B /* Navigator.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B3056D39221A6D300069AB5B /* Navigator.storyboard */; };
+		B3056D3C221A6DDA0069AB5B /* Navigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3056D3B221A6DDA0069AB5B /* Navigator.swift */; };
 		B3D246BB22165CA10083A76D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D246BA22165CA10083A76D /* AppDelegate.swift */; };
 		B3D246BD22165CA10083A76D /* BrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D246BC22165CA10083A76D /* BrowserViewController.swift */; };
 		B3D246C022165CA10083A76D /* Browser.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B3D246BE22165CA10083A76D /* Browser.storyboard */; };
@@ -36,6 +38,8 @@
 		B3056D2E22191C5B0069AB5B /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		B3056D30221A483E0069AB5B /* WebsiteList.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = WebsiteList.storyboard; sourceTree = "<group>"; };
 		B3056D35221A487D0069AB5B /* WebsiteListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebsiteListViewController.swift; sourceTree = "<group>"; };
+		B3056D39221A6D300069AB5B /* Navigator.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Navigator.storyboard; sourceTree = "<group>"; };
+		B3056D3B221A6DDA0069AB5B /* Navigator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Navigator.swift; sourceTree = "<group>"; };
 		B3D246B722165CA10083A76D /* VessBrowser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VessBrowser.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3D246BA22165CA10083A76D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B3D246BC22165CA10083A76D /* BrowserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowserViewController.swift; sourceTree = "<group>"; };
@@ -90,6 +94,7 @@
 		B3056D32221A48440069AB5B /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				B3056D3B221A6DDA0069AB5B /* Navigator.swift */,
 				B3056D38221A488D0069AB5B /* Storyboard */,
 				B3056D37221A48860069AB5B /* ViewController */,
 			);
@@ -110,6 +115,7 @@
 			children = (
 				B3D246BE22165CA10083A76D /* Browser.storyboard */,
 				B3056D30221A483E0069AB5B /* WebsiteList.storyboard */,
+				B3056D39221A6D300069AB5B /* Navigator.storyboard */,
 			);
 			path = Storyboard;
 			sourceTree = "<group>";
@@ -254,6 +260,7 @@
 				B3D246C522165CA20083A76D /* LaunchScreen.storyboard in Resources */,
 				B3D246C222165CA20083A76D /* Assets.xcassets in Resources */,
 				B3D246C022165CA10083A76D /* Browser.storyboard in Resources */,
+				B3056D3A221A6D300069AB5B /* Navigator.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -323,6 +330,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B3056D36221A487D0069AB5B /* WebsiteListViewController.swift in Sources */,
+				B3056D3C221A6DDA0069AB5B /* Navigator.swift in Sources */,
 				B3D246BD22165CA10083A76D /* BrowserViewController.swift in Sources */,
 				B3D246BB22165CA10083A76D /* AppDelegate.swift in Sources */,
 			);

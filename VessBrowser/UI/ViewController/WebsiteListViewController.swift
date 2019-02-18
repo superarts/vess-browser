@@ -18,7 +18,7 @@ class WebsiteListViewController: UIViewController {
                 cellIdentifier: "WebsiteListCell", cellType: UITableViewCell.self)) { (_, website, cell) in
 
                 cell.textLabel?.text = website.name
-                cell.detailTextLabel?.text = website.url.absoluteString
+                cell.detailTextLabel?.text = website.address
             }
             .disposed(by: disposeBag)
 
@@ -27,6 +27,13 @@ class WebsiteListViewController: UIViewController {
             .subscribe(onNext: { website in
                 print("LIST selected", website)
 				//self.viewModel.nextClosure(topic)
+
+				let storyboard = UIStoryboard(name: "Browser", bundle: nil)
+				guard let controller = storyboard.instantiateViewController(withIdentifier: "BrowserViewController") as? BrowserViewController else {
+					fatalError("Browser failed")
+				}
+				controller.address = website.address
+				Navigator.shared.navigationController.pushViewController(controller, animated: true)
             })
             .disposed(by: disposeBag)
 
@@ -42,17 +49,25 @@ class WebsiteListViewController: UIViewController {
 
 struct Website {
 	let name: String
-	let url: URL
+	let address: String
 }
 
 struct WebsiteListViewModel {
     var websites = Variable<[Website]>([Website]())
 
 	func setup() {
+		let test = Website(
+			name: "Test",
+			address: "https://www.google.com/search?q=test"
+		)
 		let reddit = Website(
 			name: "Reddit",
-			url: URL(string: "https://www.reddit.com/")!
+			address: "https://www.reddit.com/"
 		)
-		websites.value.append(reddit)
+		let youtube = Website(
+			name: "YouTube",
+			address: "https://www.youtube.com/"
+		)
+		websites.value.append(contentsOf: [test, reddit, youtube])
 	}
 }

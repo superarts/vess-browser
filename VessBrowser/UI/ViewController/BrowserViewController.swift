@@ -14,11 +14,13 @@ class BrowserViewController: UIViewController {
 	@IBOutlet var webView: WKWebView!
 	@IBOutlet var progressBar: UIProgressView!
 
+	var address = "https://www.google.com/search?q=test"
+
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		webView.navigationDelegate = self
 		webView.allowsBackForwardNavigationGestures = true
-		webView.load(URLRequest(url: URL(string: "https://www.google.com/search?q=test")!))	// TODO
+		webView.load(URLRequest(url: URL(string: address)!))	// TODO
 		webView.addObserver(self, forKeyPath: #keyPath(WKWebView.estimatedProgress), options: .new, context: nil)
 		webView.addObserver(self, forKeyPath: #keyPath(WKWebView.title), options: .new, context: nil)
 	}
