@@ -5,4 +5,5 @@ use_frameworks!
 target 'VessBrowser' do
 	pod 'RxSwift'
 	pod 'RxCocoa'
+	pod 'RealmSwift'
 end

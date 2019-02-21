@@ -1,11 +1,25 @@
 import UIKit
 
-struct Navigator {
+/// Use sharedNavigator to handle navigation
+protocol Navigatable {
+	var sharedNavigator: AppNavigator { get }
+}
 
-	static var shared = Navigator()
+extension Navigatable {
+	var sharedNavigator: AppNavigator {
+		return AppNavigator.shared
+	}
+}
+
+/// App navigation handling
+// AppXXX means it depends on UIKit
+// TODO: mutability
+class AppNavigator {
+
+	static var shared = AppNavigator()
 	var navigationController: MainNavigationController!
 
-	mutating func setup(window: UIWindow) {
+	func setup(window: UIWindow) {
 		let storyboard = UIStoryboard(name: "Navigator", bundle: nil)
 		guard let nav = storyboard.instantiateViewController(withIdentifier: "MainNavigationController") as? MainNavigationController else {
 			fatalError("BROWSER failed initializing WebsiteList")
@@ -30,4 +44,25 @@ struct Navigator {
 }
 
 class MainNavigationController: UINavigationController {
+}
+
+/// 
+
+protocol WebsiteManagable {
+	//var sharedNavigator: Navigator { get }
+}
+
+extension WebsiteManagable {
+	/*
+	var sharedNavigator: Navigator { 
+		return Navigator.shared 
+	}
+	*/
+}
+
+/// Recording website
+struct WebsiteRecorder {
+	func visit(website: Website) {
+		
+	}
 }

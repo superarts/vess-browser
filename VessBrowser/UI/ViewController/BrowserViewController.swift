@@ -72,7 +72,7 @@ class BrowserViewController: UIViewController {
 	}
 }
 
-extension BrowserViewController: WKNavigationDelegate {
+extension BrowserViewController: WKNavigationDelegate, DataStorable {
 	func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
 		print("COMMIT")
 	}
@@ -101,7 +101,10 @@ extension BrowserViewController: WKNavigationDelegate {
 
 	func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
 		print("FINISHED")
-		
+		let website = Website()
+		website.name = webView.title ?? ""
+		website.address = webView.url?.absoluteString ?? ""
+		databaseInstance.write(website)
 	}
 
 	func webViewWebContentProcessDidTerminate(_ webView: WKWebView) {

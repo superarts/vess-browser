@@ -19,6 +19,7 @@
 		B3D246C222165CA20083A76D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3D246C122165CA20083A76D /* Assets.xcassets */; };
 		B3D246C522165CA20083A76D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B3D246C322165CA20083A76D /* LaunchScreen.storyboard */; };
 		B3D246D022165CA30083A76D /* VessBrowserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D246CF22165CA30083A76D /* VessBrowserTests.swift */; };
+		B3E2F121221E62BB0043E03E /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E2F120221E62BA0043E03E /* Database.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,6 +51,7 @@
 		B3D246CB22165CA30083A76D /* VessBrowserTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VessBrowserTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3D246CF22165CA30083A76D /* VessBrowserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VessBrowserTests.swift; sourceTree = "<group>"; };
 		B3D246D122165CA30083A76D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B3E2F120221E62BA0043E03E /* Database.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
 		C668BA4B94B724FFD0A1891C /* Pods-VessBrowser.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VessBrowser.debug.xcconfig"; path = "Pods/Target Support Files/Pods-VessBrowser/Pods-VessBrowser.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -146,6 +148,7 @@
 				B3056D32221A48440069AB5B /* UI */,
 				B3056D2C221919870069AB5B /* VessBrowser.entitlements */,
 				B3D246BA22165CA10083A76D /* AppDelegate.swift */,
+				B3E2F120221E62BA0043E03E /* Database.swift */,
 				B3D246C122165CA20083A76D /* Assets.xcassets */,
 				B3D246C322165CA20083A76D /* LaunchScreen.storyboard */,
 				B3D246C622165CA20083A76D /* Info.plist */,
@@ -283,6 +286,8 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-VessBrowser/Pods-VessBrowser-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
+				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/RxAtomic/RxAtomic.framework",
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
@@ -291,6 +296,8 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxAtomic.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
@@ -332,6 +339,7 @@
 				B3056D36221A487D0069AB5B /* WebsiteListViewController.swift in Sources */,
 				B3056D3C221A6DDA0069AB5B /* Navigator.swift in Sources */,
 				B3D246BD22165CA10083A76D /* BrowserViewController.swift in Sources */,
+				B3E2F121221E62BB0043E03E /* Database.swift in Sources */,
 				B3D246BB22165CA10083A76D /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

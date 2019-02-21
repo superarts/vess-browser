@@ -2,7 +2,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class WebsiteListViewController: UIViewController {
+class WebsiteListViewController: UIViewController, Navigatable {
 	
 	@IBOutlet var tableView: UITableView!
 
@@ -33,7 +33,7 @@ class WebsiteListViewController: UIViewController {
 					fatalError("Browser failed")
 				}
 				controller.address = website.address
-				Navigator.shared.navigationController.pushViewController(controller, animated: true)
+				self.sharedNavigator.navigationController.pushViewController(controller, animated: true)
             })
             .disposed(by: disposeBag)
 
@@ -47,27 +47,22 @@ class WebsiteListViewController: UIViewController {
     }
 }
 
-struct Website {
-	let name: String
-	let address: String
-}
-
 struct WebsiteListViewModel {
     var websites = Variable<[Website]>([Website]())
 
 	func setup() {
-		let test = Website(
-			name: "Test",
-			address: "https://www.google.com/search?q=test"
-		)
-		let reddit = Website(
-			name: "Reddit",
-			address: "https://www.reddit.com/"
-		)
-		let youtube = Website(
-			name: "YouTube",
-			address: "https://www.youtube.com/"
-		)
+		let test = Website()
+		test.name = "Test"
+		test.address = "https://www.google.com/search?q=test"
+
+		let reddit = Website()
+		reddit.name = "Reddit"
+		reddit.address = "https://www.reddit.com/"
+
+		let youtube = Website()
+		youtube.name = "YouTube"
+		youtube.address = "https://www.youtube.com/"
+
 		websites.value.append(contentsOf: [test, reddit, youtube])
 	}
 }

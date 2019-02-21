@@ -9,7 +9,7 @@
 import UIKit
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, Navigatable {
 
 	var window: UIWindow?
 
@@ -18,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		guard let window = window else {
 			fatalError("APP no window")
 		}
-		Navigator.shared.setup(window: window)
+		sharedNavigator.setup(window: window)
 		return true
 	}
 
