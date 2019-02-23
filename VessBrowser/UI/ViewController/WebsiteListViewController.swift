@@ -23,7 +23,7 @@ class WebsiteListViewController: UIViewController, Navigatable {
             .disposed(by: disposeBag)
 
         tableView.rx
-            .modelSelected(Website.self)
+            .modelSelected(RealmWebsite.self)
             .subscribe(onNext: { website in
                 print("LIST selected", website)
 				//self.viewModel.nextClosure(topic)
@@ -45,21 +45,30 @@ class WebsiteListViewController: UIViewController, Navigatable {
             })
             .disposed(by: disposeBag)
     }
+
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+		viewModel.load()
+	}
 }
 
-struct WebsiteListViewModel {
-    var websites = Variable<[Website]>([Website]())
+struct WebsiteListViewModel: WebsiteAccessible {
+    var websites = Variable<[RealmWebsite]>([RealmWebsite]())
+
+	func load() {
+		print(websiteAccessorInstance.getAll())
+	}
 
 	func setup() {
-		let test = Website()
+		let test = RealmWebsite()
 		test.name = "Test"
 		test.address = "https://www.google.com/search?q=test"
 
-		let reddit = Website()
+		let reddit = RealmWebsite()
 		reddit.name = "Reddit"
 		reddit.address = "https://www.reddit.com/"
 
-		let youtube = Website()
+		let youtube = RealmWebsite()
 		youtube.name = "YouTube"
 		youtube.address = "https://www.youtube.com/"
 

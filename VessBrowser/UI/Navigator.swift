@@ -62,7 +62,7 @@ extension WebsiteManagable {
 
 /// Recording website
 struct WebsiteRecorder {
-	func visit(website: Website) {
+	func visit(website: RealmWebsite) {
 		
 	}
 }

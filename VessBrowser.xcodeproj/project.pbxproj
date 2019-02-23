@@ -145,10 +145,10 @@
 		B3D246B922165CA10083A76D /* VessBrowser */ = {
 			isa = PBXGroup;
 			children = (
+				B3E2F1222220FBED0043E03E /* Common */,
 				B3056D32221A48440069AB5B /* UI */,
 				B3056D2C221919870069AB5B /* VessBrowser.entitlements */,
 				B3D246BA22165CA10083A76D /* AppDelegate.swift */,
-				B3E2F120221E62BA0043E03E /* Database.swift */,
 				B3D246C122165CA20083A76D /* Assets.xcassets */,
 				B3D246C322165CA20083A76D /* LaunchScreen.storyboard */,
 				B3D246C622165CA20083A76D /* Info.plist */,
@@ -163,6 +163,14 @@
 				B3D246D122165CA30083A76D /* Info.plist */,
 			);
 			path = VessBrowserTests;
+			sourceTree = "<group>";
+		};
+		B3E2F1222220FBED0043E03E /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				B3E2F120221E62BA0043E03E /* Database.swift */,
+			);
+			path = Common;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
