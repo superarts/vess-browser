@@ -57,6 +57,7 @@ fatalError("test")
 
 // TODO: how to make DatabaseAccessible & DatabaseAccessor not depend on a
 // specific database implementation?
+/*
 protocol DatabaseAccessible {
 	/*
 	associatedtype DatabaseAccessorType: RealmSwift.Object
@@ -81,6 +82,7 @@ extension DatabaseAccessible {
 		return DatabaseAccessorType.self
 	}
 }
+*/
 
 ///
 
@@ -174,6 +176,7 @@ final class RealmDatabaseAccessor<ModelType: RealmSwift.Object>: StatelessObject
 	}
 }
 
+/*
 struct Box<T: DatabaseAccessorProtocol> {
 	typealias U = T
 
@@ -188,6 +191,7 @@ struct Box<T: DatabaseAccessorProtocol> {
 }
 
 let box = Box<RealmDatabaseAccessor<RealmSwift.Object>>(object: RealmDatabaseAccessor<RealmSwift.Object>())
+*/
 ///
 
 protocol WebsiteAccessible {
@@ -224,15 +228,15 @@ protocol WebsiteAccessorProtocol {
 }
 
 // TODO: Provider should not depend on Realm
-//struct WebsiteAccessor: WebsiteDatabaseAccessible {
+struct WebsiteAccessor: WebsiteAccessorProtocol, WebsiteDatabaseAccessible {
 //struct WebsiteProvider: StubWebsiteDatabaseAccessible {
 //struct WebsiteAccessor<WebsiteAccessorType: WebsiteDatabaseAccessorProtocol>: DatabaseAccessible {
-struct WebsiteAccessor: WebsiteAccessorProtocol, DatabaseAccessible {
+//struct WebsiteAccessor: WebsiteAccessorProtocol, DatabaseAccessible {
 //struct WebsiteProvider {
 
 	// We have this dependency and it cannot be resolved at runtime
 	//typealias DatabaseAccessorType = WebsiteAccessorType
-	typealias DatabaseAccessorType = RealmDatabaseAccessor<RealmWebsite>
+	//typealias DatabaseAccessorType = RealmDatabaseAccessor<RealmWebsite>
 	//typealias DatabaseAccessorObjectType = Website
 
 	// Without T in WebsiteProvider<T>, WebsiteProvider cannot figure out DatabaseAccessorType

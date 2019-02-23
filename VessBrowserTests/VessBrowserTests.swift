@@ -11,6 +11,14 @@ import XCTest
 
 class VessBrowserTests: XCTestCase {
 
+	func testWebsiteListViewModelProtocol() {
+		let viewModel: WebsiteListViewModelProtocol = WebsiteListViewModel()
+		viewModel.setup()
+		viewModel.load()
+		XCTAssert(viewModel.websites.value.count > 0)
+	}
+
+	/*
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
     }
@@ -30,5 +38,5 @@ class VessBrowserTests: XCTestCase {
             // Put the code you want to measure the time of here.
         }
     }
-
+	*/
 }

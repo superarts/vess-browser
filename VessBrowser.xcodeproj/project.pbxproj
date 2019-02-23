@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3FBD189C61BD69931D8B7190 /* Pods_VessBrowser.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB3FA5B2431B4AD161946480 /* Pods_VessBrowser.framework */; };
 		B3056D2F22191C5B0069AB5B /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3056D2E22191C5B0069AB5B /* StoreKit.framework */; };
 		B3056D31221A483E0069AB5B /* WebsiteList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B3056D30221A483E0069AB5B /* WebsiteList.storyboard */; };
 		B3056D36221A487D0069AB5B /* WebsiteListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3056D35221A487D0069AB5B /* WebsiteListViewController.swift */; };
@@ -33,8 +32,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		22536D6FB220593769093572 /* Pods-VessBrowserTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VessBrowserTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-VessBrowserTests/Pods-VessBrowserTests.release.xcconfig"; sourceTree = "<group>"; };
 		350639A677E9C3A781751395 /* Pods-VessBrowser.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VessBrowser.release.xcconfig"; path = "Pods/Target Support Files/Pods-VessBrowser/Pods-VessBrowser.release.xcconfig"; sourceTree = "<group>"; };
-		AB3FA5B2431B4AD161946480 /* Pods_VessBrowser.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VessBrowser.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		52444DC4105AF12C11EE5B9C /* Pods-VessBrowserTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VessBrowserTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-VessBrowserTests/Pods-VessBrowserTests.debug.xcconfig"; sourceTree = "<group>"; };
 		B3056D2C221919870069AB5B /* VessBrowser.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = VessBrowser.entitlements; sourceTree = "<group>"; };
 		B3056D2E22191C5B0069AB5B /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		B3056D30221A483E0069AB5B /* WebsiteList.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = WebsiteList.storyboard; sourceTree = "<group>"; };
@@ -61,7 +61,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				B3056D2F22191C5B0069AB5B /* StoreKit.framework in Frameworks */,
-				3FBD189C61BD69931D8B7190 /* Pods_VessBrowser.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -80,6 +79,8 @@
 			children = (
 				C668BA4B94B724FFD0A1891C /* Pods-VessBrowser.debug.xcconfig */,
 				350639A677E9C3A781751395 /* Pods-VessBrowser.release.xcconfig */,
+				52444DC4105AF12C11EE5B9C /* Pods-VessBrowserTests.debug.xcconfig */,
+				22536D6FB220593769093572 /* Pods-VessBrowserTests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -88,7 +89,6 @@
 			isa = PBXGroup;
 			children = (
 				B3056D2E22191C5B0069AB5B /* StoreKit.framework */,
-				AB3FA5B2431B4AD161946480 /* Pods_VessBrowser.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -199,9 +199,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B3D246D722165CA30083A76D /* Build configuration list for PBXNativeTarget "VessBrowserTests" */;
 			buildPhases = (
+				C7009185B0DF964E3B563099 /* [CP] Check Pods Manifest.lock */,
 				B3D246C722165CA30083A76D /* Sources */,
 				B3D246C822165CA30083A76D /* Frameworks */,
 				B3D246C922165CA30083A76D /* Resources */,
+				3204A672BBDADEC2AB31D567 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -315,6 +317,36 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-VessBrowser/Pods-VessBrowser-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		3204A672BBDADEC2AB31D567 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-VessBrowserTests/Pods-VessBrowserTests-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
+				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/RxAtomic/RxAtomic.framework",
+				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
+				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxAtomic.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-VessBrowserTests/Pods-VessBrowserTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		429079A783EB515F5ACB6CD7 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -331,6 +363,28 @@
 			);
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Pods-VessBrowser-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C7009185B0DF964E3B563099 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-VessBrowserTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -552,6 +606,7 @@
 		};
 		B3D246D822165CA30083A76D /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 52444DC4105AF12C11EE5B9C /* Pods-VessBrowserTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -573,6 +628,7 @@
 		};
 		B3D246D922165CA30083A76D /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 22536D6FB220593769093572 /* Pods-VessBrowserTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";

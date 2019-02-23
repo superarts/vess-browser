@@ -6,7 +6,7 @@ class WebsiteListViewController: UIViewController, Navigatable {
 	
 	@IBOutlet var tableView: UITableView!
 
-	var viewModel = WebsiteListViewModel()
+	var viewModel: WebsiteListViewModelProtocol = WebsiteListViewModel()
     private let disposeBag = DisposeBag()
 
 	override func viewDidLoad() {
@@ -52,7 +52,15 @@ class WebsiteListViewController: UIViewController, Navigatable {
 	}
 }
 
-struct WebsiteListViewModel: WebsiteAccessible {
+protocol WebsiteListViewModelProtocol {
+
+	var websites: Variable<[RealmWebsite]> { get }
+
+	func load()
+	func setup()
+}
+
+struct WebsiteListViewModel: WebsiteListViewModelProtocol, WebsiteAccessible {
     var websites = Variable<[RealmWebsite]>([RealmWebsite]())
 
 	func load() {
