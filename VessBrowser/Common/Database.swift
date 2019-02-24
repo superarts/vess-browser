@@ -194,14 +194,15 @@ let box = Box<RealmDatabaseAccessor<RealmSwift.Object>>(object: RealmDatabaseAcc
 */
 ///
 
-protocol WebsiteAccessible {
+protocol WebsiteAccessible: DependencyResolvable {
 	var websiteAccessorInstance: WebsiteAccessorProtocol { get }
 }
 
 extension WebsiteAccessible {
 	var websiteAccessorInstance: WebsiteAccessorProtocol {
 		//return WebsiteAccessor<RealmDatabaseAccessor<RealmWebsite>>()
-		return WebsiteAccessor()
+		//return WebsiteAccessor()
+		return dependencyResolverInstance.websiteAccessorInstance()
 	}
 }
 
@@ -225,6 +226,11 @@ struct WebsiteProvider: DatabaseAccessible {
 protocol WebsiteAccessorProtocol {
 	func visit(website: Website)
 	func getAll() -> [Website]
+}
+
+struct EmptyWebsiteAccessor: WebsiteAccessorProtocol {
+	func visit(website: Website) { }
+	func getAll() -> [Website] { return [] }
 }
 
 // TODO: Provider should not depend on Realm

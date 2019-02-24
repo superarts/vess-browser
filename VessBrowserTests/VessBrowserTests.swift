@@ -9,13 +9,25 @@
 import XCTest
 @testable import VessBrowser
 
-class VessBrowserTests: XCTestCase {
+class VessBrowserTests: XCTestCase, DependencyRegistrable, DependencyResolvable {
 
+	// TODO: remove this test
 	func testWebsiteListViewModelProtocol() {
-		let viewModel: WebsiteListViewModelProtocol = WebsiteListViewModel()
-		viewModel.setup()
-		viewModel.load()
-		XCTAssert(viewModel.websites.value.count > 0)
+		dependencyRegisterInstance.registerProductionWebsiteAccessor {
+			let viewModel: WebsiteListViewModelProtocol = self.dependencyResolverInstance.websiteListViewModelInstance()
+			viewModel.setup()
+			viewModel.load()
+			XCTAssert(!viewModel.websites.value.isEmpty)
+		}
+	}
+
+	func testWebsiteListViewModelProtocolEmpty() {
+		dependencyRegisterInstance.registerEmptyWebsiteAccessor {
+    		let viewModel: WebsiteListViewModelProtocol = self.dependencyResolverInstance.websiteListViewModelInstance()
+    		viewModel.setup()
+    		viewModel.load()
+    		XCTAssert(viewModel.websites.value.isEmpty)
+		}
 	}
 
 	/*

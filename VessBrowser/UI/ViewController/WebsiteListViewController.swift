@@ -6,7 +6,7 @@ class WebsiteListViewController: UIViewController, Navigatable {
 	
 	@IBOutlet var tableView: UITableView!
 
-	var viewModel: WebsiteListViewModelProtocol = WebsiteListViewModel()
+	var viewModel: WebsiteListViewModelProtocol!
     private let disposeBag = DisposeBag()
 
 	override func viewDidLoad() {
@@ -60,6 +60,19 @@ protocol WebsiteListViewModelProtocol {
 	func setup()
 }
 
+/**
+ * How to write test for `WebsiteListViewModel`:
+ * - Figure out its features from `WebsiteListViewModelProtocol`
+ * - Figure out its dependencies from `WebsiteAccessible`, etc.
+ * - Register test dependencies, e.g. `dependencyRegisterInstance.registerEmptyWebsiteAccessor`
+ * - Perform tests
+ *
+ * It is equivalent to the steps from constructor injection, which are like:
+ * - Figure out its features from protocol
+ * - Figure out its dependencies from constructor
+ * - Inject test dependencies from constractor
+ * - Perform tests
+ */
 struct WebsiteListViewModel: WebsiteListViewModelProtocol, WebsiteAccessible {
     var websites = Variable<[RealmWebsite]>([RealmWebsite]())
 

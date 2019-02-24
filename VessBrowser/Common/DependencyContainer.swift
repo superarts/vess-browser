@@ -32,6 +32,26 @@ struct DependencyRegister: DependencyInjectable {
 		sharedDependencyInjector.container.register(WebsiteListViewModelProtocol.self) { _ in
 			WebsiteListViewModel()
 		}
+		sharedDependencyInjector.container.register(WebsiteAccessorProtocol.self) { _ in
+			WebsiteAccessor()
+		}
+	}
+
+	// Shouldn't register production dependencies; testing only
+	func registerProductionWebsiteAccessor(_ completion: @escaping () -> Void) {
+		sharedDependencyInjector.container.register(WebsiteAccessorProtocol.self) { _ in
+			return WebsiteAccessor()
+		}.initCompleted { _, _ in
+			completion()
+		}
+	}
+
+	func registerEmptyWebsiteAccessor(_ completion: @escaping () -> Void) {
+		sharedDependencyInjector.container.register(WebsiteAccessorProtocol.self) { _ in
+			return EmptyWebsiteAccessor()
+		}.initCompleted { _, _ in
+			completion()
+		}
 	}
 }
 
@@ -57,8 +77,12 @@ struct DependencyResolver: DependencyInjectable {
 		return sharedDependencyInjector.container.resolve(WebsiteListViewController.self)!
 	}
 
-	func resolveWebsiteListViewModel() -> WebsiteListViewModelProtocol {
+	func websiteListViewModelInstance() -> WebsiteListViewModelProtocol {
 		return sharedDependencyInjector.container.resolve(WebsiteListViewModelProtocol.self)!
+	}
+
+	func websiteAccessorInstance() -> WebsiteAccessorProtocol {
+		return sharedDependencyInjector.container.resolve(WebsiteAccessorProtocol.self)!
 	}
 }
 

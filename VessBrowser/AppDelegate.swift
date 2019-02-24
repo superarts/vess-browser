@@ -19,7 +19,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, Navigatable, DependencyRe
 			fatalError("APP no window")
 		}
 		dependencyRegisterInstance.registerAppNavigator()
-		sharedNavigator.setup(window: window)
+
+		sharedNavigator.setupNavigation(window: window)
+		sharedNavigator.setRootAsWebsiteList()
+
 		return true
 	}
 
