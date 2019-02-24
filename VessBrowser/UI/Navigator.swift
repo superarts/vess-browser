@@ -1,22 +1,28 @@
 import UIKit
 
 /// Use sharedNavigator to handle navigation
-protocol Navigatable {
-	var sharedNavigator: AppNavigator { get }
+protocol Navigatable: DependencyResolvable {
+	var sharedNavigator: AppNavigable { get }
 }
 
 extension Navigatable {
-	var sharedNavigator: AppNavigator {
-		return AppNavigator.shared
+	var sharedNavigator: AppNavigable {
+		return dependencyResolverInstance.sharedAppNavigator()
 	}
+}
+
+protocol AppNavigable {
+	static var shared: AppNavigable { get }
+	var navigationController: MainNavigationController! { get }
+	func setup(window: UIWindow)
 }
 
 /// App navigation handling
 // AppXXX means it depends on UIKit
 // TODO: mutability
-class AppNavigator {
+class AppNavigator: AppNavigable, DependencyResolvable {
 
-	static var shared = AppNavigator()
+	static var shared: AppNavigable = AppNavigator()
 	var navigationController: MainNavigationController!
 
 	func setup(window: UIWindow) {
@@ -30,7 +36,8 @@ class AppNavigator {
         window.makeKeyAndVisible()
 
 		navigationController = nav
-		set(root: controller(storyboard: "WebsiteList", identifier: "WebsiteListViewController"))
+		//set(root: controller(storyboard: "WebsiteList", identifier: "WebsiteListViewController"))
+		set(root: dependencyResolverInstance.websiteListViewControllerInstance())
 	}
 
 	private func controller(storyboard: String, identifier: String) -> UIViewController {

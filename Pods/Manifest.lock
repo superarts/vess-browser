@@ -9,11 +9,13 @@ PODS:
     - RxSwift (~> 4.0)
   - RxSwift (4.4.1):
     - RxAtomic (~> 4.4)
+  - Swinject (2.5.0)
 
 DEPENDENCIES:
   - RealmSwift
   - RxCocoa
   - RxSwift
+  - Swinject
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -22,6 +24,7 @@ SPEC REPOS:
     - RxAtomic
     - RxCocoa
     - RxSwift
+    - Swinject
 
 SPEC CHECKSUMS:
   Realm: 50071da38fe079e0735e47c9f2eae738c68c5996
@@ -29,7 +32,8 @@ SPEC CHECKSUMS:
   RxAtomic: f8d6adc1ccb87a767811269e4875887bc74dbf19
   RxCocoa: 2f35a76bf8887872e28a1914112395b11b8e0e64
   RxSwift: 92fcf68dfef21f3e2ab1965363d9e7b3d787597e
+  Swinject: 82cdb851f63f91bba974e3eca1d69780f2f7677e
 
-PODFILE CHECKSUM: e2b64578bb5c3714a77b17713e9576b9d9e0bf58
+PODFILE CHECKSUM: eb5fc5eb48cc532b0c41c6f46259857e22b591b7
 
 COCOAPODS: 1.5.3
