@@ -54,24 +54,3 @@ class AppNavigator: AppNavigable, DependencyRegistrable, DependencyResolvable {
 
 class MainNavigationController: UINavigationController {
 }
-
-/// 
-
-protocol WebsiteManagable {
-	//var sharedNavigator: Navigator { get }
-}
-
-extension WebsiteManagable {
-	/*
-	var sharedNavigator: Navigator { 
-		return Navigator.shared 
-	}
-	*/
-}
-
-/// Recording website
-struct WebsiteRecorder {
-	func visit(website: RealmWebsite) {
-		
-	}
-}

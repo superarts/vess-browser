@@ -54,7 +54,7 @@ class WebsiteListViewController: UIViewController, Navigatable {
 
 protocol WebsiteListViewModelProtocol {
 
-	var websites: Variable<[RealmWebsite]> { get }
+	var websites: Variable<[Website]> { get }
 
 	func load()
 	func setup()
@@ -74,25 +74,38 @@ protocol WebsiteListViewModelProtocol {
  * - Perform tests
  */
 struct WebsiteListViewModel: WebsiteListViewModelProtocol, WebsiteAccessible {
-    var websites = Variable<[RealmWebsite]>([RealmWebsite]())
+    var websites = Variable<[Website]>([Website]())
 
 	func load() {
-		print(websiteAccessorInstance.getAll())
+		print(websiteAccessorInstance.getAll().count)
+		let all = websiteAccessorInstance.getAll()
+		if !all.isEmpty {
+			websites.value = websiteAccessorInstance.getAll()
+		}
 	}
 
 	func setup() {
 		let test = RealmWebsite()
-		test.name = "Test"
+		test.name = "Start Searching Here"
 		test.address = "https://www.google.com/search?q=test"
+		test.host = "www.google.com"
+		test.created = Date()
 
+		/*
 		let reddit = RealmWebsite()
 		reddit.name = "Reddit"
 		reddit.address = "https://www.reddit.com/"
+		reddit.host = "www.reddit.com"
+		reddit.created = Date()
 
 		let youtube = RealmWebsite()
 		youtube.name = "YouTube"
 		youtube.address = "https://www.youtube.com/"
+		youtube.host = "www.youtube.com"
+		youtube.created = Date()
+		*/
 
-		websites.value.append(contentsOf: [test, reddit, youtube])
+		//websites.value.append(contentsOf: [test, reddit, youtube])
+		websites.value.append(test)
 	}
 }

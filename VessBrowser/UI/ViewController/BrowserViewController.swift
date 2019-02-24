@@ -111,6 +111,7 @@ extension BrowserViewController: WKNavigationDelegate, WebsiteAccessible {
 		print("TERMINATED")
 	}
 
+	/*
 	func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
 		print("DECIDE action", navigationAction)
 		decisionHandler(.allow)
@@ -120,4 +121,5 @@ extension BrowserViewController: WKNavigationDelegate, WebsiteAccessible {
 		print("DECIDE response", navigationResponse)
 		decisionHandler(.allow)
 	}
+	*/
 }
