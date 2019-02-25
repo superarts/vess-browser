@@ -1,7 +1,7 @@
 import UIKit
 import RxSwift
 import RxCocoa
-//import SDWebImage
+import SDWebImage
 
 class HostListViewController: UIViewController, Navigatable {
 	
@@ -20,7 +20,7 @@ class HostListViewController: UIViewController, Navigatable {
 
                 cell.textLabel?.text = host.name
                 cell.detailTextLabel?.text = host.address
-				//cell.imageView?.sd_setImage(with: URL(string: host.name + "/favicon.ico"), placeholderImage: UIImage(named: "placeholder-vess.png"))
+					cell.imageView?.sd_setImage(with: URL(string: "http://\(host.name)/favicon.ico"), placeholderImage: UIImage(named: "placeholder-vess.png"))
             }
             .disposed(by: disposeBag)
 

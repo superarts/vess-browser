@@ -7,6 +7,7 @@ def shared_dependency
 	pod 'RxCocoa'
 	pod 'RealmSwift'
 	pod 'Swinject'
+	pod 'SDWebImage'
 end
 
 target 'VessBrowser' do

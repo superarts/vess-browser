@@ -9,12 +9,16 @@ PODS:
     - RxSwift (~> 4.0)
   - RxSwift (4.4.1):
     - RxAtomic (~> 4.4)
+  - SDWebImage (4.4.5):
+    - SDWebImage/Core (= 4.4.5)
+  - SDWebImage/Core (4.4.5)
   - Swinject (2.5.0)
 
 DEPENDENCIES:
   - RealmSwift
   - RxCocoa
   - RxSwift
+  - SDWebImage
   - Swinject
 
 SPEC REPOS:
@@ -24,6 +28,7 @@ SPEC REPOS:
     - RxAtomic
     - RxCocoa
     - RxSwift
+    - SDWebImage
     - Swinject
 
 SPEC CHECKSUMS:
@@ -32,8 +37,9 @@ SPEC CHECKSUMS:
   RxAtomic: f8d6adc1ccb87a767811269e4875887bc74dbf19
   RxCocoa: 2f35a76bf8887872e28a1914112395b11b8e0e64
   RxSwift: 92fcf68dfef21f3e2ab1965363d9e7b3d787597e
+  SDWebImage: ecc03494e973b93b80213649d32175f8d2d17d4d
   Swinject: 82cdb851f63f91bba974e3eca1d69780f2f7677e
 
-PODFILE CHECKSUM: eb5fc5eb48cc532b0c41c6f46259857e22b591b7
+PODFILE CHECKSUM: 91ced34db8588c03571799f3b5051dee8f6af458
 
 COCOAPODS: 1.5.3
