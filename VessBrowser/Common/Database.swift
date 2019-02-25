@@ -5,6 +5,8 @@ import RealmSwift
 protocol Storable {
 }
 
+///
+
 protocol Website: Storable {
 	var name: String { get }
 	var address: String { get }
@@ -20,6 +22,25 @@ class RealmWebsite: Object {
 }
 
 extension RealmWebsite: Website {
+}
+
+///
+
+protocol Host: Storable {
+	var name: String { get }
+	var address: String { get }
+	var favicon: Data { get }
+	var created: Date { get }
+}
+
+class RealmHost: Object {
+	@objc dynamic var name: String = ""
+	@objc dynamic var address: String = ""
+	@objc dynamic var favicon: Data = Data()
+	@objc dynamic var created: Date = Date()
+}
+
+extension RealmHost: Host {
 }
 
 /// Stateless components do *NOT* have properties and non-static functions.
@@ -49,12 +70,25 @@ extension WebsiteDatabaseAccessible {
 
 ///
 
+protocol HostDatabaseAccessible {
+	var databaseAccessorInstance: RealmDatabaseAccessor<RealmHost>.Type { get }
+}
+
+extension HostDatabaseAccessible {
+	var databaseAccessorInstance: RealmDatabaseAccessor<RealmHost>.Type {
+		return RealmDatabaseAccessor<RealmHost>.self
+	}
+}
+
+///
+
 protocol DatabaseAccessorProtocol {
 	associatedtype ModelType
 
 	static func store(_ obj: Storable)
 	static func first(filter: String) -> ModelType?
-	static func getAll() -> [ModelType]
+	static func all() -> [ModelType]
+	static func all(filter: String) -> [ModelType]
 }
 
 final class RealmDatabaseAccessor<ModelType: RealmSwift.Object>: StatelessObject, DatabaseAccessorProtocol {
@@ -71,9 +105,14 @@ final class RealmDatabaseAccessor<ModelType: RealmSwift.Object>: StatelessObject
 		return realm.objects(ModelType.self).filter(filter).first
 	}
 
-	static func getAll() -> [ModelType] {
+	static func all() -> [ModelType] {
 		let realm = try! Realm()
 		return Array(realm.objects(ModelType.self))
+	}
+
+	static func all(filter: String) -> [ModelType] {
+		let realm = try! Realm()
+		return Array(realm.objects(ModelType.self).filter(filter))
 	}
 }
 
@@ -91,12 +130,14 @@ extension WebsiteAccessible {
 
 protocol WebsiteAccessorProtocol {
 	func visit(website: Website)
-	func getAll() -> [Website]
+	func all() -> [Website]
+	func websites(hostAddress: String) -> [Website]
 }
 
 struct EmptyWebsiteAccessor: WebsiteAccessorProtocol {
 	func visit(website: Website) { }
-	func getAll() -> [Website] { return [] }
+	func all() -> [Website] { return [] }
+	func websites(hostAddress: String) -> [Website] { return [] }
 }
 
 struct WebsiteAccessor: WebsiteAccessorProtocol, WebsiteDatabaseAccessible {
@@ -107,8 +148,49 @@ struct WebsiteAccessor: WebsiteAccessorProtocol, WebsiteDatabaseAccessible {
 		}
 	}
 
-	func getAll() -> [Website] {
-		let websites = databaseAccessorInstance.getAll()
+	func all() -> [Website] {
+		let websites = databaseAccessorInstance.all()
 		return websites.reversed()
+	}
+
+	func websites(hostAddress: String) -> [Website] {
+		let websites = databaseAccessorInstance.all(filter: "host == \"\(hostAddress)\"")
+		return websites.reversed()
+	}
+}
+
+///
+
+protocol HostAccessible: DependencyResolvable {
+	var hostAccessorInstance: HostAccessorProtocol { get }
+}
+
+extension HostAccessible {
+	var hostAccessorInstance: HostAccessorProtocol {
+		return dependencyResolverInstance.hostAccessorInstance()
+	}
+}
+
+protocol HostAccessorProtocol {
+	func visit(host: Host)
+	func all() -> [Host]
+}
+
+struct EmptyHostAccessor: HostAccessorProtocol {
+	func visit(host: Host) { }
+	func all() -> [Host] { return [] }
+}
+
+struct HostAccessor: HostAccessorProtocol, HostDatabaseAccessible {
+
+	func visit(host: Host) {
+		if databaseAccessorInstance.first(filter: "address == \"\(host.address)\"") == nil {
+			databaseAccessorInstance.store(host)
+		}
+	}
+
+	func all() -> [Host] {
+		let hosts = databaseAccessorInstance.all()
+		return hosts.reversed()
 	}
 }

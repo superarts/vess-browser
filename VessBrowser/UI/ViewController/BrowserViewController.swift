@@ -9,7 +9,7 @@
 import UIKit
 import WebKit
 
-class BrowserViewController: UIViewController {
+class BrowserViewController: UIViewController, Navigatable {
 
 	@IBOutlet var webView: WKWebView!
 	@IBOutlet var progressBar: UIProgressView!
@@ -63,16 +63,16 @@ class BrowserViewController: UIViewController {
 		webView.goForward()
 	}
 
+	@IBAction func actionSearch() {
+		webView.load(URLRequest(url: URL(string: "https://www.google.com")!))	// TODO
+	}
+
 	@IBAction func actionHome() {
-		let storyboard = UIStoryboard(name: "WebsiteList", bundle: nil)
-		guard let controller = storyboard.instantiateViewController(withIdentifier: "WebsiteListViewController") as? WebsiteListViewController else {
-			fatalError("BROWSER failed initializing WebsiteList")
-		}
-		navigationController?.pushViewController(controller, animated: true)
+		sharedNavigator.popToRoot()
 	}
 }
 
-extension BrowserViewController: WKNavigationDelegate, WebsiteAccessible {
+extension BrowserViewController: WKNavigationDelegate, HostAccessible, WebsiteAccessible {
 	func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
 		print("COMMIT")
 	}
@@ -101,10 +101,22 @@ extension BrowserViewController: WKNavigationDelegate, WebsiteAccessible {
 
 	func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
 		print("FINISHED")
-		let website = RealmWebsite()
-		website.name = webView.title ?? ""
-		website.address = webView.url?.absoluteString ?? ""
-		websiteAccessorInstance.visit(website: website)
+
+		// TODO: business logic - what if any of these fails?
+		if let hostAddress = webView.url?.host {
+			let host = RealmHost()
+			host.name = hostAddress
+			host.address = hostAddress
+			hostAccessorInstance.visit(host: host)
+		}
+
+		if let urlAddress = webView.url?.absoluteString {
+			let website = RealmWebsite()
+			website.name = webView.title ?? urlAddress
+			website.address = urlAddress
+			website.host = webView.url?.host ?? urlAddress
+			websiteAccessorInstance.visit(website: website)
+		}
 	}
 
 	func webViewWebContentProcessDidTerminate(_ webView: WKWebView) {

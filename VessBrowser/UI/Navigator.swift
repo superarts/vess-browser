@@ -13,10 +13,14 @@ extension Navigatable {
 
 protocol AppNavigable {
 	static var shared: AppNavigable { get }
+	// TODO: delete me
 	var navigationController: MainNavigationController! { get }
 
 	func setupNavigation(window: UIWindow)
-	func setRootAsWebsiteList()
+	func setRootAsHostList()
+	//func setRootAsWebsiteList()
+	func pushWebsiteList(host: Host)
+	func popToRoot()
 }
 
 /// App navigation handling
@@ -40,11 +44,31 @@ class AppNavigator: AppNavigable, DependencyRegistrable, DependencyResolvable {
 		navigationController = nav
 	}
 
+	func setRootAsHostList() {
+		dependencyRegisterInstance.registerHostList()
+		let hostListViewController = dependencyResolverInstance.hostListViewControllerInstance()
+		hostListViewController.viewModel = dependencyResolverInstance.hostListViewModelInstance()
+		set(root: hostListViewController)
+	}
+
+	/*
 	func setRootAsWebsiteList() {
-		dependencyRegisterInstance.registerWebsiteList()
+		dependencyRegisterInstance.registerWebsiteList(host: Host())
 		let websiteListViewController = dependencyResolverInstance.websiteListViewControllerInstance()
 		websiteListViewController.viewModel = dependencyResolverInstance.websiteListViewModelInstance()
 		set(root: websiteListViewController)
+	}
+	*/
+
+	func pushWebsiteList(host: Host) {
+		dependencyRegisterInstance.registerWebsiteList(host: host)
+		let websiteListViewController = dependencyResolverInstance.websiteListViewControllerInstance()
+		websiteListViewController.viewModel = dependencyResolverInstance.websiteListViewModelInstance()
+		navigationController.pushViewController(websiteListViewController, animated: true)
+	}
+
+	func popToRoot() {
+		navigationController.popToRootViewController(animated: true)
 	}
 
 	private func set(root: UIViewController) {

@@ -14,6 +14,8 @@
 		B3056D36221A487D0069AB5B /* WebsiteListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3056D35221A487D0069AB5B /* WebsiteListViewController.swift */; };
 		B3056D3A221A6D300069AB5B /* Navigator.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B3056D39221A6D300069AB5B /* Navigator.storyboard */; };
 		B3056D3C221A6DDA0069AB5B /* Navigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3056D3B221A6DDA0069AB5B /* Navigator.swift */; };
+		B3B4C6302223A54B0017DD85 /* HostListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B4C62F2223A54A0017DD85 /* HostListViewController.swift */; };
+		B3B4C6322223A56A0017DD85 /* HostList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B3B4C6312223A56A0017DD85 /* HostList.storyboard */; };
 		B3D246BB22165CA10083A76D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D246BA22165CA10083A76D /* AppDelegate.swift */; };
 		B3D246BD22165CA10083A76D /* BrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D246BC22165CA10083A76D /* BrowserViewController.swift */; };
 		B3D246C022165CA10083A76D /* Browser.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B3D246BE22165CA10083A76D /* Browser.storyboard */; };
@@ -46,6 +48,8 @@
 		B3056D35221A487D0069AB5B /* WebsiteListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebsiteListViewController.swift; sourceTree = "<group>"; };
 		B3056D39221A6D300069AB5B /* Navigator.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Navigator.storyboard; sourceTree = "<group>"; };
 		B3056D3B221A6DDA0069AB5B /* Navigator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Navigator.swift; sourceTree = "<group>"; };
+		B3B4C62F2223A54A0017DD85 /* HostListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HostListViewController.swift; sourceTree = "<group>"; };
+		B3B4C6312223A56A0017DD85 /* HostList.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = HostList.storyboard; sourceTree = "<group>"; };
 		B3D246B722165CA10083A76D /* VessBrowser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VessBrowser.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3D246BA22165CA10083A76D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B3D246BC22165CA10083A76D /* BrowserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowserViewController.swift; sourceTree = "<group>"; };
@@ -116,8 +120,9 @@
 		B3056D37221A48860069AB5B /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				B3D246BC22165CA10083A76D /* BrowserViewController.swift */,
+				B3B4C62F2223A54A0017DD85 /* HostListViewController.swift */,
 				B3056D35221A487D0069AB5B /* WebsiteListViewController.swift */,
+				B3D246BC22165CA10083A76D /* BrowserViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -126,8 +131,9 @@
 			isa = PBXGroup;
 			children = (
 				B3D246BE22165CA10083A76D /* Browser.storyboard */,
-				B3056D30221A483E0069AB5B /* WebsiteList.storyboard */,
 				B3056D39221A6D300069AB5B /* Navigator.storyboard */,
+				B3B4C6312223A56A0017DD85 /* HostList.storyboard */,
+				B3056D30221A483E0069AB5B /* WebsiteList.storyboard */,
 			);
 			path = Storyboard;
 			sourceTree = "<group>";
@@ -282,6 +288,7 @@
 			files = (
 				B3056D31221A483E0069AB5B /* WebsiteList.storyboard in Resources */,
 				B3D246C522165CA20083A76D /* LaunchScreen.storyboard in Resources */,
+				B3B4C6322223A56A0017DD85 /* HostList.storyboard in Resources */,
 				B3D246C222165CA20083A76D /* Assets.xcassets in Resources */,
 				B3D246C022165CA10083A76D /* Browser.storyboard in Resources */,
 				B3056D3A221A6D300069AB5B /* Navigator.storyboard in Resources */,
@@ -414,6 +421,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B3056D36221A487D0069AB5B /* WebsiteListViewController.swift in Sources */,
+				B3B4C6302223A54B0017DD85 /* HostListViewController.swift in Sources */,
 				B3056D3C221A6DDA0069AB5B /* Navigator.swift in Sources */,
 				B3D246BD22165CA10083A76D /* BrowserViewController.swift in Sources */,
 				B3E2F121221E62BB0043E03E /* Database.swift in Sources */,

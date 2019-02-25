@@ -2,6 +2,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 
+// TODO: rename WebsiteList to WebPageList?
 class WebsiteListViewController: UIViewController, Navigatable {
 	
 	@IBOutlet var tableView: UITableView!
@@ -48,7 +49,7 @@ class WebsiteListViewController: UIViewController, Navigatable {
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
-		viewModel.load()
+		viewModel.reload()
 	}
 }
 
@@ -56,7 +57,7 @@ protocol WebsiteListViewModelProtocol {
 
 	var websites: Variable<[Website]> { get }
 
-	func load()
+	func reload()
 	func setup()
 }
 
@@ -76,22 +77,52 @@ protocol WebsiteListViewModelProtocol {
 struct WebsiteListViewModel: WebsiteListViewModelProtocol, WebsiteAccessible {
     var websites = Variable<[Website]>([Website]())
 
-	func load() {
-		print(websiteAccessorInstance.getAll().count)
-		let all = websiteAccessorInstance.getAll()
+	private var host: Host
+
+	init(host: Host) {
+		self.host = host
+	}
+
+	func reload() {
+		print(websiteAccessorInstance.all().count)
+		let all = websiteAccessorInstance.websites(hostAddress: host.address)
 		if !all.isEmpty {
-			websites.value = websiteAccessorInstance.getAll()
+			websites.value = all
 		}
 	}
 
 	func setup() {
+		let google = RealmWebsite()
+		google.name = "Google"
+		google.address = "https://www.google.com/"
+		google.host = "blank"
+		google.created = Date()
+
+		let bing = RealmWebsite()
+		bing.name = "Bing"
+		bing.address = "https://www.bing.com/"
+		bing.host = "blank"
+		bing.created = Date()
+
+		let yahoo = RealmWebsite()
+		yahoo.name = "Yahoo"
+		yahoo.address = "https://www.yahoo.com/"
+		yahoo.host = "blank"
+		yahoo.created = Date()
+
+		let baidu = RealmWebsite()
+		baidu.name = "想去莆田用百度，喜送阁下不归路"
+		baidu.address = "https://www.baidu.com/"
+		baidu.host = "blank"
+		baidu.created = Date()
+
+		/*
 		let test = RealmWebsite()
 		test.name = "Start Searching Here"
 		test.address = "https://www.google.com/search?q=test"
 		test.host = "www.google.com"
 		test.created = Date()
 
-		/*
 		let reddit = RealmWebsite()
 		reddit.name = "Reddit"
 		reddit.address = "https://www.reddit.com/"
@@ -105,7 +136,6 @@ struct WebsiteListViewModel: WebsiteListViewModelProtocol, WebsiteAccessible {
 		youtube.created = Date()
 		*/
 
-		//websites.value.append(contentsOf: [test, reddit, youtube])
-		websites.value.append(test)
+		websites.value.append(contentsOf: [google, bing, yahoo, baidu])
 	}
 }

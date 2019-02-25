@@ -23,14 +23,26 @@ struct DependencyRegister: DependencyInjectable {
 		sharedDependencyInjector.container.register(AppNavigable.self) { _ in
 			AppNavigator.shared
 		}
+		sharedDependencyInjector.container.register(HostListViewController.self) { _ in
+			self.controller(storyboard: "HostList", identifier: "HostListViewController") as! HostListViewController
+		}
 		sharedDependencyInjector.container.register(WebsiteListViewController.self) { _ in
 			self.controller(storyboard: "WebsiteList", identifier: "WebsiteListViewController") as! WebsiteListViewController
 		}
 	}
 
-	func registerWebsiteList() {
+	func registerHostList() {
+		sharedDependencyInjector.container.register(HostListViewModelProtocol.self) { _ in
+			HostListViewModel()
+		}
+		sharedDependencyInjector.container.register(HostAccessorProtocol.self) { _ in
+			HostAccessor()
+		}
+	}
+
+	func registerWebsiteList(host: Host) {
 		sharedDependencyInjector.container.register(WebsiteListViewModelProtocol.self) { _ in
-			WebsiteListViewModel()
+			WebsiteListViewModel(host: host)
 		}
 		sharedDependencyInjector.container.register(WebsiteAccessorProtocol.self) { _ in
 			WebsiteAccessor()
@@ -67,10 +79,19 @@ extension DependencyResolvable {
 	}
 }
 
+/// Navigator dependency
 struct DependencyResolver: DependencyInjectable {
 
 	func sharedAppNavigator() -> AppNavigable {
 		return sharedDependencyInjector.container.resolve(AppNavigable.self)!
+	}
+
+	func hostListViewControllerInstance() -> HostListViewController {
+		return sharedDependencyInjector.container.resolve(HostListViewController.self)!
+	}
+
+	func hostListViewModelInstance() -> HostListViewModelProtocol {
+		return sharedDependencyInjector.container.resolve(HostListViewModelProtocol.self)!
 	}
 
 	func websiteListViewControllerInstance() -> WebsiteListViewController {
@@ -80,6 +101,18 @@ struct DependencyResolver: DependencyInjectable {
 	func websiteListViewModelInstance() -> WebsiteListViewModelProtocol {
 		return sharedDependencyInjector.container.resolve(WebsiteListViewModelProtocol.self)!
 	}
+}
+
+/// HostList dependency
+extension DependencyResolver {
+
+	func hostAccessorInstance() -> HostAccessorProtocol {
+		return sharedDependencyInjector.container.resolve(HostAccessorProtocol.self)!
+	}
+}
+
+/// WebsiteList dependency
+extension DependencyResolver {
 
 	func websiteAccessorInstance() -> WebsiteAccessorProtocol {
 		return sharedDependencyInjector.container.resolve(WebsiteAccessorProtocol.self)!

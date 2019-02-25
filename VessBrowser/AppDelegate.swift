@@ -21,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, Navigatable, DependencyRe
 		dependencyRegisterInstance.registerAppNavigator()
 
 		sharedNavigator.setupNavigation(window: window)
-		sharedNavigator.setRootAsWebsiteList()
+		sharedNavigator.setRootAsHostList()
 
 		return true
 	}

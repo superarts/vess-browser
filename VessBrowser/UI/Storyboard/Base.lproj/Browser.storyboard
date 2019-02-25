@@ -32,9 +32,14 @@
                                     <constraint firstAttribute="height" constant="44" id="a8r-de-TWp"/>
                                 </constraints>
                                 <items>
-                                    <barButtonItem systemItem="rewind" id="iAG-ud-XZw">
+                                    <barButtonItem title="  ◀  " id="iAG-ud-XZw">
                                         <connections>
                                             <action selector="actionBack" destination="BYZ-38-t0r" id="EZE-AM-xzi"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem title="  ▶  " id="Woa-cf-DlW">
+                                        <connections>
+                                            <action selector="actionForward" destination="BYZ-38-t0r" id="c8a-xa-7Fi"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="7d4-gx-wTD"/>
@@ -44,9 +49,9 @@
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="7a7-KA-WyB"/>
-                                    <barButtonItem systemItem="fastForward" id="Woa-cf-DlW">
+                                    <barButtonItem systemItem="search" id="5CH-tO-ifE">
                                         <connections>
-                                            <action selector="actionForward" destination="BYZ-38-t0r" id="c8a-xa-7Fi"/>
+                                            <action selector="actionSearch" destination="BYZ-38-t0r" id="jvw-7i-9l2"/>
                                         </connections>
                                     </barButtonItem>
                                 </items>
