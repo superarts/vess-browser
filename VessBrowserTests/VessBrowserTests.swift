@@ -16,17 +16,29 @@ class VessBrowserTests: XCTestCase, DependencyRegistrable, DependencyResolvable 
 		dependencyRegisterInstance.registerProductionWebsiteAccessor {
 			let viewModel: WebsiteListViewModelProtocol = self.dependencyResolverInstance.websiteListViewModelInstance()
 			viewModel.setup()
-			viewModel.load()
+			viewModel.reload()
 			XCTAssert(!viewModel.websites.value.isEmpty)
 		}
 	}
 
 	func testWebsiteListViewModelProtocolEmpty() {
+		dependencyRegisterInstance.removeAll()
 		dependencyRegisterInstance.registerEmptyWebsiteAccessor {
     		let viewModel: WebsiteListViewModelProtocol = self.dependencyResolverInstance.websiteListViewModelInstance()
     		viewModel.setup()
-    		viewModel.load()
+    		viewModel.reload()
     		XCTAssert(viewModel.websites.value.isEmpty)
 		}
 	}
+
+	/*
+	func testWebsiteListViewModelProtocolEmpty2() {
+		dependencyRegisterInstance.registerEmptyWebsiteAccessor {
+    		let viewModel: WebsiteListViewModelProtocol = self.dependencyResolverInstance.websiteListViewModelInstance()
+    		viewModel.setup()
+    		viewModel.reload()
+    		XCTAssert(viewModel.websites.value.isEmpty)
+		}
+	}
+	*/
 }

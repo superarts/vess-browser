@@ -2,8 +2,12 @@ import UIKit
 import RxSwift
 import RxCocoa
 
+protocol WebsiteListViewControllerProtocol {
+	var viewModel: WebsiteListViewModelProtocol! { get set }
+}
+
 // TODO: rename WebsiteList to WebPageList?
-class WebsiteListViewController: UIViewController, Navigatable {
+class WebsiteListViewController: UIViewController, WebsiteListViewControllerProtocol, Navigatable {
 	
 	@IBOutlet var tableView: UITableView!
 
@@ -28,13 +32,15 @@ class WebsiteListViewController: UIViewController, Navigatable {
             .subscribe(onNext: { website in
                 print("LIST selected", website)
 				//self.viewModel.nextClosure(topic)
-
+				/*
 				let storyboard = UIStoryboard(name: "Browser", bundle: nil)
 				guard let controller = storyboard.instantiateViewController(withIdentifier: "BrowserViewController") as? BrowserViewController else {
 					fatalError("Browser failed")
 				}
 				controller.address = website.address
 				self.sharedNavigator.navigationController.pushViewController(controller, animated: true)
+				*/
+				self.sharedNavigator.pushBrowser(website: website)
             })
             .disposed(by: disposeBag)
 
@@ -51,6 +57,10 @@ class WebsiteListViewController: UIViewController, Navigatable {
 		super.viewWillAppear(animated)
 		viewModel.reload()
 	}
+
+	@IBAction func actionSearch() {
+		sharedNavigator.pushBrowser(website: viewModel.searchWebsite())
+	}
 }
 
 protocol WebsiteListViewModelProtocol {
@@ -59,6 +69,7 @@ protocol WebsiteListViewModelProtocol {
 
 	func reload()
 	func setup()
+	func searchWebsite() -> Website
 }
 
 /**
@@ -137,5 +148,11 @@ struct WebsiteListViewModel: WebsiteListViewModelProtocol, WebsiteAccessible {
 		*/
 
 		websites.value.append(contentsOf: [google, bing, yahoo, baidu])
+	}
+
+	func searchWebsite() -> Website {
+		let website = RealmWebsite()
+		website.address = "https://www.google.com/search?q=\(host.name)"
+		return website
 	}
 }

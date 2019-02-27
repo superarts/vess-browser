@@ -55,7 +55,13 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="3DW-Ia-LED"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Home" id="PJC-0Y-uGl"/>
+                    <navigationItem key="navigationItem" title="Home" id="PJC-0Y-uGl">
+                        <barButtonItem key="rightBarButtonItem" systemItem="search" id="OgU-sd-ut6">
+                            <connections>
+                                <action selector="actionSearch" destination="ou2-rF-90k" id="dnX-a5-slw"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
                         <outlet property="tableView" destination="2ld-Zr-4cp" id="NWf-T2-E3J"/>

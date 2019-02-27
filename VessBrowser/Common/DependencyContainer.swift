@@ -12,11 +12,15 @@ extension DependencyRegistrable {
 	}
 }
 
-struct DependencyRegister: DependencyInjectable {
+struct DependencyRegister: DependencyInjectable, DependencyResolvable {
 
 	private func controller(storyboard: String, identifier: String) -> UIViewController {
 		let storyboard = UIStoryboard(name: storyboard, bundle: nil)
 		return storyboard.instantiateViewController(withIdentifier: identifier)
+	}
+
+	func removeAll() {
+		sharedDependencyInjector.container.removeAll()
 	}
 
 	func registerAppNavigator() {
@@ -48,6 +52,17 @@ struct DependencyRegister: DependencyInjectable {
 			WebsiteAccessor()
 		}
 	}
+
+	/*
+	func registerWebsiteList(host: Host) {
+		sharedDependencyInjector.container.register(WebsiteListViewModelProtocol.self) { _ in
+			WebsiteListViewModel(host: host)
+		}
+		sharedDependencyInjector.container.register(WebsiteAccessorProtocol.self) { _ in
+			WebsiteAccessor()
+		}
+	}
+	*/
 
 	// Shouldn't register production dependencies; testing only
 	func registerProductionWebsiteAccessor(_ completion: @escaping () -> Void) {
@@ -133,4 +148,168 @@ extension DependencyInjectable {
 struct DependencyInjector {
 	static let shared = DependencyInjector()
 	let container = Container()
+}
+
+////////////////////////
+
+protocol AppNavigationDependencyInjectable {
+	var dependencyInjector: AppNavigationDependencyInjectorProtocol { get }
+}
+
+extension AppNavigationDependencyInjectable {
+	var dependencyInjector: AppNavigationDependencyInjectorProtocol {
+		return AppNavigationDependencyInjector()
+	}
+}
+
+protocol AppNavigationDependencyInjectorProtocol {
+	func hostListViewController() -> HostListViewController
+	func websiteListViewController(host: Host) -> WebsiteListViewController
+	func browserViewController(website: Website) -> BrowserViewController
+}
+
+struct AppNavigationDependencyInjector: AppNavigationDependencyInjectorProtocol {
+	
+	private let container = Container()
+
+	init() {
+		register()
+	}
+
+	private func register() {
+		container.register(AppNavigable.self) { _ in
+			AppNavigator.shared
+		}
+
+		// HostList
+		container.register(HostListViewModelProtocol.self) { _ in
+			HostListViewModel()
+		}
+		container.register(HostListViewControllerProtocol.self) { resolver in
+			var controller = self.controller(storyboard: "HostList", identifier: "HostListViewController") as! HostListViewControllerProtocol
+			let viewModel = resolver.resolve(HostListViewModelProtocol.self)!
+			controller.viewModel = viewModel
+			return controller
+		}
+
+		// WebsiteList: owns a Host
+		container.register(WebsiteListViewModelProtocol.self) { _, host in
+			WebsiteListViewModel(host: host)
+		}
+		container.register(WebsiteListViewControllerProtocol.self) { (resolver: Resolver, host: Host) -> WebsiteListViewControllerProtocol in
+			var controller = self.controller(storyboard: "WebsiteList", identifier: "WebsiteListViewController") as! WebsiteListViewControllerProtocol
+			let viewModel = resolver.resolve(WebsiteListViewModelProtocol.self, argument: host)!
+			controller.viewModel = viewModel
+			return controller
+		}
+
+		// Browser: owns a Website
+		/*
+		container.register(BrowserViewModelProtocol.self) { _, host in
+			BrowserViewModel(host: host)
+		}
+		container.register(BrowserViewControllerProtocol.self) { (resolver: Resolver, host: Host) -> BrowserViewControllerProtocol in
+			var controller = self.controller(storyboard: "Browser", identifier: "BrowserViewController") as! BrowserViewControllerProtocol
+			let viewModel = resolver.resolve(BrowserViewModelProtocol.self, argument: host)!
+			controller.viewModel = viewModel
+			return controller
+		}
+		*/
+		container.register(BrowserViewControllerProtocol.self) { (resolver: Resolver, website: Website) -> BrowserViewControllerProtocol in
+			var controller = self.controller(storyboard: "Browser", identifier: "BrowserViewController") as! BrowserViewControllerProtocol
+			controller.address = website.address
+			return controller
+		}
+	}
+
+	// Helper
+	private func controller(storyboard: String, identifier: String) -> UIViewController {
+		let storyboard = UIStoryboard(name: storyboard, bundle: nil)
+		return storyboard.instantiateViewController(withIdentifier: identifier)
+	}
+
+	// Resolvers
+	func hostListViewController() -> HostListViewController {
+		return container.resolve(HostListViewControllerProtocol.self) as! HostListViewController
+	}
+
+	func websiteListViewController(host: Host) -> WebsiteListViewController {
+		return container.resolve(WebsiteListViewControllerProtocol.self, argument: host) as! WebsiteListViewController
+	}
+
+	func browserViewController(website: Website) -> BrowserViewController {
+		return container.resolve(BrowserViewControllerProtocol.self, argument: website) as! BrowserViewController
+	}
+}
+
+///
+
+protocol HostListDependencyInjectable {
+	var dependencyInjector: HostListDependencyInjectorProtocol { get }
+}
+
+extension HostListDependencyInjectable {
+	var dependencyInjector: HostListDependencyInjectorProtocol {
+		return HostListDependencyInjector()
+	}
+}
+
+protocol HostListDependencyInjectorProtocol {
+	func hostAccessor() -> HostAccessorProtocol
+}
+
+struct HostListDependencyInjector: HostListDependencyInjectorProtocol {
+
+	private let container = Container()
+
+	init() {
+		register()
+	}
+
+	private func register() {
+		container.register(HostAccessorProtocol.self) { _ in
+			HostAccessor()
+		}
+	}
+
+	// Resolver
+	func hostAccessor() -> HostAccessorProtocol {
+		return container.resolve(HostAccessorProtocol.self)!
+	}
+}
+
+///
+
+protocol WebsiteListDependencyInjectable {
+	var dependencyInjector: WebsiteListDependencyInjectorProtocol { get }
+}
+
+extension WebsiteListDependencyInjectable {
+	var dependencyInjector: WebsiteListDependencyInjectorProtocol {
+		return WebsiteListDependencyInjector()
+	}
+}
+
+protocol WebsiteListDependencyInjectorProtocol {
+	func websiteAccessor() -> WebsiteAccessorProtocol
+}
+
+struct WebsiteListDependencyInjector: WebsiteListDependencyInjectorProtocol {
+
+	private let container = Container()
+
+	init() {
+		register()
+	}
+
+	private func register() {
+		container.register(WebsiteAccessorProtocol.self) { _ in
+			WebsiteAccessor()
+		}
+	}
+
+	// Resolver
+	func websiteAccessor() -> WebsiteAccessorProtocol {
+		return container.resolve(WebsiteAccessorProtocol.self)!
+	}
 }

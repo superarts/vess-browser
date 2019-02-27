@@ -20,13 +20,14 @@ protocol AppNavigable {
 	func setRootAsHostList()
 	//func setRootAsWebsiteList()
 	func pushWebsiteList(host: Host)
+	func pushBrowser(website: Website)
 	func popToRoot()
 }
 
 /// App navigation handling
 // AppXXX means it depends on UIKit
 // TODO: mutability, single responsibility
-class AppNavigator: AppNavigable, DependencyRegistrable, DependencyResolvable {
+class AppNavigator: AppNavigable, AppNavigationDependencyInjectable {
 
 	static var shared: AppNavigable = AppNavigator()
 	var navigationController: MainNavigationController!
@@ -45,9 +46,7 @@ class AppNavigator: AppNavigable, DependencyRegistrable, DependencyResolvable {
 	}
 
 	func setRootAsHostList() {
-		dependencyRegisterInstance.registerHostList()
-		let hostListViewController = dependencyResolverInstance.hostListViewControllerInstance()
-		hostListViewController.viewModel = dependencyResolverInstance.hostListViewModelInstance()
+		let hostListViewController = dependencyInjector.hostListViewController()
 		set(root: hostListViewController)
 	}
 
@@ -61,11 +60,25 @@ class AppNavigator: AppNavigable, DependencyRegistrable, DependencyResolvable {
 	*/
 
 	func pushWebsiteList(host: Host) {
-		dependencyRegisterInstance.registerWebsiteList(host: host)
-		let websiteListViewController = dependencyResolverInstance.websiteListViewControllerInstance()
-		websiteListViewController.viewModel = dependencyResolverInstance.websiteListViewModelInstance()
+		let websiteListViewController = dependencyInjector.websiteListViewController(host: host)
 		navigationController.pushViewController(websiteListViewController, animated: true)
 	}
+
+	func pushBrowser(website: Website) {
+		let browserViewController = dependencyInjector.browserViewController(website: website)
+		navigationController.pushViewController(browserViewController, animated: true)
+	}
+
+	/*
+	func pushBrowser(website: Website) {
+		let storyboard = UIStoryboard(name: "Browser", bundle: nil)
+		guard let controller = storyboard.instantiateViewController(withIdentifier: "BrowserViewController") as? BrowserViewController else {
+			fatalError("Browser failed")
+		}
+		controller.address = website.address
+		self.sharedNavigator.navigationController.pushViewController(controller, animated: true)
+	}
+	*/
 
 	func popToRoot() {
 		navigationController.popToRootViewController(animated: true)

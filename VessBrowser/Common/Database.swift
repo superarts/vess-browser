@@ -118,13 +118,13 @@ final class RealmDatabaseAccessor<ModelType: RealmSwift.Object>: StatelessObject
 
 ///
 
-protocol WebsiteAccessible: DependencyResolvable {
+protocol WebsiteAccessible: WebsiteListDependencyInjectable {
 	var websiteAccessorInstance: WebsiteAccessorProtocol { get }
 }
 
 extension WebsiteAccessible {
 	var websiteAccessorInstance: WebsiteAccessorProtocol {
-		return dependencyResolverInstance.websiteAccessorInstance()
+		return dependencyInjector.websiteAccessor()
 	}
 }
 
@@ -161,13 +161,13 @@ struct WebsiteAccessor: WebsiteAccessorProtocol, WebsiteDatabaseAccessible {
 
 ///
 
-protocol HostAccessible: DependencyResolvable {
+protocol HostAccessible: HostListDependencyInjectable {
 	var hostAccessorInstance: HostAccessorProtocol { get }
 }
 
 extension HostAccessible {
 	var hostAccessorInstance: HostAccessorProtocol {
-		return dependencyResolverInstance.hostAccessorInstance()
+		return dependencyInjector.hostAccessor()
 	}
 }
 

@@ -3,7 +3,11 @@ import RxSwift
 import RxCocoa
 import SDWebImage
 
-class HostListViewController: UIViewController, Navigatable {
+protocol HostListViewControllerProtocol {
+	var viewModel: HostListViewModelProtocol! { get set }
+}
+
+class HostListViewController: UIViewController, HostListViewControllerProtocol, Navigatable {
 	
 	@IBOutlet var tableView: UITableView!
 
@@ -45,6 +49,12 @@ class HostListViewController: UIViewController, Navigatable {
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 		viewModel.reload()
+	}
+
+	@IBAction func actionSearch() {
+		let website = RealmWebsite()
+		website.address = "https://www.google.com"
+		sharedNavigator.pushBrowser(website: website)
 	}
 }
 

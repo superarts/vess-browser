@@ -56,7 +56,7 @@
                                     </barButtonItem>
                                 </items>
                             </toolbar>
-                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="XIX-2k-NDq">
+                            <progressView hidden="YES" opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="XIX-2k-NDq">
                                 <rect key="frame" x="0.0" y="621" width="375" height="2"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="2" id="eJJ-Bn-hV5"/>

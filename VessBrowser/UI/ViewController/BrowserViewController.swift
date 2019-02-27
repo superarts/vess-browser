@@ -9,7 +9,11 @@
 import UIKit
 import WebKit
 
-class BrowserViewController: UIViewController, Navigatable {
+protocol BrowserViewControllerProtocol {
+	var address: String { get set }
+}
+
+class BrowserViewController: UIViewController, BrowserViewControllerProtocol, Navigatable {
 
 	@IBOutlet var webView: WKWebView!
 	@IBOutlet var progressBar: UIProgressView!
