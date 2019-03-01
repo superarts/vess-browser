@@ -1,5 +1,6 @@
 import Swinject
 
+/*
 /// Register
 
 protocol DependencyRegistrable {
@@ -149,6 +150,7 @@ struct DependencyInjector {
 	static let shared = DependencyInjector()
 	let container = Container()
 }
+*/
 
 ////////////////////////
 

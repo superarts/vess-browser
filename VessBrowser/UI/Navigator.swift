@@ -1,20 +1,20 @@
 import UIKit
 
 /// Use sharedNavigator to handle navigation
-protocol Navigatable: DependencyResolvable {
+protocol Navigatable {
 	var sharedNavigator: AppNavigable { get }
 }
 
 extension Navigatable {
 	var sharedNavigator: AppNavigable {
-		return dependencyResolverInstance.sharedAppNavigator()
+		return AppNavigator.shared
 	}
 }
 
 protocol AppNavigable {
 	static var shared: AppNavigable { get }
 	// TODO: delete me
-	var navigationController: MainNavigationController! { get }
+	//var navigationController: MainNavigationController! { get }
 
 	func setupNavigation(window: UIWindow)
 	func setRootAsHostList()
@@ -30,7 +30,7 @@ protocol AppNavigable {
 class AppNavigator: AppNavigable, AppNavigationDependencyInjectable {
 
 	static var shared: AppNavigable = AppNavigator()
-	var navigationController: MainNavigationController!
+	private var navigationController: MainNavigationController!
 
 	func setupNavigation(window: UIWindow) {
 		let storyboard = UIStoryboard(name: "Navigator", bundle: nil)
