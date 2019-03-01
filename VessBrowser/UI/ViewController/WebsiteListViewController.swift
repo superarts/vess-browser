@@ -63,7 +63,7 @@ class WebsiteListViewController: UIViewController, WebsiteListViewControllerProt
 	}
 }
 
-protocol WebsiteListViewModelProtocol {
+protocol WebsiteListViewModelProtocol: WebsiteAccessible {
 
 	var websites: Variable<[Website]> { get }
 
@@ -85,7 +85,7 @@ protocol WebsiteListViewModelProtocol {
  * - Inject test dependencies from constractor
  * - Perform tests
  */
-struct WebsiteListViewModel: WebsiteListViewModelProtocol, WebsiteAccessible {
+struct WebsiteListViewModel: WebsiteListViewModelProtocol {
     var websites = Variable<[Website]>([Website]())
 
 	private var host: Host
@@ -95,8 +95,8 @@ struct WebsiteListViewModel: WebsiteListViewModelProtocol, WebsiteAccessible {
 	}
 
 	func reload() {
-		print(websiteAccessorInstance.all().count)
-		let all = websiteAccessorInstance.websites(hostAddress: host.address)
+		print(websiteAccessor.all().count)
+		let all = websiteAccessor.websites(hostAddress: host.address)
 		if !all.isEmpty {
 			websites.value = all
 		}

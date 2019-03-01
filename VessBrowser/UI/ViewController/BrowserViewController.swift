@@ -119,7 +119,7 @@ extension BrowserViewController: WKNavigationDelegate, HostAccessible, WebsiteAc
 			website.name = webView.title ?? urlAddress
 			website.address = urlAddress
 			website.host = webView.url?.host ?? urlAddress
-			websiteAccessorInstance.visit(website: website)
+			websiteAccessor.visit(website: website)
 		}
 	}
 

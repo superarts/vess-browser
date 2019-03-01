@@ -9,9 +9,10 @@
 import XCTest
 @testable import VessBrowser
 
-class VessBrowserTests: XCTestCase, DependencyRegistrable, DependencyResolvable {
+class WebsiteListViewModelTests: XCTestCase, UnitTestDependencyInjectable {
 
 	// TODO: remove this test
+	/*
 	func testWebsiteListViewModelProtocol() {
 		dependencyRegisterInstance.registerProductionWebsiteAccessor {
 			let viewModel: WebsiteListViewModelProtocol = self.dependencyResolverInstance.websiteListViewModelInstance()
@@ -20,15 +21,23 @@ class VessBrowserTests: XCTestCase, DependencyRegistrable, DependencyResolvable 
 			XCTAssert(!viewModel.websites.value.isEmpty)
 		}
 	}
+    */
 
 	func testWebsiteListViewModelProtocolEmpty() {
-		dependencyRegisterInstance.removeAll()
-		dependencyRegisterInstance.registerEmptyWebsiteAccessor {
-    		let viewModel: WebsiteListViewModelProtocol = self.dependencyResolverInstance.websiteListViewModelInstance()
-    		viewModel.setup()
-    		viewModel.reload()
-    		XCTAssert(viewModel.websites.value.isEmpty)
-		}
+		let viewModel: WebsiteListViewModelProtocol = dependencyInjector.websiteListViewModel()
+		viewModel.websiteAccessorDependencyInjector.testEmpty()
+		viewModel.setup()
+		viewModel.reload()
+		//XCTAssert(viewModel.websites.value.isEmpty)
+		XCTAssertEqual(viewModel.websites.value.count, 4)
+	}
+
+	func testWebsiteListViewModelProtocolSingle() {
+		let viewModel: WebsiteListViewModelProtocol = dependencyInjector.websiteListViewModel()
+		viewModel.websiteAccessorDependencyInjector.testSingle()
+		viewModel.setup()
+		viewModel.reload()
+		XCTAssertEqual(viewModel.websites.value.count, 1)
 	}
 
 	/*

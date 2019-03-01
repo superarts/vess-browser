@@ -118,13 +118,15 @@ final class RealmDatabaseAccessor<ModelType: RealmSwift.Object>: StatelessObject
 
 ///
 
-protocol WebsiteAccessible: WebsiteListDependencyInjectable {
-	var websiteAccessorInstance: WebsiteAccessorProtocol { get }
+protocol WebsiteAccessible: WebsiteAccessorDependencyInjectable {
+	var websiteAccessor: WebsiteAccessorProtocol { get }
+	//func websiteAccessor() -> WebsiteAccessorProtocol
 }
 
 extension WebsiteAccessible {
-	var websiteAccessorInstance: WebsiteAccessorProtocol {
-		return dependencyInjector.websiteAccessor()
+	var websiteAccessor: WebsiteAccessorProtocol {
+	//func websiteAccessor() -> WebsiteAccessorProtocol {
+		return websiteAccessorDependencyInjector.websiteAccessor()
 	}
 }
 
@@ -140,7 +142,13 @@ struct EmptyWebsiteAccessor: WebsiteAccessorProtocol {
 	func websites(hostAddress: String) -> [Website] { return [] }
 }
 
-struct WebsiteAccessor: WebsiteAccessorProtocol, WebsiteDatabaseAccessible {
+struct SingleWebsiteAccessor: WebsiteAccessorProtocol {
+	func visit(website: Website) { }
+	func all() -> [Website] { return [RealmWebsite()] }
+	func websites(hostAddress: String) -> [Website] { return [RealmWebsite()] }
+}
+
+struct DefaultWebsiteAccessor: WebsiteAccessorProtocol, WebsiteDatabaseAccessible {
 
 	func visit(website: Website) {
 		if databaseAccessorInstance.first(filter: "address == \"\(website.address)\"") == nil {
