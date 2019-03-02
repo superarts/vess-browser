@@ -9,7 +9,7 @@
 import UIKit
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, Navigatable {
+class AppDelegate: UIResponder, UIApplicationDelegate, AppNavigatable {
 
 	var window: UIWindow?
 
@@ -19,8 +19,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, Navigatable {
 			fatalError("APP no window")
 		}
 
-		sharedNavigator.setupNavigation(window: window)
-		sharedNavigator.setRootAsHostList()
+		sharedAppNavigator.setupNavigation(window: window)
+		sharedAppNavigator.setRootAsHostList()
 
 		return true
 	}

@@ -7,7 +7,7 @@ protocol WebsiteListViewControllerProtocol {
 }
 
 // TODO: rename WebsiteList to WebPageList?
-class WebsiteListViewController: UIViewController, WebsiteListViewControllerProtocol, Navigatable {
+class WebsiteListViewController: UIViewController, WebsiteListViewControllerProtocol, AppNavigatable {
 	
 	@IBOutlet var tableView: UITableView!
 
@@ -40,7 +40,7 @@ class WebsiteListViewController: UIViewController, WebsiteListViewControllerProt
 				controller.address = website.address
 				self.sharedNavigator.navigationController.pushViewController(controller, animated: true)
 				*/
-				self.sharedNavigator.pushBrowser(website: website)
+				self.sharedAppNavigator.pushBrowser(website: website)
             })
             .disposed(by: disposeBag)
 
@@ -59,7 +59,7 @@ class WebsiteListViewController: UIViewController, WebsiteListViewControllerProt
 	}
 
 	@IBAction func actionSearch() {
-		sharedNavigator.pushBrowser(website: viewModel.searchWebsite())
+		sharedAppNavigator.pushBrowser(website: viewModel.searchWebsite())
 	}
 }
 

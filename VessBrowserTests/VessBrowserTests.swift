@@ -24,18 +24,18 @@ class WebsiteListViewModelTests: XCTestCase, UnitTestDependencyInjectable {
     */
 
 	func testWebsiteListViewModelProtocolEmpty() {
-		let viewModel: WebsiteListViewModelProtocol = dependencyInjector.websiteListViewModel()
-		viewModel.websiteAccessorDependencyInjector.testEmpty()
-		viewModel.setup()
+		let viewModel: WebsiteListViewModelProtocol = unitTestDependencyInjector.websiteListViewModel()
+		viewModel.sharedWebsiteAccessorDependencyInjector.registerEmpty()
+		//viewModel.setup()
 		viewModel.reload()
-		//XCTAssert(viewModel.websites.value.isEmpty)
-		XCTAssertEqual(viewModel.websites.value.count, 4)
+		XCTAssert(viewModel.websites.value.isEmpty)
+		//XCTAssertEqual(viewModel.websites.value.count, 4)
 	}
 
 	func testWebsiteListViewModelProtocolSingle() {
-		let viewModel: WebsiteListViewModelProtocol = dependencyInjector.websiteListViewModel()
-		viewModel.websiteAccessorDependencyInjector.testSingle()
-		viewModel.setup()
+		let viewModel: WebsiteListViewModelProtocol = unitTestDependencyInjector.websiteListViewModel()
+		viewModel.sharedWebsiteAccessorDependencyInjector.registerSingle()
+		//viewModel.setup()
 		viewModel.reload()
 		XCTAssertEqual(viewModel.websites.value.count, 1)
 	}

@@ -7,7 +7,7 @@ protocol HostListViewControllerProtocol {
 	var viewModel: HostListViewModelProtocol! { get set }
 }
 
-class HostListViewController: UIViewController, HostListViewControllerProtocol, Navigatable {
+class HostListViewController: UIViewController, HostListViewControllerProtocol, AppNavigatable {
 	
 	@IBOutlet var tableView: UITableView!
 
@@ -33,7 +33,7 @@ class HostListViewController: UIViewController, HostListViewControllerProtocol, 
             .subscribe(onNext: { host in
                 print("LIST selected", host)
 				// OR, viewModel -> coordinator -> Navigator
-				self.sharedNavigator.pushWebsiteList(host: host)
+				self.sharedAppNavigator.pushWebsiteList(host: host)
             })
             .disposed(by: disposeBag)
 
@@ -54,7 +54,7 @@ class HostListViewController: UIViewController, HostListViewControllerProtocol, 
 	@IBAction func actionSearch() {
 		let website = RealmWebsite()
 		website.address = "https://www.google.com"
-		sharedNavigator.pushBrowser(website: website)
+		sharedAppNavigator.pushBrowser(website: website)
 	}
 }
 

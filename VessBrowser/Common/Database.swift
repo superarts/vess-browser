@@ -126,7 +126,7 @@ protocol WebsiteAccessible: WebsiteAccessorDependencyInjectable {
 extension WebsiteAccessible {
 	var websiteAccessor: WebsiteAccessorProtocol {
 	//func websiteAccessor() -> WebsiteAccessorProtocol {
-		return websiteAccessorDependencyInjector.websiteAccessor()
+		return sharedWebsiteAccessorDependencyInjector.websiteAccessor()
 	}
 }
 
@@ -169,13 +169,13 @@ struct DefaultWebsiteAccessor: WebsiteAccessorProtocol, WebsiteDatabaseAccessibl
 
 ///
 
-protocol HostAccessible: HostListDependencyInjectable {
+protocol HostAccessible: HostAccessorDependencyInjectable {
 	var hostAccessorInstance: HostAccessorProtocol { get }
 }
 
 extension HostAccessible {
 	var hostAccessorInstance: HostAccessorProtocol {
-		return dependencyInjector.hostAccessor()
+		return sharedHostAccessorDependencyInjector.hostAccessor()
 	}
 }
 

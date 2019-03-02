@@ -13,7 +13,7 @@ protocol BrowserViewControllerProtocol {
 	var address: String { get set }
 }
 
-class BrowserViewController: UIViewController, BrowserViewControllerProtocol, Navigatable {
+class BrowserViewController: UIViewController, BrowserViewControllerProtocol, AppNavigatable {
 
 	@IBOutlet var webView: WKWebView!
 	@IBOutlet var progressBar: UIProgressView!
@@ -72,7 +72,7 @@ class BrowserViewController: UIViewController, BrowserViewControllerProtocol, Na
 	}
 
 	@IBAction func actionHome() {
-		sharedNavigator.popToRoot()
+		sharedAppNavigator.popToRoot()
 	}
 }
 

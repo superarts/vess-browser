@@ -2,17 +2,20 @@ import Swinject
 
 // MARK: AppNavigator
 
-protocol AppNavigationDependencyInjectable {
-	var dependencyInjector: AppNavigationDependencyInjectorProtocol { get }
+protocol AppNavigatorDependencyInjectable {
+	var appNavigatorDependencyInjector: AppNavigatorDependencyInjectorProtocol { get }
 }
 
-extension AppNavigationDependencyInjectable {
-	var dependencyInjector: AppNavigationDependencyInjectorProtocol {
-		return DefaultAppNavigationDependencyInjector()
+extension AppNavigatorDependencyInjectable {
+	var appNavigatorDependencyInjector: AppNavigatorDependencyInjectorProtocol {
+		return DefaultAppNavigatorDependencyInjector.shared
 	}
 }
 
-protocol AppNavigationDependencyInjectorProtocol {
+protocol AppNavigatorDependencyInjectorProtocol {
+
+	//static let shared: AppNavigationDependencyInjectorProtcol
+
 	func hostListViewController() -> HostListViewController
 	func websiteListViewController(host: Host) -> WebsiteListViewController
 	func browserViewController(website: Website) -> BrowserViewController
@@ -26,8 +29,9 @@ protocol AppNavigationDependencyInjectorProtocol {
  * general pattern; but something like RX would be pretty hard to deal with.
  */
 
-struct DefaultAppNavigationDependencyInjector: AppNavigationDependencyInjectorProtocol {
-	
+struct DefaultAppNavigatorDependencyInjector: AppNavigatorDependencyInjectorProtocol {
+
+	static let shared: AppNavigatorDependencyInjectorProtocol = DefaultAppNavigatorDependencyInjector()
 	private let container = Container()
 
 	init() {
@@ -102,22 +106,23 @@ struct DefaultAppNavigationDependencyInjector: AppNavigationDependencyInjectorPr
 
 // MARK: HostList
 
-protocol HostListDependencyInjectable {
-	var dependencyInjector: HostListDependencyInjectorProtocol { get }
+protocol HostAccessorDependencyInjectable {
+	var sharedHostAccessorDependencyInjector: HostAccessorDependencyInjectorProtocol { get }
 }
 
-extension HostListDependencyInjectable {
-	var dependencyInjector: HostListDependencyInjectorProtocol {
-		return DefaultHostListDependencyInjector()
+extension HostAccessorDependencyInjectable {
+	var sharedHostAccessorDependencyInjector: HostAccessorDependencyInjectorProtocol {
+		return DefaultHostAccessorDependencyInjector.shared
 	}
 }
 
-protocol HostListDependencyInjectorProtocol {
+protocol HostAccessorDependencyInjectorProtocol {
 	func hostAccessor() -> HostAccessorProtocol
 }
 
-struct DefaultHostListDependencyInjector: HostListDependencyInjectorProtocol {
+struct DefaultHostAccessorDependencyInjector: HostAccessorDependencyInjectorProtocol {
 
+	static var shared: HostAccessorDependencyInjectorProtocol = DefaultHostAccessorDependencyInjector()
 	private let container = Container()
 
 	init() {
@@ -136,35 +141,37 @@ struct DefaultHostListDependencyInjector: HostListDependencyInjectorProtocol {
 	}
 }
 
-// MARK: WebsiteList
+// MARK: WebsiteAccessor
 
 protocol WebsiteAccessorDependencyInjectable {
-	var websiteAccessorDependencyInjector: WebsiteListDependencyInjectorProtocol { get }
+	var sharedWebsiteAccessorDependencyInjector: WebsiteListDependencyInjectorProtocol { get }
 }
 
 extension WebsiteAccessorDependencyInjectable {
-	var websiteAccessorDependencyInjector: WebsiteListDependencyInjectorProtocol {
+	var sharedWebsiteAccessorDependencyInjector: WebsiteListDependencyInjectorProtocol {
 		//return DefaultWebsiteListDependencyInjector()
 		return DefaultWebsiteListDependencyInjector.shared
 	}
 }
 
 protocol WebsiteListDependencyInjectorProtocol {
-	static var shared: WebsiteListDependencyInjectorProtocol { get }
+
+	//static var shared: WebsiteListDependencyInjectorProtocol { get }
 	func websiteAccessor() -> WebsiteAccessorProtocol
 	func register()
-	func testEmpty()
-	func testSingle()
+	func registerEmpty()
+	func registerSingle()
 }
 
 struct DefaultWebsiteListDependencyInjector: WebsiteListDependencyInjectorProtocol {
+
 	static var shared: WebsiteListDependencyInjectorProtocol = DefaultWebsiteListDependencyInjector()
 	private let container = Container()
 
 	init() {
 		register()
-		//testEmpty()
-		//testSingle()
+		//registerEmpty()
+		//registerSingle()
 	}
 
 	func register() {
@@ -174,13 +181,13 @@ struct DefaultWebsiteListDependencyInjector: WebsiteListDependencyInjectorProtoc
 	}
 
 	// Tests
-	func testEmpty() {
+	func registerEmpty() {
 		container.register(WebsiteAccessorProtocol.self) { _ in
 			EmptyWebsiteAccessor()
 		}
 	}
 
-	func testSingle() {
+	func registerSingle() {
 		container.register(WebsiteAccessorProtocol.self) { _ in
 			SingleWebsiteAccessor()
 		}
@@ -195,22 +202,24 @@ struct DefaultWebsiteListDependencyInjector: WebsiteListDependencyInjectorProtoc
 // MARK: UnitTest
 
 protocol UnitTestDependencyInjectable {
-	var dependencyInjector: UnitTestDependencyInjectorProtocol { get }
+	var unitTestDependencyInjector: UnitTestDependencyInjectorProtocol { get }
 }
 
 extension UnitTestDependencyInjectable {
-	var dependencyInjector: UnitTestDependencyInjectorProtocol {
+	var unitTestDependencyInjector: UnitTestDependencyInjectorProtocol {
 		return DefaultUnitTestDependencyInjector()
 	}
 }
 
 protocol UnitTestDependencyInjectorProtocol {
+
 	func websiteListViewModel() -> WebsiteListViewModelProtocol
 	//func EmptywebsiteAccessor() -> WebsiteAccessorProtocol
 }
 
 struct DefaultUnitTestDependencyInjector: UnitTestDependencyInjectorProtocol {
 
+	static let shared: UnitTestDependencyInjectorProtocol = DefaultUnitTestDependencyInjector()
 	private let container = Container()
 
 	init() {
@@ -227,9 +236,7 @@ struct DefaultUnitTestDependencyInjector: UnitTestDependencyInjectorProtocol {
 		*/
 
 		container.register(WebsiteListViewModelProtocol.self) { (_, host: Host) -> WebsiteListViewModel in
-			let vm = WebsiteListViewModel(host: host)
-			//vm.websiteAccessorDependencyInjector.testSingle()
-			return vm
+			return WebsiteListViewModel(host: host)
 		}
 	}
 

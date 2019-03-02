@@ -1,12 +1,12 @@
 import UIKit
 
 /// Use sharedNavigator to handle navigation
-protocol Navigatable {
-	var sharedNavigator: AppNavigable { get }
+protocol AppNavigatable {
+	var sharedAppNavigator: AppNavigable { get }
 }
 
-extension Navigatable {
-	var sharedNavigator: AppNavigable {
+extension AppNavigatable {
+	var sharedAppNavigator: AppNavigable {
 		return AppNavigator.shared
 	}
 }
@@ -27,7 +27,7 @@ protocol AppNavigable {
 /// App navigation handling
 // AppXXX means it depends on UIKit
 // TODO: mutability, single responsibility
-class AppNavigator: AppNavigable, AppNavigationDependencyInjectable {
+class AppNavigator: AppNavigable, AppNavigatorDependencyInjectable {
 
 	static var shared: AppNavigable = AppNavigator()
 	private var navigationController: MainNavigationController!
@@ -46,7 +46,7 @@ class AppNavigator: AppNavigable, AppNavigationDependencyInjectable {
 	}
 
 	func setRootAsHostList() {
-		let hostListViewController = dependencyInjector.hostListViewController()
+		let hostListViewController = appNavigatorDependencyInjector.hostListViewController()
 		set(root: hostListViewController)
 	}
 
@@ -60,12 +60,12 @@ class AppNavigator: AppNavigable, AppNavigationDependencyInjectable {
 	*/
 
 	func pushWebsiteList(host: Host) {
-		let websiteListViewController = dependencyInjector.websiteListViewController(host: host)
+		let websiteListViewController = appNavigatorDependencyInjector.websiteListViewController(host: host)
 		navigationController.pushViewController(websiteListViewController, animated: true)
 	}
 
 	func pushBrowser(website: Website) {
-		let browserViewController = dependencyInjector.browserViewController(website: website)
+		let browserViewController = appNavigatorDependencyInjector.browserViewController(website: website)
 		navigationController.pushViewController(browserViewController, animated: true)
 	}
 
