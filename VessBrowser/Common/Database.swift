@@ -120,12 +120,10 @@ final class RealmDatabaseAccessor<ModelType: RealmSwift.Object>: StatelessObject
 
 protocol WebsiteAccessible: WebsiteAccessorDependencyInjectable {
 	var websiteAccessor: WebsiteAccessorProtocol { get }
-	//func websiteAccessor() -> WebsiteAccessorProtocol
 }
 
 extension WebsiteAccessible {
 	var websiteAccessor: WebsiteAccessorProtocol {
-	//func websiteAccessor() -> WebsiteAccessorProtocol {
 		return sharedWebsiteAccessorDependencyInjector.websiteAccessor()
 	}
 }

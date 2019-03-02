@@ -12,13 +12,11 @@ extension AppNavigatable {
 }
 
 protocol AppNavigable {
-	static var shared: AppNavigable { get }
-	// TODO: delete me
-	//var navigationController: MainNavigationController! { get }
+
+	//static var shared: AppNavigable { get }
 
 	func setupNavigation(window: UIWindow)
 	func setRootAsHostList()
-	//func setRootAsWebsiteList()
 	func pushWebsiteList(host: Host)
 	func pushBrowser(website: Website)
 	func popToRoot()
@@ -50,15 +48,6 @@ class AppNavigator: AppNavigable, AppNavigatorDependencyInjectable {
 		set(root: hostListViewController)
 	}
 
-	/*
-	func setRootAsWebsiteList() {
-		dependencyRegisterInstance.registerWebsiteList(host: Host())
-		let websiteListViewController = dependencyResolverInstance.websiteListViewControllerInstance()
-		websiteListViewController.viewModel = dependencyResolverInstance.websiteListViewModelInstance()
-		set(root: websiteListViewController)
-	}
-	*/
-
 	func pushWebsiteList(host: Host) {
 		let websiteListViewController = appNavigatorDependencyInjector.websiteListViewController(host: host)
 		navigationController.pushViewController(websiteListViewController, animated: true)
@@ -68,17 +57,6 @@ class AppNavigator: AppNavigable, AppNavigatorDependencyInjectable {
 		let browserViewController = appNavigatorDependencyInjector.browserViewController(website: website)
 		navigationController.pushViewController(browserViewController, animated: true)
 	}
-
-	/*
-	func pushBrowser(website: Website) {
-		let storyboard = UIStoryboard(name: "Browser", bundle: nil)
-		guard let controller = storyboard.instantiateViewController(withIdentifier: "BrowserViewController") as? BrowserViewController else {
-			fatalError("Browser failed")
-		}
-		controller.address = website.address
-		self.sharedNavigator.navigationController.pushViewController(controller, animated: true)
-	}
-	*/
 
 	func popToRoot() {
 		navigationController.popToRootViewController(animated: true)

@@ -31,15 +31,6 @@ class WebsiteListViewController: UIViewController, WebsiteListViewControllerProt
             .modelSelected(RealmWebsite.self)
             .subscribe(onNext: { website in
                 print("LIST selected", website)
-				//self.viewModel.nextClosure(topic)
-				/*
-				let storyboard = UIStoryboard(name: "Browser", bundle: nil)
-				guard let controller = storyboard.instantiateViewController(withIdentifier: "BrowserViewController") as? BrowserViewController else {
-					fatalError("Browser failed")
-				}
-				controller.address = website.address
-				self.sharedNavigator.navigationController.pushViewController(controller, animated: true)
-				*/
 				self.sharedAppNavigator.pushBrowser(website: website)
             })
             .disposed(by: disposeBag)

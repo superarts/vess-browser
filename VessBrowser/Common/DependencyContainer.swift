@@ -2,6 +2,13 @@ import Swinject
 
 // MARK: AppNavigator
 
+/**
+ * Discussion: When a component confirms to Protocol `AppNavigatable`, it would have 2 things:
+ *
+ * - `sharedAppNavigator` to handle navigation; "shared" means it's a shared instance, instead of a transient object
+ * - `appNavigatorDependencyInjector` to handle additional dependency injection (test only)
+ */
+
 protocol AppNavigatorDependencyInjectable {
 	var appNavigatorDependencyInjector: AppNavigatorDependencyInjectorProtocol { get }
 }
@@ -12,16 +19,19 @@ extension AppNavigatorDependencyInjectable {
 	}
 }
 
-protocol AppNavigatorDependencyInjectorProtocol {
+/**
+ * Discussion: it's possible to use a "global" DependencyInjector to inject other DIs via protocol,
+ * but the advantage of doing so is yet to be seen.
+ */
 
-	//static let shared: AppNavigationDependencyInjectorProtcol
+protocol AppNavigatorDependencyInjectorProtocol {
 
 	func hostListViewController() -> HostListViewController
 	func websiteListViewController(host: Host) -> WebsiteListViewController
 	func browserViewController(website: Website) -> BrowserViewController
 }
 
-/*
+/**
  * Discussion: it's possible to wrap `Swinject` with something like `DependencyInjector.register`,
  * instead of using `Container.register`, which introduces a strong dependency of `Swinject`.
  *
@@ -66,17 +76,6 @@ struct DefaultAppNavigatorDependencyInjector: AppNavigatorDependencyInjectorProt
 		}
 
 		// Browser: owns a Website
-		/*
-		container.register(BrowserViewModelProtocol.self) { _, host in
-			BrowserViewModel(host: host)
-		}
-		container.register(BrowserViewControllerProtocol.self) { (resolver: Resolver, host: Host) -> BrowserViewControllerProtocol in
-			var controller = self.controller(storyboard: "Browser", identifier: "BrowserViewController") as! BrowserViewControllerProtocol
-			let viewModel = resolver.resolve(BrowserViewModelProtocol.self, argument: host)!
-			controller.viewModel = viewModel
-			return controller
-		}
-		*/
 		container.register(BrowserViewControllerProtocol.self) { (resolver: Resolver, website: Website) -> BrowserViewControllerProtocol in
 			var controller = self.controller(storyboard: "Browser", identifier: "BrowserViewController") as! BrowserViewControllerProtocol
 			controller.address = website.address
@@ -149,14 +148,12 @@ protocol WebsiteAccessorDependencyInjectable {
 
 extension WebsiteAccessorDependencyInjectable {
 	var sharedWebsiteAccessorDependencyInjector: WebsiteListDependencyInjectorProtocol {
-		//return DefaultWebsiteListDependencyInjector()
 		return DefaultWebsiteListDependencyInjector.shared
 	}
 }
 
 protocol WebsiteListDependencyInjectorProtocol {
 
-	//static var shared: WebsiteListDependencyInjectorProtocol { get }
 	func websiteAccessor() -> WebsiteAccessorProtocol
 	func register()
 	func registerEmpty()
@@ -170,8 +167,6 @@ struct DefaultWebsiteListDependencyInjector: WebsiteListDependencyInjectorProtoc
 
 	init() {
 		register()
-		//registerEmpty()
-		//registerSingle()
 	}
 
 	func register() {
@@ -214,7 +209,6 @@ extension UnitTestDependencyInjectable {
 protocol UnitTestDependencyInjectorProtocol {
 
 	func websiteListViewModel() -> WebsiteListViewModelProtocol
-	//func EmptywebsiteAccessor() -> WebsiteAccessorProtocol
 }
 
 struct DefaultUnitTestDependencyInjector: UnitTestDependencyInjectorProtocol {
@@ -227,52 +221,12 @@ struct DefaultUnitTestDependencyInjector: UnitTestDependencyInjectorProtocol {
 	}
 
 	private func register() {
-		/*
-		container.register(WebsiteAccessorProtocol.self) { _ in
-			return SingleWebsiteAccessor()
-		}.initCompleted { _, _ in
-			//completion()
-		}
-		*/
-
 		container.register(WebsiteListViewModelProtocol.self) { (_, host: Host) -> WebsiteListViewModel in
 			return WebsiteListViewModel(host: host)
 		}
 	}
 
-	/*
-	private func removeAll() {
-		container.removeAll()
-	}
-	*/
-
-	// Resolver
-	/*
-	func EmptyWebsiteAccessor() -> WebsiteAccessorProtocol {
-		return container.resolve(WebsiteAccessorProtocol.self)!
-	}
-	*/
-
 	func websiteListViewModel() -> WebsiteListViewModelProtocol {
 		return container.resolve(WebsiteListViewModelProtocol.self, argument: RealmHost() as Host)!
 	}
 }
-
-/*
- *
-	func registerProductionWebsiteAccessor(_ completion: @escaping () -> Void) {
-		sharedDependencyInjector.container.register(WebsiteAccessorProtocol.self) { _ in
-			return WebsiteAccessor()
-		}.initCompleted { _, _ in
-			completion()
-		}
-	}
-
-	func registerEmptyWebsiteAccessor(_ completion: @escaping () -> Void) {
-		sharedDependencyInjector.container.register(WebsiteAccessorProtocol.self) { _ in
-			return EmptyWebsiteAccessor()
-		}.initCompleted { _, _ in
-			completion()
-		}
-	}
-	*/
