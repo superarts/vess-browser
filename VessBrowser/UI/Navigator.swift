@@ -1,4 +1,5 @@
 import UIKit
+import SCLAlertView
 
 /// AppNavigator should be owned by app entry point, which is AppDelegate in iOS
 protocol AppNavigatable {
@@ -67,11 +68,26 @@ class AppNavigator: AppNavigable, AppNavigatorDependencyInjectable {
 		browserViewController.handleHome = { [unowned self] in
 			self.navigationController.popToRootViewController(animated: true)
 		}
+		browserViewController.handleManualEntry = { [unowned self] in
+			self.showAlert { text in
+				print("NAVIGATOR browser visit: \(text)")
+				browserViewController.visit(address: text)
+			}
+		}
 		navigationController.pushViewController(browserViewController, animated: true)
 	}
 
 	private func set(root: ViewControllerConvertable) {
 		navigationController.viewControllers = [root.viewController]
+	}
+
+	private func showAlert(completion: @escaping StringClosure) {
+		let alert = SCLAlertView()
+		let txt = alert.addTextField("URL Address")
+		alert.addButton("Go") {
+			completion(txt.text ?? "")
+		}
+		alert.showEdit("Visit Website", subTitle: "Enter URL Address", closeButtonTitle: "Cancel")
 	}
 }
 

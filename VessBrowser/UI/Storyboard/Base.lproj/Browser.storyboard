@@ -54,6 +54,11 @@
                                             <action selector="actionSearch" destination="BYZ-38-t0r" id="jvw-7i-9l2"/>
                                         </connections>
                                     </barButtonItem>
+                                    <barButtonItem title="✋" id="aUx-I1-mQa">
+                                        <connections>
+                                            <action selector="actionManualEntry" destination="BYZ-38-t0r" id="odN-Vc-hEt"/>
+                                        </connections>
+                                    </barButtonItem>
                                 </items>
                             </toolbar>
                             <progressView hidden="YES" opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="XIX-2k-NDq">

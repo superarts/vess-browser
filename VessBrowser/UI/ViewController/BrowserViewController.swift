@@ -13,6 +13,9 @@ import RxSwift
 protocol BrowserViewControllerProtocol: ViewControllerConvertable {
 	var viewModel: BrowserViewModelProtocol! { get set }
 	var handleHome: VoidClosure! { get set }
+	var handleManualEntry: VoidClosure! { get set }
+
+	func visit(address: String)
 }
 
 class BrowserViewController: UIViewController, BrowserViewControllerProtocol {
@@ -22,12 +25,23 @@ class BrowserViewController: UIViewController, BrowserViewControllerProtocol {
 
 	var viewModel: BrowserViewModelProtocol!
 	var handleHome: VoidClosure!
+	var handleManualEntry: VoidClosure!
 
 	private let disposeBag = DisposeBag()
+
+	func visit(address: String) {
+		// TODO: use viewModel.website instead
+		guard let url = URL(string: address) else {
+			print("BROWSER invalid URL address", address)
+			return
+		}
+		webView.load(URLRequest(url: url))
+	}
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		webView.navigationDelegate = self
+		webView.uiDelegate = self
 		webView.allowsBackForwardNavigationGestures = true
 		webView.addObserver(self, forKeyPath: #keyPath(WKWebView.estimatedProgress), options: .new, context: nil)
 		webView.addObserver(self, forKeyPath: #keyPath(WKWebView.title), options: .new, context: nil)
@@ -61,6 +75,7 @@ class BrowserViewController: UIViewController, BrowserViewControllerProtocol {
 		}
 	}
 
+	/*
 	func nextBrowser() -> BrowserViewController {
 		let storyboard = UIStoryboard(name: "Browser", bundle: nil)
 		if let controller = storyboard.instantiateInitialViewController() as? BrowserViewController {
@@ -68,6 +83,7 @@ class BrowserViewController: UIViewController, BrowserViewControllerProtocol {
 		}
 		fatalError("BROWSER failed initializing nextBrowser")
 	}
+	*/
 
 	@IBAction func actionBack() {
 		webView.goBack()
@@ -84,11 +100,27 @@ class BrowserViewController: UIViewController, BrowserViewControllerProtocol {
 	@IBAction func actionHome() {
 		handleHome()
 	}
+
+	@IBAction func actionManualEntry() {
+		handleManualEntry()
+	}
 }
 
+extension BrowserViewController: WKUIDelegate {
+	func webView(_ webView: WKWebView, createWebViewWith configuration: WKWebViewConfiguration, for navigationAction: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {
+
+		if navigationAction.targetFrame == nil {
+			webView.load(navigationAction.request)
+		}
+		return nil
+	}
+}
+  
 extension BrowserViewController: WKNavigationDelegate, HostAccessible, WebsiteAccessible {
 	func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
 		print("COMMIT")
+		// TODO: visit with placeholder entry
+		//visit()
 	}
 
 	func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
@@ -115,7 +147,24 @@ extension BrowserViewController: WKNavigationDelegate, HostAccessible, WebsiteAc
 
 	func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
 		print("FINISHED")
+		visit()
+	}
 
+	func webViewWebContentProcessDidTerminate(_ webView: WKWebView) {
+		print("TERMINATED")
+	}
+
+	func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+		print("DECIDE action", navigationAction.request.url?.absoluteString ?? "N/A")
+		decisionHandler(.allow)
+	}
+
+	func webView(_ webView: WKWebView, decidePolicyFor navigationResponse: WKNavigationResponse, decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void) {
+		print("DECIDE response", navigationResponse.response.url?.absoluteString ?? "N/A")
+		decisionHandler(.allow)
+	}
+
+	private func visit() {
 		// TODO: business logic - what if any of these fails?
 		if let hostAddress = webView.url?.host {
 			let host = RealmHost()
@@ -132,22 +181,6 @@ extension BrowserViewController: WKNavigationDelegate, HostAccessible, WebsiteAc
 			websiteAccessor.visit(website: website)
 		}
 	}
-
-	func webViewWebContentProcessDidTerminate(_ webView: WKWebView) {
-		print("TERMINATED")
-	}
-
-	/*
-	func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
-		print("DECIDE action", navigationAction)
-		decisionHandler(.allow)
-	}
-
-	func webView(_ webView: WKWebView, decidePolicyFor navigationResponse: WKNavigationResponse, decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void) {
-		print("DECIDE response", navigationResponse)
-		decisionHandler(.allow)
-	}
-	*/
 }
 
 ///
