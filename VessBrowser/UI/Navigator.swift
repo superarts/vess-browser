@@ -1,6 +1,6 @@
 import UIKit
 
-/// Use sharedNavigator to handle navigation
+/// AppNavigator should be owned by app entry point, which is AppDelegate in iOS
 protocol AppNavigatable {
 	var sharedAppNavigator: AppNavigable { get }
 }
@@ -13,13 +13,8 @@ extension AppNavigatable {
 
 protocol AppNavigable {
 
-	//static var shared: AppNavigable { get }
-
 	func setupNavigation(window: UIWindow)
 	func setRootAsHostList()
-	func pushWebsiteList(host: Host)
-	func pushBrowser(website: Website)
-	func popToRoot()
 }
 
 /// App navigation handling
@@ -44,26 +39,39 @@ class AppNavigator: AppNavigable, AppNavigatorDependencyInjectable {
 	}
 
 	func setRootAsHostList() {
-		let hostListViewController = appNavigatorDependencyInjector.hostListViewController()
+		var hostListViewController = appNavigatorDependencyInjector.hostListViewController()
+		hostListViewController.handleSelectHost = { [unowned self] host in
+			self.pushWebsiteList(host: host)
+		}
+		hostListViewController.handleSearch = { [unowned self] in
+			let website = RealmWebsite()
+			website.address = "https://www.google.com"
+			self.pushBrowser(website: website)
+		}
 		set(root: hostListViewController)
 	}
 
-	func pushWebsiteList(host: Host) {
-		let websiteListViewController = appNavigatorDependencyInjector.websiteListViewController(host: host)
-		navigationController.pushViewController(websiteListViewController, animated: true)
+	private func pushWebsiteList(host: Host) {
+		var websiteListViewController = appNavigatorDependencyInjector.websiteListViewController(host: host)
+		websiteListViewController.handleSelectWebsite = { [unowned self] website in
+			self.pushBrowser(website: website)
+		}
+		websiteListViewController.handleSearchWebsite = { [unowned self] website in
+			self.pushBrowser(website: website)
+		}
+		navigationController.pushViewController(websiteListViewController.viewController, animated: true)
 	}
 
-	func pushBrowser(website: Website) {
+	private func pushBrowser(website: Website) {
 		let browserViewController = appNavigatorDependencyInjector.browserViewController(website: website)
+		browserViewController.handleHome = { [unowned self] in
+			self.navigationController.popToRootViewController(animated: true)
+		}
 		navigationController.pushViewController(browserViewController, animated: true)
 	}
 
-	func popToRoot() {
-		navigationController.popToRootViewController(animated: true)
-	}
-
-	private func set(root: UIViewController) {
-		navigationController.viewControllers = [root]
+	private func set(root: ViewControllerConvertable) {
+		navigationController.viewControllers = [root.viewController]
 	}
 }
 

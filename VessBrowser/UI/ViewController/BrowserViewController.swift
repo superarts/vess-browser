@@ -8,25 +8,35 @@
 
 import UIKit
 import WebKit
+import RxSwift
 
-protocol BrowserViewControllerProtocol {
-	var address: String { get set }
+protocol BrowserViewControllerProtocol: ViewControllerConvertable {
+	var viewModel: BrowserViewModelProtocol! { get set }
+	var handleHome: VoidClosure! { get set }
 }
 
-class BrowserViewController: UIViewController, BrowserViewControllerProtocol, AppNavigatable {
+class BrowserViewController: UIViewController, BrowserViewControllerProtocol {
 
 	@IBOutlet var webView: WKWebView!
 	@IBOutlet var progressBar: UIProgressView!
 
-	var address = "https://www.google.com/search?q=test"
+	var viewModel: BrowserViewModelProtocol!
+	var handleHome: VoidClosure!
+
+	private let disposeBag = DisposeBag()
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		webView.navigationDelegate = self
 		webView.allowsBackForwardNavigationGestures = true
-		webView.load(URLRequest(url: URL(string: address)!))	// TODO
 		webView.addObserver(self, forKeyPath: #keyPath(WKWebView.estimatedProgress), options: .new, context: nil)
 		webView.addObserver(self, forKeyPath: #keyPath(WKWebView.title), options: .new, context: nil)
+
+		viewModel.website.asObservable()
+			.subscribe(onNext: { website in
+        		self.webView.load(URLRequest(url: URL(string: website.address)!))
+    		})
+            .disposed(by: disposeBag)
 	}
 
 	deinit {
@@ -72,7 +82,7 @@ class BrowserViewController: UIViewController, BrowserViewControllerProtocol, Ap
 	}
 
 	@IBAction func actionHome() {
-		sharedAppNavigator.popToRoot()
+		handleHome()
 	}
 }
 
@@ -111,7 +121,7 @@ extension BrowserViewController: WKNavigationDelegate, HostAccessible, WebsiteAc
 			let host = RealmHost()
 			host.name = hostAddress
 			host.address = hostAddress
-			hostAccessorInstance.visit(host: host)
+			hostAccessor.visit(host: host)
 		}
 
 		if let urlAddress = webView.url?.absoluteString {
@@ -138,4 +148,18 @@ extension BrowserViewController: WKNavigationDelegate, HostAccessible, WebsiteAc
 		decisionHandler(.allow)
 	}
 	*/
+}
+
+///
+
+protocol BrowserViewModelProtocol: LifeCycleManagable {
+    var website: Variable<Website> { get }
+}
+
+struct BrowserViewModel: BrowserViewModelProtocol {
+    var website = Variable<Website>(RealmWebsite())
+
+	init(website: Website) {
+		self.website.value = website
+	}
 }

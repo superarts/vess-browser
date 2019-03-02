@@ -26,8 +26,8 @@ extension AppNavigatorDependencyInjectable {
 
 protocol AppNavigatorDependencyInjectorProtocol {
 
-	func hostListViewController() -> HostListViewController
-	func websiteListViewController(host: Host) -> WebsiteListViewController
+	func hostListViewController() -> HostListViewControllerProtocol
+	func websiteListViewController(host: Host) -> WebsiteListViewControllerProtocol
 	func browserViewController(website: Website) -> BrowserViewController
 }
 
@@ -76,9 +76,13 @@ struct DefaultAppNavigatorDependencyInjector: AppNavigatorDependencyInjectorProt
 		}
 
 		// Browser: owns a Website
+		container.register(BrowserViewModelProtocol.self) { _, website in
+			BrowserViewModel(website: website)
+		}
 		container.register(BrowserViewControllerProtocol.self) { (resolver: Resolver, website: Website) -> BrowserViewControllerProtocol in
 			var controller = self.controller(storyboard: "Browser", identifier: "BrowserViewController") as! BrowserViewControllerProtocol
-			controller.address = website.address
+			let viewModel = resolver.resolve(BrowserViewModelProtocol.self, argument: website)!
+			controller.viewModel = viewModel
 			return controller
 		}
 	}
@@ -90,12 +94,12 @@ struct DefaultAppNavigatorDependencyInjector: AppNavigatorDependencyInjectorProt
 	}
 
 	// Resolvers
-	func hostListViewController() -> HostListViewController {
-		return container.resolve(HostListViewControllerProtocol.self) as! HostListViewController
+	func hostListViewController() -> HostListViewControllerProtocol {
+		return container.resolve(HostListViewControllerProtocol.self)!
 	}
 
-	func websiteListViewController(host: Host) -> WebsiteListViewController {
-		return container.resolve(WebsiteListViewControllerProtocol.self, argument: host) as! WebsiteListViewController
+	func websiteListViewController(host: Host) -> WebsiteListViewControllerProtocol {
+		return container.resolve(WebsiteListViewControllerProtocol.self, argument: host)!
 	}
 
 	func browserViewController(website: Website) -> BrowserViewController {
@@ -130,7 +134,7 @@ struct DefaultHostAccessorDependencyInjector: HostAccessorDependencyInjectorProt
 
 	private func register() {
 		container.register(HostAccessorProtocol.self) { _ in
-			HostAccessor()
+			DefaultHostAccessor()
 		}
 	}
 

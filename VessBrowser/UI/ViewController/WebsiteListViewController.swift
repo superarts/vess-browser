@@ -2,16 +2,21 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-protocol WebsiteListViewControllerProtocol {
+protocol WebsiteListViewControllerProtocol: ViewControllerConvertable {
 	var viewModel: WebsiteListViewModelProtocol! { get set }
+	var handleSelectWebsite: WebsiteClosure! { get set }
+	var handleSearchWebsite: WebsiteClosure! { get set }
 }
 
 // TODO: rename WebsiteList to WebPageList?
-class WebsiteListViewController: UIViewController, WebsiteListViewControllerProtocol, AppNavigatable {
+class WebsiteListViewController: UIViewController, WebsiteListViewControllerProtocol {
 	
 	@IBOutlet var tableView: UITableView!
 
 	var viewModel: WebsiteListViewModelProtocol!
+	var handleSelectWebsite: WebsiteClosure!
+	var handleSearchWebsite: WebsiteClosure!
+
     private let disposeBag = DisposeBag()
 
 	override func viewDidLoad() {
@@ -31,7 +36,7 @@ class WebsiteListViewController: UIViewController, WebsiteListViewControllerProt
             .modelSelected(RealmWebsite.self)
             .subscribe(onNext: { website in
                 print("LIST selected", website)
-				self.sharedAppNavigator.pushBrowser(website: website)
+				self.handleSelectWebsite(website)
             })
             .disposed(by: disposeBag)
 
@@ -50,16 +55,14 @@ class WebsiteListViewController: UIViewController, WebsiteListViewControllerProt
 	}
 
 	@IBAction func actionSearch() {
-		sharedAppNavigator.pushBrowser(website: viewModel.searchWebsite())
+		handleSearchWebsite(viewModel.searchWebsite())
 	}
 }
 
-protocol WebsiteListViewModelProtocol: WebsiteAccessible {
+protocol WebsiteListViewModelProtocol: LifeCycleManagable, WebsiteAccessible {
 
 	var websites: Variable<[Website]> { get }
 
-	func reload()
-	func setup()
 	func searchWebsite() -> Website
 }
 
@@ -79,15 +82,15 @@ protocol WebsiteListViewModelProtocol: WebsiteAccessible {
 struct WebsiteListViewModel: WebsiteListViewModelProtocol {
     var websites = Variable<[Website]>([Website]())
 
-	private var host: Host
+	private var host = Variable<Host>(RealmHost())
 
 	init(host: Host) {
-		self.host = host
+		self.host.value = host
 	}
 
 	func reload() {
 		print(websiteAccessor.all().count)
-		let all = websiteAccessor.websites(hostAddress: host.address)
+		let all = websiteAccessor.websites(hostAddress: host.value.address)
 		if !all.isEmpty {
 			websites.value = all
 		}
@@ -143,7 +146,7 @@ struct WebsiteListViewModel: WebsiteListViewModelProtocol {
 
 	func searchWebsite() -> Website {
 		let website = RealmWebsite()
-		website.address = "https://www.google.com/search?q=\(host.name)"
+		website.address = "https://www.google.com/search?q=\(host.value.name)"
 		return website
 	}
 }

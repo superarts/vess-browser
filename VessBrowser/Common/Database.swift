@@ -168,11 +168,11 @@ struct DefaultWebsiteAccessor: WebsiteAccessorProtocol, WebsiteDatabaseAccessibl
 ///
 
 protocol HostAccessible: HostAccessorDependencyInjectable {
-	var hostAccessorInstance: HostAccessorProtocol { get }
+	var hostAccessor: HostAccessorProtocol { get }
 }
 
 extension HostAccessible {
-	var hostAccessorInstance: HostAccessorProtocol {
+	var hostAccessor: HostAccessorProtocol {
 		return sharedHostAccessorDependencyInjector.hostAccessor()
 	}
 }
@@ -187,7 +187,7 @@ struct EmptyHostAccessor: HostAccessorProtocol {
 	func all() -> [Host] { return [] }
 }
 
-struct HostAccessor: HostAccessorProtocol, HostDatabaseAccessible {
+struct DefaultHostAccessor: HostAccessorProtocol, HostDatabaseAccessible {
 
 	func visit(host: Host) {
 		if databaseAccessorInstance.first(filter: "address == \"\(host.address)\"") == nil {

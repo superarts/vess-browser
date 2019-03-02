@@ -3,15 +3,20 @@ import RxSwift
 import RxCocoa
 import SDWebImage
 
-protocol HostListViewControllerProtocol {
+protocol HostListViewControllerProtocol: ViewControllerConvertable {
 	var viewModel: HostListViewModelProtocol! { get set }
+	var handleSelectHost: HostClosure! { get set }
+	var handleSearch: VoidClosure! { get set }
 }
 
-class HostListViewController: UIViewController, HostListViewControllerProtocol, AppNavigatable {
+class HostListViewController: UIViewController, HostListViewControllerProtocol {
 	
 	@IBOutlet var tableView: UITableView!
 
 	var viewModel: HostListViewModelProtocol!
+	var handleSelectHost: HostClosure!
+	var handleSearch: VoidClosure!
+
     private let disposeBag = DisposeBag()
 
 	override func viewDidLoad() {
@@ -32,8 +37,7 @@ class HostListViewController: UIViewController, HostListViewControllerProtocol, 
             .modelSelected(RealmHost.self)
             .subscribe(onNext: { host in
                 print("LIST selected", host)
-				// OR, viewModel -> coordinator -> Navigator
-				self.sharedAppNavigator.pushWebsiteList(host: host)
+				self.handleSelectHost(host)
             })
             .disposed(by: disposeBag)
 
@@ -52,25 +56,20 @@ class HostListViewController: UIViewController, HostListViewControllerProtocol, 
 	}
 
 	@IBAction func actionSearch() {
-		let website = RealmWebsite()
-		website.address = "https://www.google.com"
-		sharedAppNavigator.pushBrowser(website: website)
+		self.handleSearch()
 	}
 }
 
-protocol HostListViewModelProtocol {
+protocol HostListViewModelProtocol: LifeCycleManagable {
 
 	var hosts: Variable<[Host]> { get }
-
-	func reload()
-	func setup()
 }
 
 /**
  * How to write test for `HostListViewModel`:
  * - Figure out its features from `HostListViewModelProtocol`
  * - Figure out its dependencies from `HostAccessible`, etc.
- * - Register test dependencies, e.g. `dependencyRegisterInstance.registerEmptyHostAccessor`
+ * - Register test dependencies, e.g. `hostAccessorDependencyRegister.registerEmpty()`
  * - Perform tests
  *
  * It is equivalent to the steps from constructor injection, which are like:
@@ -83,10 +82,10 @@ struct HostListViewModel: HostListViewModelProtocol, HostAccessible {
     var hosts = Variable<[Host]>([Host]())
 
 	func reload() {
-		print(hostAccessorInstance.all().count)
-		let all = hostAccessorInstance.all()
+		print(hostAccessor.all().count)
+		let all = hostAccessor.all()
 		if !all.isEmpty {
-			hosts.value = hostAccessorInstance.all()
+			hosts.value = hostAccessor.all()
 		}
 	}
 
