@@ -152,7 +152,7 @@ extension BrowserViewController: WKNavigationDelegate, HostAccessible, WebsiteAc
 
 ///
 
-protocol BrowserViewModelProtocol: LifeCycleManagable {
+protocol BrowserViewModelProtocol {
     var website: Variable<Website> { get }
 }
 

@@ -15,13 +15,12 @@ class WebsiteListViewModelTests: XCTestCase, UnitTestDependencyInjectable {
 		let viewModel: WebsiteListViewModelProtocol = unitTestDependencyInjector.websiteListViewModel()
 		viewModel.sharedWebsiteAccessorDependencyInjector.registerEmpty()
 		viewModel.reload()
-		XCTAssert(viewModel.websites.value.isEmpty)
+		XCTAssert(!viewModel.websites.value.isEmpty)	// For empty website results, viewModel should provide default websites
 	}
 
 	func testWebsiteListViewModelProtocolSingle() {
 		let viewModel: WebsiteListViewModelProtocol = unitTestDependencyInjector.websiteListViewModel()
 		viewModel.sharedWebsiteAccessorDependencyInjector.registerSingle()
-		viewModel.setup()
 		viewModel.reload()
 		XCTAssertEqual(viewModel.websites.value.count, 1)
 	}

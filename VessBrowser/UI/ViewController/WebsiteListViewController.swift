@@ -21,7 +21,6 @@ class WebsiteListViewController: UIViewController, WebsiteListViewControllerProt
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		viewModel.setup()
 
         viewModel.websites.asObservable()
             .bind(to: tableView.rx.items(
@@ -55,15 +54,14 @@ class WebsiteListViewController: UIViewController, WebsiteListViewControllerProt
 	}
 
 	@IBAction func actionSearch() {
-		handleSearchWebsite(viewModel.searchWebsite())
+		handleSearchWebsite(viewModel.searchWebsite)
 	}
 }
 
 protocol WebsiteListViewModelProtocol: LifeCycleManagable, WebsiteAccessible {
 
 	var websites: Variable<[Website]> { get }
-
-	func searchWebsite() -> Website
+	var searchWebsite: Website { get }
 }
 
 /**
@@ -82,21 +80,42 @@ protocol WebsiteListViewModelProtocol: LifeCycleManagable, WebsiteAccessible {
 struct WebsiteListViewModel: WebsiteListViewModelProtocol {
     var websites = Variable<[Website]>([Website]())
 
+	/// The `Website` that is used for search in the current WebsiteList
+	var searchWebsite: Website {
+		let website = RealmWebsite()
+		website.address = "https://www.google.com/search?q=\(host.value.name)"
+		return website
+	}
+
 	private var host = Variable<Host>(RealmHost())
+	//private let disposeBag = DisposeBag()
 
 	init(host: Host) {
 		self.host.value = host
+		//setup()
 	}
 
 	func reload() {
-		print(websiteAccessor.all().count)
-		let all = websiteAccessor.websites(hostAddress: host.value.address)
+		let all = self.websiteAccessor.websites(hostAddress: host.value.address)
+		print("WEBSITELIST count updated", all.count)
 		if !all.isEmpty {
-			websites.value = all
+			self.websites.value = all
+		} else {
+			self.loadDefaultWebsites()
 		}
 	}
 
-	func setup() {
+	/*
+	private func setup() {
+		self.host.asObservable()
+			.subscribe(onNext: { host in
+				self.reload()
+			})
+            .disposed(by: disposeBag)
+	}
+	*/
+
+	private func loadDefaultWebsites() {
 		let google = RealmWebsite()
 		google.name = "Google"
 		google.address = "https://www.google.com/"
@@ -141,12 +160,6 @@ struct WebsiteListViewModel: WebsiteListViewModelProtocol {
 		youtube.created = Date()
 		*/
 
-		websites.value.append(contentsOf: [google, bing, yahoo, baidu])
-	}
-
-	func searchWebsite() -> Website {
-		let website = RealmWebsite()
-		website.address = "https://www.google.com/search?q=\(host.value.name)"
-		return website
+		websites.value = [google, bing, yahoo, baidu]
 	}
 }

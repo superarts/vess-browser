@@ -21,7 +21,8 @@ extension ViewControllerConvertable where Self: UIViewController {
 protocol LifeCycleManagable {
 
 	/// When view is loaded - viewDidLoad
-	func setup()
+	/// Discussion: do we need it if we are using RxSwift?
+	//func setup()
 
 	/// When view is refreshed - viewWillAppear
 	func reload()
@@ -29,9 +30,11 @@ protocol LifeCycleManagable {
 
 extension LifeCycleManagable {
 
+	/*
 	func setup() {
 		print("LIFECYCLE skipping setup")
 	}
+	*/
 
 	func reload() {
 		print("LIFECYCLE skipping reload")

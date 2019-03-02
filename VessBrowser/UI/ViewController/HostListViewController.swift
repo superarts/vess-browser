@@ -21,7 +21,6 @@ class HostListViewController: UIViewController, HostListViewControllerProtocol {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		viewModel.setup()
 
         viewModel.hosts.asObservable()
             .bind(to: tableView.rx.items(
@@ -60,13 +59,13 @@ class HostListViewController: UIViewController, HostListViewControllerProtocol {
 	}
 }
 
-protocol HostListViewModelProtocol: LifeCycleManagable {
+protocol HostListViewModelProtocol: LifeCycleManagable, HostAccessible {
 
 	var hosts: Variable<[Host]> { get }
 }
 
 /**
- * How to write test for `HostListViewModel`:
+ * Discussion: How to write test for `HostListViewModel`:
  * - Figure out its features from `HostListViewModelProtocol`
  * - Figure out its dependencies from `HostAccessible`, etc.
  * - Register test dependencies, e.g. `hostAccessorDependencyRegister.registerEmpty()`
@@ -78,22 +77,33 @@ protocol HostListViewModelProtocol: LifeCycleManagable {
  * - Inject test dependencies from constractor
  * - Perform tests
  */
-struct HostListViewModel: HostListViewModelProtocol, HostAccessible {
+struct HostListViewModel: HostListViewModelProtocol {
     var hosts = Variable<[Host]>([Host]())
+	
+	init() {
+		//reload()
+	}
 
+	/**
+	 * Discussion: `reload` is needed because hosts are not automatically updated.
+	 * Notification pattern could be used, but it's preferred to make components 
+	 * as stateless as possible.
+	 */
 	func reload() {
-		print(hostAccessor.all().count)
 		let all = hostAccessor.all()
+		print("HOSTLIST count", all.count)
 		if !all.isEmpty {
-			hosts.value = hostAccessor.all()
+			hosts.value = all
+		} else {
+			self.loadDefaultHosts()
 		}
 	}
 
-	func setup() {
-		let test = RealmHost()
-		test.name = "Search"
-		test.address = "blank"
-		test.created = Date()
+	private func loadDefaultHosts() {
+		let host = RealmHost()
+		host.name = "Search"
+		host.address = "blank"
+		host.created = Date()
 
 		/*
 		let reddit = RealmHost()
@@ -109,7 +119,7 @@ struct HostListViewModel: HostListViewModelProtocol, HostAccessible {
 		youtube.created = Date()
 		*/
 
-		//hosts.value.append(contentsOf: [test, reddit, youtube])
-		hosts.value.append(test)
+		//hosts.value.append(contentsOf: [host, reddit, youtube])
+		hosts.value = [host]
 	}
 }
