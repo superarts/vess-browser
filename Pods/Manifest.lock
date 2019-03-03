@@ -1,4 +1,6 @@
 PODS:
+  - Nimble (7.3.4)
+  - Quick (1.3.4)
   - Realm (3.13.1):
     - Realm/Headers (= 3.13.1)
   - Realm/Headers (3.13.1)
@@ -16,6 +18,8 @@ PODS:
   - Swinject (2.5.0)
 
 DEPENDENCIES:
+  - Nimble
+  - Quick
   - RealmSwift
   - RxCocoa
   - RxSwift
@@ -25,6 +29,8 @@ DEPENDENCIES:
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
+    - Nimble
+    - Quick
     - Realm
     - RealmSwift
     - RxAtomic
@@ -35,6 +41,8 @@ SPEC REPOS:
     - Swinject
 
 SPEC CHECKSUMS:
+  Nimble: 051e3d8912d40138fa5591c78594f95fb172af37
+  Quick: f4f7f063c524394c73ed93ac70983c609805d481
   Realm: 50071da38fe079e0735e47c9f2eae738c68c5996
   RealmSwift: 8a1e6a02b7a08cd17a31e3115143fb69fe5f3fb9
   RxAtomic: f8d6adc1ccb87a767811269e4875887bc74dbf19
@@ -44,6 +52,6 @@ SPEC CHECKSUMS:
   SDWebImage: ecc03494e973b93b80213649d32175f8d2d17d4d
   Swinject: 82cdb851f63f91bba974e3eca1d69780f2f7677e
 
-PODFILE CHECKSUM: 8c26294c61e2024c5fe9631cfdf027db9f4d78ea
+PODFILE CHECKSUM: 529089d617afabfbd7a7d120676b7ec39fb7f546
 
 COCOAPODS: 1.5.3

@@ -18,4 +18,6 @@ end
 target 'VessBrowserTests' do
 	inherit!  :search_paths
 	shared_dependency
+	pod 'Quick'
+	pod 'Nimble'
 end
