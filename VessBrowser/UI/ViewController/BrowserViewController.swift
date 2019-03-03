@@ -61,6 +61,7 @@ class BrowserViewController: UIViewController, BrowserViewControllerProtocol {
 	override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
 		if keyPath == "estimatedProgress" {
 			print("PROGRESS", webView.estimatedProgress)
+			//progressBar.alpha = CGFloat(1 - webView.estimatedProgress)
 			progressBar.progress = Float(webView.estimatedProgress)
 			if webView.estimatedProgress == 1 {
 				DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {

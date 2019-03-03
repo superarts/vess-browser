@@ -41,3 +41,25 @@ extension LifeCycleManagable {
 		print("LIFECYCLE skipping reload")
 	}
 }
+
+/// Stateless
+
+/**
+ * Discussion: there are some limitations regarding this implementation, so it is removed from the project.
+ * We are making a convention that all non-shared instances *SHOULD* be stateless.
+ */
+
+/*
+/// Stateless components do *NOT* have properties and non-static functions.
+/// It also should *NOT* contain static properties.
+class StatelessObject {
+	init() {
+		fatalError("\(self) should be Stateless: no properties and/or non-static functions allowed")
+	}
+
+	/// Try YourStatelessClass.test()
+	func test() {
+		print("Stateless test: never reach here")
+	}
+}
+*/

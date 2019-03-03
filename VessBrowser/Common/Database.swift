@@ -43,40 +43,27 @@ class RealmHost: Object {
 extension RealmHost: Host {
 }
 
-/// Stateless components do *NOT* have properties and non-static functions.
-/// It also should *NOT* contain static properties.
-class StatelessObject {
-	init() {
-		fatalError("\(self) should be Stateless: no properties and/or non-static functions allowed")
-	}
-
-	/// Try YourStatelessClass.test()
-	func test() {
-		print("Stateless test: never reach here")
-	}
-}
-
 ///
 
 protocol WebsiteDatabaseAccessible {
-	var databaseAccessorInstance: RealmDatabaseAccessor<RealmWebsite>.Type { get }
+	var websiteDatabaseAccessor: RealmDatabaseAccessor<RealmWebsite> { get }
 }
 
 extension WebsiteDatabaseAccessible {
-	var databaseAccessorInstance: RealmDatabaseAccessor<RealmWebsite>.Type {
-		return RealmDatabaseAccessor<RealmWebsite>.self
+	var websiteDatabaseAccessor: RealmDatabaseAccessor<RealmWebsite> {
+		return RealmDatabaseAccessor<RealmWebsite>()
 	}
 }
 
 ///
 
-protocol HostDatabaseAccessible {
-	var databaseAccessorInstance: RealmDatabaseAccessor<RealmHost>.Type { get }
+protocol HostDatabaseAccessible: HostDatabaseAccessorDependencyInjectable {
+	var hostDatabaseAccessor: RealmDatabaseAccessor<RealmHost> { get }
 }
 
 extension HostDatabaseAccessible {
-	var databaseAccessorInstance: RealmDatabaseAccessor<RealmHost>.Type {
-		return RealmDatabaseAccessor<RealmHost>.self
+	var hostDatabaseAccessor: RealmDatabaseAccessor<RealmHost> {
+		return sharedHostDatabaseAccessorDependencyInjector.hostDatabaseAccessor()
 	}
 }
 
@@ -85,33 +72,31 @@ extension HostDatabaseAccessible {
 protocol DatabaseAccessorProtocol {
 	associatedtype ModelType
 
-	static func store(_ obj: Storable)
-	static func first(filter: String) -> ModelType?
-	static func all() -> [ModelType]
-	static func all(filter: String) -> [ModelType]
+	func store(_ obj: Storable)
+	func first(filter: String) -> ModelType?
+	func all() -> [ModelType]
+	func all(filter: String) -> [ModelType]
 }
 
-final class RealmDatabaseAccessor<ModelType: RealmSwift.Object>: StatelessObject, DatabaseAccessorProtocol {
+struct RealmDatabaseAccessor<ModelType: RealmSwift.Object>: DatabaseAccessorProtocol {
 
-	static func store(_ obj: Storable) {
-		let realm = try! Realm()
+	private	let realm = try! Realm()
+
+	func store(_ obj: Storable) {
 		try! realm.write() {
 			realm.add(obj as! RealmSwift.Object)
 		}
 	}
 
-	static func first(filter: String) -> ModelType? {
-		let realm = try! Realm()
+	func first(filter: String) -> ModelType? {
 		return realm.objects(ModelType.self).filter(filter).first
 	}
 
-	static func all() -> [ModelType] {
-		let realm = try! Realm()
+	func all() -> [ModelType] {
 		return Array(realm.objects(ModelType.self))
 	}
 
-	static func all(filter: String) -> [ModelType] {
-		let realm = try! Realm()
+	func all(filter: String) -> [ModelType] {
 		return Array(realm.objects(ModelType.self).filter(filter))
 	}
 }
@@ -149,18 +134,18 @@ struct SingleWebsiteAccessor: WebsiteAccessorProtocol {
 struct DefaultWebsiteAccessor: WebsiteAccessorProtocol, WebsiteDatabaseAccessible {
 
 	func visit(website: Website) {
-		if databaseAccessorInstance.first(filter: "address == \"\(website.address)\"") == nil {
-			databaseAccessorInstance.store(website)
+		if websiteDatabaseAccessor.first(filter: "address == \"\(website.address)\"") == nil {
+			websiteDatabaseAccessor.store(website)
 		}
 	}
 
 	func all() -> [Website] {
-		let websites = databaseAccessorInstance.all()
+		let websites = websiteDatabaseAccessor.all()
 		return websites.reversed()
 	}
 
 	func websites(hostAddress: String) -> [Website] {
-		let websites = databaseAccessorInstance.all(filter: "host == \"\(hostAddress)\"")
+		let websites = websiteDatabaseAccessor.all(filter: "host == \"\(hostAddress)\"")
 		return websites.reversed()
 	}
 }
@@ -190,13 +175,13 @@ struct EmptyHostAccessor: HostAccessorProtocol {
 struct DefaultHostAccessor: HostAccessorProtocol, HostDatabaseAccessible {
 
 	func visit(host: Host) {
-		if databaseAccessorInstance.first(filter: "address == \"\(host.address)\"") == nil {
-			databaseAccessorInstance.store(host)
+		if hostDatabaseAccessor.first(filter: "address == \"\(host.address)\"") == nil {
+			hostDatabaseAccessor.store(host)
 		}
 	}
 
 	func all() -> [Host] {
-		let hosts = databaseAccessorInstance.all()
+		let hosts = hostDatabaseAccessor.all()
 		return hosts.reversed()
 	}
 }

@@ -120,7 +120,9 @@ extension HostAccessorDependencyInjectable {
 }
 
 protocol HostAccessorDependencyInjectorProtocol {
+
 	func hostAccessor() -> HostAccessorProtocol
+	func registerEmpty()
 }
 
 struct DefaultHostAccessorDependencyInjector: HostAccessorDependencyInjectorProtocol {
@@ -138,12 +140,64 @@ struct DefaultHostAccessorDependencyInjector: HostAccessorDependencyInjectorProt
 		}
 	}
 
+	func registerEmpty() {
+		container.register(HostAccessorProtocol.self) { _ in
+			EmptyHostAccessor()
+		}
+	}
+
 	// Resolver
 	func hostAccessor() -> HostAccessorProtocol {
 		return container.resolve(HostAccessorProtocol.self)!
 	}
 }
 
+///
+
+protocol HostDatabaseAccessorDependencyInjectable {
+	var sharedHostDatabaseAccessorDependencyInjector: HostDatabaseAccessorDependencyInjectorProtocol { get }
+}
+
+extension HostDatabaseAccessorDependencyInjectable {
+	var sharedHostDatabaseAccessorDependencyInjector: HostDatabaseAccessorDependencyInjectorProtocol {
+		return DefaultHostDatabaseAccessorDependencyInjector.shared
+	}
+}
+
+protocol HostDatabaseAccessorDependencyInjectorProtocol {
+
+	func hostDatabaseAccessor() -> RealmDatabaseAccessor<RealmHost>
+	//func registerEmpty()
+}
+
+struct DefaultHostDatabaseAccessorDependencyInjector: HostDatabaseAccessorDependencyInjectorProtocol {
+
+	static var shared: HostDatabaseAccessorDependencyInjectorProtocol = DefaultHostDatabaseAccessorDependencyInjector()
+	private let container = Container()
+
+	init() {
+		register()
+	}
+
+	private func register() {
+		container.register(RealmDatabaseAccessor<RealmHost>.self) { _ in
+			RealmDatabaseAccessor<RealmHost>()
+		}
+	}
+
+	/*
+	func registerEmpty() {
+		container.register(HostAccessorProtocol.self) { _ in
+			EmptyHostAccessor()
+		}
+	}
+	*/
+
+	// Resolver
+	func hostDatabaseAccessor() -> RealmDatabaseAccessor<RealmHost> {
+		return container.resolve(RealmDatabaseAccessor<RealmHost>.self)!
+	}
+}
 // MARK: WebsiteAccessor
 
 protocol WebsiteAccessorDependencyInjectable {
@@ -212,6 +266,7 @@ extension UnitTestDependencyInjectable {
 
 protocol UnitTestDependencyInjectorProtocol {
 
+	func hostListViewModel() -> HostListViewModelProtocol
 	func websiteListViewModel() -> WebsiteListViewModelProtocol
 }
 
@@ -225,9 +280,16 @@ struct DefaultUnitTestDependencyInjector: UnitTestDependencyInjectorProtocol {
 	}
 
 	private func register() {
+		container.register(HostListViewModelProtocol.self) { _ in
+			return HostListViewModel()
+		}
 		container.register(WebsiteListViewModelProtocol.self) { (_, host: Host) -> WebsiteListViewModel in
 			return WebsiteListViewModel(host: host)
 		}
+	}
+
+	func hostListViewModel() -> HostListViewModelProtocol {
+		return container.resolve(HostListViewModelProtocol.self)!
 	}
 
 	func websiteListViewModel() -> WebsiteListViewModelProtocol {

@@ -12,6 +12,21 @@ import Nimble
 
 class WebsiteListViewModelTests: QuickSpec, UnitTestDependencyInjectable {
 	override func spec() {
+		describe("HostList") {
+			context("HostListViewModel") {
+				it("is empty if it's not reloaded") {
+					let viewModel: HostListViewModelProtocol = self.unitTestDependencyInjector.hostListViewModel()
+					viewModel.sharedHostAccessorDependencyInjector.registerEmpty()
+					expect(viewModel.hosts.value).to(beEmpty())
+				}
+				it("is not empty if no hosts loaded, as default host(s) will be used") {
+					let viewModel: HostListViewModelProtocol = self.unitTestDependencyInjector.hostListViewModel()
+					viewModel.sharedHostAccessorDependencyInjector.registerEmpty()
+					viewModel.reload()
+					expect(viewModel.hosts.value).toNot(beEmpty())
+				}
+			}
+		}
 		describe("WebsiteList") {
 			context("WebsiteListViewModel") {
 				it("is empty if it's not reloaded") {
