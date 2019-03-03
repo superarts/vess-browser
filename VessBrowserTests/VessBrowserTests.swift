@@ -10,7 +10,7 @@ import Quick
 import Nimble
 @testable import VessBrowser
 
-class WebsiteListViewModelTests: QuickSpec, UnitTestDependencyInjectable {
+class PageListViewModelTests: QuickSpec, UnitTestDependencyInjectable {
 	override func spec() {
 		describe("HostList") {
 			context("HostListViewModel") {
@@ -27,24 +27,24 @@ class WebsiteListViewModelTests: QuickSpec, UnitTestDependencyInjectable {
 				}
 			}
 		}
-		describe("WebsiteList") {
-			context("WebsiteListViewModel") {
+		describe("PageList") {
+			context("PageListViewModel") {
 				it("is empty if it's not reloaded") {
-					let viewModel: WebsiteListViewModelProtocol = self.unitTestDependencyInjector.websiteListViewModel()
-					viewModel.sharedWebsiteAccessorDependencyInjector.registerEmpty()
-					expect(viewModel.websites.value).to(beEmpty())
+					let viewModel: PageListViewModelProtocol = self.unitTestDependencyInjector.pageListViewModel()
+					viewModel.sharedPageAccessorDependencyInjector.registerEmpty()
+					expect(viewModel.pages.value).to(beEmpty())
 				}
-				it("is not empty if no websites loaded, as default websites will be used") {
-					let viewModel: WebsiteListViewModelProtocol = self.unitTestDependencyInjector.websiteListViewModel()
-					viewModel.sharedWebsiteAccessorDependencyInjector.registerEmpty()
+				it("is not empty if no pages loaded, as default pages will be used") {
+					let viewModel: PageListViewModelProtocol = self.unitTestDependencyInjector.pageListViewModel()
+					viewModel.sharedPageAccessorDependencyInjector.registerEmpty()
 					viewModel.reload()
-					expect(viewModel.websites.value).toNot(beEmpty())
+					expect(viewModel.pages.value).toNot(beEmpty())
 				}
-				it("has 1 website if a single website is loaded") {
-					let viewModel: WebsiteListViewModelProtocol = self.unitTestDependencyInjector.websiteListViewModel()
-					viewModel.sharedWebsiteAccessorDependencyInjector.registerSingle()
+				it("has 1 page if a single page is loaded") {
+					let viewModel: PageListViewModelProtocol = self.unitTestDependencyInjector.pageListViewModel()
+					viewModel.sharedPageAccessorDependencyInjector.registerSingle()
 					viewModel.reload()
-					expect(viewModel.websites.value).to(haveCount(1))
+					expect(viewModel.pages.value).to(haveCount(1))
 				}
 			}
 		}

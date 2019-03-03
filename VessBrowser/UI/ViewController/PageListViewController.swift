@@ -2,40 +2,40 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-protocol WebsiteListViewControllerProtocol: ViewControllerConvertable {
-	var viewModel: WebsiteListViewModelProtocol! { get set }
-	var handleSelectWebsite: WebsiteClosure! { get set }
-	var handleSearchWebsite: WebsiteClosure! { get set }
+protocol PageListViewControllerProtocol: ViewControllerConvertable {
+	var viewModel: PageListViewModelProtocol! { get set }
+	var handleSelectPage: PageClosure! { get set }
+	var handleSearchPage: PageClosure! { get set }
 }
 
-// TODO: rename WebsiteList to WebPageList?
-class WebsiteListViewController: UIViewController, WebsiteListViewControllerProtocol {
+// TODO: rename PageList to WebPageList?
+class PageListViewController: UIViewController, PageListViewControllerProtocol {
 	
 	@IBOutlet var tableView: UITableView!
 
-	var viewModel: WebsiteListViewModelProtocol!
-	var handleSelectWebsite: WebsiteClosure!
-	var handleSearchWebsite: WebsiteClosure!
+	var viewModel: PageListViewModelProtocol!
+	var handleSelectPage: PageClosure!
+	var handleSearchPage: PageClosure!
 
     private let disposeBag = DisposeBag()
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-        viewModel.websites.asObservable()
+        viewModel.pages.asObservable()
             .bind(to: tableView.rx.items(
-                cellIdentifier: "WebsiteListCell", cellType: UITableViewCell.self)) { (_, website, cell) in
+                cellIdentifier: "PageListCell", cellType: UITableViewCell.self)) { (_, page, cell) in
 
-                cell.textLabel?.text = website.name
-                cell.detailTextLabel?.text = website.address
+                cell.textLabel?.text = page.name
+                cell.detailTextLabel?.text = page.address
             }
             .disposed(by: disposeBag)
 
         tableView.rx
-            .modelSelected(RealmWebsite.self)
-            .subscribe(onNext: { website in
-                print("LIST selected", website)
-				self.handleSelectWebsite(website)
+            .modelSelected(RealmPage.self)
+            .subscribe(onNext: { page in
+                print("LIST selected", page)
+				self.handleSelectPage(page)
             })
             .disposed(by: disposeBag)
 
@@ -54,21 +54,21 @@ class WebsiteListViewController: UIViewController, WebsiteListViewControllerProt
 	}
 
 	@IBAction func actionSearch() {
-		handleSearchWebsite(viewModel.searchWebsite)
+		handleSearchPage(viewModel.searchPage)
 	}
 }
 
-protocol WebsiteListViewModelProtocol: LifeCycleManagable, WebsiteAccessible {
+protocol PageListViewModelProtocol: LifeCycleManagable, PageAccessible {
 
-	var websites: Variable<[Website]> { get }
-	var searchWebsite: Website { get }
+	var pages: Variable<[Page]> { get }
+	var searchPage: Page { get }
 }
 
 /**
- * How to write test for `WebsiteListViewModel`:
- * - Figure out its features from `WebsiteListViewModelProtocol`
- * - Figure out its dependencies from `WebsiteAccessible`, etc.
- * - Register test dependencies, e.g. `dependencyRegisterInstance.registerEmptyWebsiteAccessor`
+ * How to write test for `PageListViewModel`:
+ * - Figure out its features from `PageListViewModelProtocol`
+ * - Figure out its dependencies from `PageAccessible`, etc.
+ * - Register test dependencies, e.g. `dependencyRegisterInstance.registerEmptyPageAccessor`
  * - Perform tests
  *
  * It is equivalent to the steps from constructor injection, which are like:
@@ -77,14 +77,14 @@ protocol WebsiteListViewModelProtocol: LifeCycleManagable, WebsiteAccessible {
  * - Inject test dependencies from constractor
  * - Perform tests
  */
-struct WebsiteListViewModel: WebsiteListViewModelProtocol {
-    var websites = Variable<[Website]>([Website]())
+struct PageListViewModel: PageListViewModelProtocol {
+    var pages = Variable<[Page]>([Page]())
 
-	/// The `Website` that is used for search in the current WebsiteList
-	var searchWebsite: Website {
-		let website = RealmWebsite()
-		website.address = "https://www.google.com/search?q=\(host.value.name)"
-		return website
+	/// The `Page` that is used for search in the current PageList
+	var searchPage: Page {
+		let page = RealmPage()
+		page.address = "https://www.google.com/search?q=\(host.value.name)"
+		return page
 	}
 
 	private var host = Variable<Host>(RealmHost())
@@ -96,12 +96,12 @@ struct WebsiteListViewModel: WebsiteListViewModelProtocol {
 	}
 
 	func reload() {
-		let all = self.websiteAccessor.websites(hostAddress: host.value.address)
+		let all = self.pageAccessor.pages(hostAddress: host.value.address)
 		print("WEBSITELIST count updated", all.count)
 		if !all.isEmpty {
-			self.websites.value = all
+			self.pages.value = all
 		} else {
-			self.loadDefaultWebsites()
+			self.loadDefaultPages()
 		}
 	}
 
@@ -115,51 +115,51 @@ struct WebsiteListViewModel: WebsiteListViewModelProtocol {
 	}
 	*/
 
-	private func loadDefaultWebsites() {
-		let google = RealmWebsite()
+	private func loadDefaultPages() {
+		let google = RealmPage()
 		google.name = "Google"
 		google.address = "https://www.google.com/"
 		google.host = "blank"
 		google.created = Date()
 
-		let bing = RealmWebsite()
+		let bing = RealmPage()
 		bing.name = "Bing"
 		bing.address = "https://www.bing.com/"
 		bing.host = "blank"
 		bing.created = Date()
 
-		let yahoo = RealmWebsite()
+		let yahoo = RealmPage()
 		yahoo.name = "Yahoo"
 		yahoo.address = "https://www.yahoo.com/"
 		yahoo.host = "blank"
 		yahoo.created = Date()
 
-		let baidu = RealmWebsite()
+		let baidu = RealmPage()
 		baidu.name = "想去莆田用百度，喜送阁下不归路"
 		baidu.address = "https://www.baidu.com/"
 		baidu.host = "blank"
 		baidu.created = Date()
 
 		/*
-		let test = RealmWebsite()
+		let test = RealmPage()
 		test.name = "Start Searching Here"
 		test.address = "https://www.google.com/search?q=test"
 		test.host = "www.google.com"
 		test.created = Date()
 
-		let reddit = RealmWebsite()
+		let reddit = RealmPage()
 		reddit.name = "Reddit"
 		reddit.address = "https://www.reddit.com/"
 		reddit.host = "www.reddit.com"
 		reddit.created = Date()
 
-		let youtube = RealmWebsite()
+		let youtube = RealmPage()
 		youtube.name = "YouTube"
 		youtube.address = "https://www.youtube.com/"
 		youtube.host = "www.youtube.com"
 		youtube.created = Date()
 		*/
 
-		websites.value = [google, bing, yahoo, baidu]
+		pages.value = [google, bing, yahoo, baidu]
 	}
 }

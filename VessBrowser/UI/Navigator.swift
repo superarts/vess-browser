@@ -29,7 +29,7 @@ class AppNavigator: AppNavigable, AppNavigatorDependencyInjectable {
 	func setupNavigation(window: UIWindow) {
 		let storyboard = UIStoryboard(name: "Navigator", bundle: nil)
 		guard let nav = storyboard.instantiateViewController(withIdentifier: "MainNavigationController") as? MainNavigationController else {
-			fatalError("BROWSER failed initializing WebsiteList")
+			fatalError("BROWSER failed initializing PageList")
 		}
 
         window.backgroundColor = .white
@@ -42,29 +42,29 @@ class AppNavigator: AppNavigable, AppNavigatorDependencyInjectable {
 	func setRootAsHostList() {
 		var hostListViewController = appNavigatorDependencyInjector.hostListViewController()
 		hostListViewController.handleSelectHost = { [unowned self] host in
-			self.pushWebsiteList(host: host)
+			self.pushPageList(host: host)
 		}
 		hostListViewController.handleSearch = { [unowned self] in
-			let website = RealmWebsite()
-			website.address = "https://www.google.com"
-			self.pushBrowser(website: website)
+			let page = RealmPage()
+			page.address = "https://www.google.com"
+			self.pushBrowser(page: page)
 		}
 		set(root: hostListViewController)
 	}
 
-	private func pushWebsiteList(host: Host) {
-		var websiteListViewController = appNavigatorDependencyInjector.websiteListViewController(host: host)
-		websiteListViewController.handleSelectWebsite = { [unowned self] website in
-			self.pushBrowser(website: website)
+	private func pushPageList(host: Host) {
+		var pageListViewController = appNavigatorDependencyInjector.pageListViewController(host: host)
+		pageListViewController.handleSelectPage = { [unowned self] page in
+			self.pushBrowser(page: page)
 		}
-		websiteListViewController.handleSearchWebsite = { [unowned self] website in
-			self.pushBrowser(website: website)
+		pageListViewController.handleSearchPage = { [unowned self] page in
+			self.pushBrowser(page: page)
 		}
-		navigationController.pushViewController(websiteListViewController.viewController, animated: true)
+		navigationController.pushViewController(pageListViewController.viewController, animated: true)
 	}
 
-	private func pushBrowser(website: Website) {
-		let browserViewController = appNavigatorDependencyInjector.browserViewController(website: website)
+	private func pushBrowser(page: Page) {
+		let browserViewController = appNavigatorDependencyInjector.browserViewController(page: page)
 		browserViewController.handleHome = { [unowned self] in
 			self.navigationController.popToRootViewController(animated: true)
 		}
@@ -87,7 +87,7 @@ class AppNavigator: AppNavigable, AppNavigatorDependencyInjectable {
 		alert.addButton("Go") {
 			completion(txt.text ?? "")
 		}
-		alert.showEdit("Visit Website", subTitle: "Enter URL Address", closeButtonTitle: "Cancel")
+		alert.showEdit("Visit Page", subTitle: "Enter URL Address", closeButtonTitle: "Cancel")
 	}
 }
 

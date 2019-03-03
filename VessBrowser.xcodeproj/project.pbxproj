@@ -10,8 +10,8 @@
 		3B20C86488577A447D30C1A6 /* Pods_VessBrowserTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DB3FA5A4D6636E666630AC3 /* Pods_VessBrowserTests.framework */; };
 		8D9DE6EDD31052C7CFC848F9 /* Pods_VessBrowser.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 987D8C2FA32AFEE0CDC70EDB /* Pods_VessBrowser.framework */; };
 		B3056D2F22191C5B0069AB5B /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3056D2E22191C5B0069AB5B /* StoreKit.framework */; };
-		B3056D31221A483E0069AB5B /* WebsiteList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B3056D30221A483E0069AB5B /* WebsiteList.storyboard */; };
-		B3056D36221A487D0069AB5B /* WebsiteListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3056D35221A487D0069AB5B /* WebsiteListViewController.swift */; };
+		B3056D31221A483E0069AB5B /* PageList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B3056D30221A483E0069AB5B /* PageList.storyboard */; };
+		B3056D36221A487D0069AB5B /* PageListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3056D35221A487D0069AB5B /* PageListViewController.swift */; };
 		B3056D3A221A6D300069AB5B /* Navigator.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B3056D39221A6D300069AB5B /* Navigator.storyboard */; };
 		B3056D3C221A6DDA0069AB5B /* Navigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3056D3B221A6DDA0069AB5B /* Navigator.swift */; };
 		B3B4C6302223A54B0017DD85 /* HostListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B4C62F2223A54A0017DD85 /* HostListViewController.swift */; };
@@ -45,8 +45,8 @@
 		987D8C2FA32AFEE0CDC70EDB /* Pods_VessBrowser.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VessBrowser.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3056D2C221919870069AB5B /* VessBrowser.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = VessBrowser.entitlements; sourceTree = "<group>"; };
 		B3056D2E22191C5B0069AB5B /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
-		B3056D30221A483E0069AB5B /* WebsiteList.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = WebsiteList.storyboard; sourceTree = "<group>"; };
-		B3056D35221A487D0069AB5B /* WebsiteListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebsiteListViewController.swift; sourceTree = "<group>"; };
+		B3056D30221A483E0069AB5B /* PageList.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PageList.storyboard; sourceTree = "<group>"; };
+		B3056D35221A487D0069AB5B /* PageListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageListViewController.swift; sourceTree = "<group>"; };
 		B3056D39221A6D300069AB5B /* Navigator.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Navigator.storyboard; sourceTree = "<group>"; };
 		B3056D3B221A6DDA0069AB5B /* Navigator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Navigator.swift; sourceTree = "<group>"; };
 		B3B4C62F2223A54A0017DD85 /* HostListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HostListViewController.swift; sourceTree = "<group>"; };
@@ -123,7 +123,7 @@
 			isa = PBXGroup;
 			children = (
 				B3B4C62F2223A54A0017DD85 /* HostListViewController.swift */,
-				B3056D35221A487D0069AB5B /* WebsiteListViewController.swift */,
+				B3056D35221A487D0069AB5B /* PageListViewController.swift */,
 				B3D246BC22165CA10083A76D /* BrowserViewController.swift */,
 			);
 			path = ViewController;
@@ -135,9 +135,16 @@
 				B3D246BE22165CA10083A76D /* Browser.storyboard */,
 				B3056D39221A6D300069AB5B /* Navigator.storyboard */,
 				B3B4C6312223A56A0017DD85 /* HostList.storyboard */,
-				B3056D30221A483E0069AB5B /* WebsiteList.storyboard */,
+				B3056D30221A483E0069AB5B /* PageList.storyboard */,
 			);
 			path = Storyboard;
+			sourceTree = "<group>";
+		};
+		B3B4C635222C8DE00017DD85 /* HostList */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = HostList;
 			sourceTree = "<group>";
 		};
 		B3D246AE22165CA10083A76D = {
@@ -163,6 +170,7 @@
 		B3D246B922165CA10083A76D /* VessBrowser */ = {
 			isa = PBXGroup;
 			children = (
+				B3B4C635222C8DE00017DD85 /* HostList */,
 				B3E2F1222220FBED0043E03E /* Common */,
 				B3056D32221A48440069AB5B /* UI */,
 				B3056D2C221919870069AB5B /* VessBrowser.entitlements */,
@@ -289,7 +297,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B3056D31221A483E0069AB5B /* WebsiteList.storyboard in Resources */,
+				B3056D31221A483E0069AB5B /* PageList.storyboard in Resources */,
 				B3D246C522165CA20083A76D /* LaunchScreen.storyboard in Resources */,
 				B3B4C6322223A56A0017DD85 /* HostList.storyboard in Resources */,
 				B3D246C222165CA20083A76D /* Assets.xcassets in Resources */,
@@ -435,7 +443,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B3056D36221A487D0069AB5B /* WebsiteListViewController.swift in Sources */,
+				B3056D36221A487D0069AB5B /* PageListViewController.swift in Sources */,
 				B3B4C6302223A54B0017DD85 /* HostListViewController.swift in Sources */,
 				B3056D3C221A6DDA0069AB5B /* Navigator.swift in Sources */,
 				B3D246BD22165CA10083A76D /* BrowserViewController.swift in Sources */,

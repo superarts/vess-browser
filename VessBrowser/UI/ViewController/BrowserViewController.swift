@@ -30,7 +30,7 @@ class BrowserViewController: UIViewController, BrowserViewControllerProtocol {
 	private let disposeBag = DisposeBag()
 
 	func visit(address: String) {
-		// TODO: use viewModel.website instead
+		// TODO: use viewModel.page instead
 		guard let url = URL(string: address) else {
 			print("BROWSER invalid URL address", address)
 			return
@@ -46,9 +46,9 @@ class BrowserViewController: UIViewController, BrowserViewControllerProtocol {
 		webView.addObserver(self, forKeyPath: #keyPath(WKWebView.estimatedProgress), options: .new, context: nil)
 		webView.addObserver(self, forKeyPath: #keyPath(WKWebView.title), options: .new, context: nil)
 
-		viewModel.website.asObservable()
-			.subscribe(onNext: { website in
-        		self.webView.load(URLRequest(url: URL(string: website.address)!))
+		viewModel.page.asObservable()
+			.subscribe(onNext: { page in
+        		self.webView.load(URLRequest(url: URL(string: page.address)!))
     		})
             .disposed(by: disposeBag)
 	}
@@ -117,7 +117,7 @@ extension BrowserViewController: WKUIDelegate {
 	}
 }
   
-extension BrowserViewController: WKNavigationDelegate, HostAccessible, WebsiteAccessible {
+extension BrowserViewController: WKNavigationDelegate, HostAccessible, PageAccessible {
 	func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
 		print("COMMIT")
 		// TODO: visit with placeholder entry
@@ -175,11 +175,11 @@ extension BrowserViewController: WKNavigationDelegate, HostAccessible, WebsiteAc
 		}
 
 		if let urlAddress = webView.url?.absoluteString {
-			let website = RealmWebsite()
-			website.name = webView.title ?? urlAddress
-			website.address = urlAddress
-			website.host = webView.url?.host ?? urlAddress
-			websiteAccessor.visit(website: website)
+			let page = RealmPage()
+			page.name = webView.title ?? urlAddress
+			page.address = urlAddress
+			page.host = webView.url?.host ?? urlAddress
+			pageAccessor.visit(page: page)
 		}
 	}
 }
@@ -187,13 +187,13 @@ extension BrowserViewController: WKNavigationDelegate, HostAccessible, WebsiteAc
 ///
 
 protocol BrowserViewModelProtocol {
-    var website: Variable<Website> { get }
+    var page: Variable<Page> { get }
 }
 
 struct BrowserViewModel: BrowserViewModelProtocol {
-    var website = Variable<Website>(RealmWebsite())
+    var page = Variable<Page>(RealmPage())
 
-	init(website: Website) {
-		self.website.value = website
+	init(page: Page) {
+		self.page.value = page
 	}
 }

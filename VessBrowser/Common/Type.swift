@@ -3,7 +3,7 @@ import UIKit
 typealias VoidClosure = () -> Void
 typealias StringClosure = (String) -> Void
 typealias HostClosure = (Host) -> Void
-typealias WebsiteClosure = (Website) -> Void
+typealias PageClosure = (Page) -> Void
 
 ///
 

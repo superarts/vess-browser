@@ -7,21 +7,21 @@ protocol Storable {
 
 ///
 
-protocol Website: Storable {
+protocol Page: Storable {
 	var name: String { get }
 	var address: String { get }
 	var host: String { get }
 	var created: Date { get }
 }
 
-class RealmWebsite: Object {
+class RealmPage: Object {
 	@objc dynamic var name: String = ""
 	@objc dynamic var address: String = ""
 	@objc dynamic var host: String = ""
 	@objc dynamic var created: Date = Date()
 }
 
-extension RealmWebsite: Website {
+extension RealmPage: Page {
 }
 
 ///
@@ -45,13 +45,13 @@ extension RealmHost: Host {
 
 ///
 
-protocol WebsiteDatabaseAccessible {
-	var websiteDatabaseAccessor: RealmDatabaseAccessor<RealmWebsite> { get }
+protocol PageDatabaseAccessible {
+	var pageDatabaseAccessor: RealmDatabaseAccessor<RealmPage> { get }
 }
 
-extension WebsiteDatabaseAccessible {
-	var websiteDatabaseAccessor: RealmDatabaseAccessor<RealmWebsite> {
-		return RealmDatabaseAccessor<RealmWebsite>()
+extension PageDatabaseAccessible {
+	var pageDatabaseAccessor: RealmDatabaseAccessor<RealmPage> {
+		return RealmDatabaseAccessor<RealmPage>()
 	}
 }
 
@@ -103,50 +103,50 @@ struct RealmDatabaseAccessor<ModelType: RealmSwift.Object>: DatabaseAccessorProt
 
 ///
 
-protocol WebsiteAccessible: WebsiteAccessorDependencyInjectable {
-	var websiteAccessor: WebsiteAccessorProtocol { get }
+protocol PageAccessible: PageAccessorDependencyInjectable {
+	var pageAccessor: PageAccessorProtocol { get }
 }
 
-extension WebsiteAccessible {
-	var websiteAccessor: WebsiteAccessorProtocol {
-		return sharedWebsiteAccessorDependencyInjector.websiteAccessor()
+extension PageAccessible {
+	var pageAccessor: PageAccessorProtocol {
+		return sharedPageAccessorDependencyInjector.pageAccessor()
 	}
 }
 
-protocol WebsiteAccessorProtocol {
-	func visit(website: Website)
-	func all() -> [Website]
-	func websites(hostAddress: String) -> [Website]
+protocol PageAccessorProtocol {
+	func visit(page: Page)
+	func all() -> [Page]
+	func pages(hostAddress: String) -> [Page]
 }
 
-struct EmptyWebsiteAccessor: WebsiteAccessorProtocol {
-	func visit(website: Website) { }
-	func all() -> [Website] { return [] }
-	func websites(hostAddress: String) -> [Website] { return [] }
+struct EmptyPageAccessor: PageAccessorProtocol {
+	func visit(page: Page) { }
+	func all() -> [Page] { return [] }
+	func pages(hostAddress: String) -> [Page] { return [] }
 }
 
-struct SingleWebsiteAccessor: WebsiteAccessorProtocol {
-	func visit(website: Website) { }
-	func all() -> [Website] { return [RealmWebsite()] }
-	func websites(hostAddress: String) -> [Website] { return [RealmWebsite()] }
+struct SinglePageAccessor: PageAccessorProtocol {
+	func visit(page: Page) { }
+	func all() -> [Page] { return [RealmPage()] }
+	func pages(hostAddress: String) -> [Page] { return [RealmPage()] }
 }
 
-struct DefaultWebsiteAccessor: WebsiteAccessorProtocol, WebsiteDatabaseAccessible {
+struct DefaultPageAccessor: PageAccessorProtocol, PageDatabaseAccessible {
 
-	func visit(website: Website) {
-		if websiteDatabaseAccessor.first(filter: "address == \"\(website.address)\"") == nil {
-			websiteDatabaseAccessor.store(website)
+	func visit(page: Page) {
+		if pageDatabaseAccessor.first(filter: "address == \"\(page.address)\"") == nil {
+			pageDatabaseAccessor.store(page)
 		}
 	}
 
-	func all() -> [Website] {
-		let websites = websiteDatabaseAccessor.all()
-		return websites.reversed()
+	func all() -> [Page] {
+		let pages = pageDatabaseAccessor.all()
+		return pages.reversed()
 	}
 
-	func websites(hostAddress: String) -> [Website] {
-		let websites = websiteDatabaseAccessor.all(filter: "host == \"\(hostAddress)\"")
-		return websites.reversed()
+	func pages(hostAddress: String) -> [Page] {
+		let pages = pageDatabaseAccessor.all(filter: "host == \"\(hostAddress)\"")
+		return pages.reversed()
 	}
 }
 

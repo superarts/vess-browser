@@ -27,8 +27,8 @@ extension AppNavigatorDependencyInjectable {
 protocol AppNavigatorDependencyInjectorProtocol {
 
 	func hostListViewController() -> HostListViewControllerProtocol
-	func websiteListViewController(host: Host) -> WebsiteListViewControllerProtocol
-	func browserViewController(website: Website) -> BrowserViewController
+	func pageListViewController(host: Host) -> PageListViewControllerProtocol
+	func browserViewController(page: Page) -> BrowserViewController
 }
 
 /**
@@ -64,24 +64,24 @@ struct DefaultAppNavigatorDependencyInjector: AppNavigatorDependencyInjectorProt
 			return controller
 		}
 
-		// WebsiteList: owns a Host
-		container.register(WebsiteListViewModelProtocol.self) { _, host in
-			WebsiteListViewModel(host: host)
+		// PageList: owns a Host
+		container.register(PageListViewModelProtocol.self) { _, host in
+			PageListViewModel(host: host)
 		}
-		container.register(WebsiteListViewControllerProtocol.self) { (resolver: Resolver, host: Host) -> WebsiteListViewControllerProtocol in
-			var controller = self.controller(storyboard: "WebsiteList", identifier: "WebsiteListViewController") as! WebsiteListViewControllerProtocol
-			let viewModel = resolver.resolve(WebsiteListViewModelProtocol.self, argument: host)!
+		container.register(PageListViewControllerProtocol.self) { (resolver: Resolver, host: Host) -> PageListViewControllerProtocol in
+			var controller = self.controller(storyboard: "PageList", identifier: "PageListViewController") as! PageListViewControllerProtocol
+			let viewModel = resolver.resolve(PageListViewModelProtocol.self, argument: host)!
 			controller.viewModel = viewModel
 			return controller
 		}
 
-		// Browser: owns a Website
-		container.register(BrowserViewModelProtocol.self) { _, website in
-			BrowserViewModel(website: website)
+		// Browser: owns a Page
+		container.register(BrowserViewModelProtocol.self) { _, page in
+			BrowserViewModel(page: page)
 		}
-		container.register(BrowserViewControllerProtocol.self) { (resolver: Resolver, website: Website) -> BrowserViewControllerProtocol in
+		container.register(BrowserViewControllerProtocol.self) { (resolver: Resolver, page: Page) -> BrowserViewControllerProtocol in
 			var controller = self.controller(storyboard: "Browser", identifier: "BrowserViewController") as! BrowserViewControllerProtocol
-			let viewModel = resolver.resolve(BrowserViewModelProtocol.self, argument: website)!
+			let viewModel = resolver.resolve(BrowserViewModelProtocol.self, argument: page)!
 			controller.viewModel = viewModel
 			return controller
 		}
@@ -98,12 +98,12 @@ struct DefaultAppNavigatorDependencyInjector: AppNavigatorDependencyInjectorProt
 		return container.resolve(HostListViewControllerProtocol.self)!
 	}
 
-	func websiteListViewController(host: Host) -> WebsiteListViewControllerProtocol {
-		return container.resolve(WebsiteListViewControllerProtocol.self, argument: host)!
+	func pageListViewController(host: Host) -> PageListViewControllerProtocol {
+		return container.resolve(PageListViewControllerProtocol.self, argument: host)!
 	}
 
-	func browserViewController(website: Website) -> BrowserViewController {
-		return container.resolve(BrowserViewControllerProtocol.self, argument: website) as! BrowserViewController
+	func browserViewController(page: Page) -> BrowserViewController {
+		return container.resolve(BrowserViewControllerProtocol.self, argument: page) as! BrowserViewController
 	}
 }
 
@@ -198,29 +198,29 @@ struct DefaultHostDatabaseAccessorDependencyInjector: HostDatabaseAccessorDepend
 		return container.resolve(RealmDatabaseAccessor<RealmHost>.self)!
 	}
 }
-// MARK: WebsiteAccessor
+// MARK: PageAccessor
 
-protocol WebsiteAccessorDependencyInjectable {
-	var sharedWebsiteAccessorDependencyInjector: WebsiteListDependencyInjectorProtocol { get }
+protocol PageAccessorDependencyInjectable {
+	var sharedPageAccessorDependencyInjector: PageListDependencyInjectorProtocol { get }
 }
 
-extension WebsiteAccessorDependencyInjectable {
-	var sharedWebsiteAccessorDependencyInjector: WebsiteListDependencyInjectorProtocol {
-		return DefaultWebsiteListDependencyInjector.shared
+extension PageAccessorDependencyInjectable {
+	var sharedPageAccessorDependencyInjector: PageListDependencyInjectorProtocol {
+		return DefaultPageListDependencyInjector.shared
 	}
 }
 
-protocol WebsiteListDependencyInjectorProtocol {
+protocol PageListDependencyInjectorProtocol {
 
-	func websiteAccessor() -> WebsiteAccessorProtocol
+	func pageAccessor() -> PageAccessorProtocol
 	func register()
 	func registerEmpty()
 	func registerSingle()
 }
 
-struct DefaultWebsiteListDependencyInjector: WebsiteListDependencyInjectorProtocol {
+struct DefaultPageListDependencyInjector: PageListDependencyInjectorProtocol {
 
-	static var shared: WebsiteListDependencyInjectorProtocol = DefaultWebsiteListDependencyInjector()
+	static var shared: PageListDependencyInjectorProtocol = DefaultPageListDependencyInjector()
 	private let container = Container()
 
 	init() {
@@ -228,27 +228,27 @@ struct DefaultWebsiteListDependencyInjector: WebsiteListDependencyInjectorProtoc
 	}
 
 	func register() {
-		container.register(WebsiteAccessorProtocol.self) { _ in
-			DefaultWebsiteAccessor()
+		container.register(PageAccessorProtocol.self) { _ in
+			DefaultPageAccessor()
 		}
 	}
 
 	// Tests
 	func registerEmpty() {
-		container.register(WebsiteAccessorProtocol.self) { _ in
-			EmptyWebsiteAccessor()
+		container.register(PageAccessorProtocol.self) { _ in
+			EmptyPageAccessor()
 		}
 	}
 
 	func registerSingle() {
-		container.register(WebsiteAccessorProtocol.self) { _ in
-			SingleWebsiteAccessor()
+		container.register(PageAccessorProtocol.self) { _ in
+			SinglePageAccessor()
 		}
 	}
 
 	// Resolver
-	func websiteAccessor() -> WebsiteAccessorProtocol {
-		return container.resolve(WebsiteAccessorProtocol.self)!
+	func pageAccessor() -> PageAccessorProtocol {
+		return container.resolve(PageAccessorProtocol.self)!
 	}
 }
 
@@ -267,7 +267,7 @@ extension UnitTestDependencyInjectable {
 protocol UnitTestDependencyInjectorProtocol {
 
 	func hostListViewModel() -> HostListViewModelProtocol
-	func websiteListViewModel() -> WebsiteListViewModelProtocol
+	func pageListViewModel() -> PageListViewModelProtocol
 }
 
 struct DefaultUnitTestDependencyInjector: UnitTestDependencyInjectorProtocol {
@@ -283,8 +283,8 @@ struct DefaultUnitTestDependencyInjector: UnitTestDependencyInjectorProtocol {
 		container.register(HostListViewModelProtocol.self) { _ in
 			return HostListViewModel()
 		}
-		container.register(WebsiteListViewModelProtocol.self) { (_, host: Host) -> WebsiteListViewModel in
-			return WebsiteListViewModel(host: host)
+		container.register(PageListViewModelProtocol.self) { (_, host: Host) -> PageListViewModel in
+			return PageListViewModel(host: host)
 		}
 	}
 
@@ -292,7 +292,7 @@ struct DefaultUnitTestDependencyInjector: UnitTestDependencyInjectorProtocol {
 		return container.resolve(HostListViewModelProtocol.self)!
 	}
 
-	func websiteListViewModel() -> WebsiteListViewModelProtocol {
-		return container.resolve(WebsiteListViewModelProtocol.self, argument: RealmHost() as Host)!
+	func pageListViewModel() -> PageListViewModelProtocol {
+		return container.resolve(PageListViewModelProtocol.self, argument: RealmHost() as Host)!
 	}
 }
