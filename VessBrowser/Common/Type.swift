@@ -63,3 +63,17 @@ class StatelessObject {
 	}
 }
 */
+
+// https://github.com/Swinject/Swinject/issues/223
+
+struct DatabaseAccessorBox<T: DatabaseAccessorProtocol> {
+    typealias U = T
+
+    let objectType: U.Type
+    let object: U
+
+    init(object: U) {
+        self.object = object
+        self.objectType = U.self
+    }
+}

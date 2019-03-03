@@ -69,6 +69,18 @@ extension HostDatabaseAccessible {
 
 ///
 
+/*
+protocol HostDatabaseAccessorProtocol {
+
+	func store(_ obj: Storable)
+	func first(filter: String) -> Host?
+	func all() -> [Host]
+	func all(filter: String) -> [Host]
+}
+
+struct RealmDatabaseAccessor<ModelType: RealmSwift.Object>: DatabaseAccessorProtocol, HostDatabaseAccessorProtocol { }
+*/
+
 protocol DatabaseAccessorProtocol {
 	associatedtype ModelType
 
@@ -98,6 +110,26 @@ struct RealmDatabaseAccessor<ModelType: RealmSwift.Object>: DatabaseAccessorProt
 
 	func all(filter: String) -> [ModelType] {
 		return Array(realm.objects(ModelType.self).filter(filter))
+	}
+}
+
+struct EmptyDatabaseAccessor<ModelType: RealmSwift.Object>: DatabaseAccessorProtocol {
+
+	private	let realm = try! Realm()
+
+	func store(_ obj: Storable) {
+	}
+
+	func first(filter: String) -> ModelType? {
+		return nil
+	}
+
+	func all() -> [ModelType] {
+		return []
+	}
+
+	func all(filter: String) -> [ModelType] {
+		return []
 	}
 }
 

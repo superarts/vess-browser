@@ -26,6 +26,13 @@ class WebsiteListViewModelTests: QuickSpec, UnitTestDependencyInjectable {
 					expect(viewModel.hosts.value).toNot(beEmpty())
 				}
 			}
+			context("HostAccessor") {
+				it("is empty if if no hosts loaded from database") {
+					let hostAccessor: HostAccessorProtocol = self.unitTestDependencyInjector.hostAccessor()
+					hostAccessor.sharedHostDatabaseAccessorDependencyInjector.registerEmpty()
+					expect(hostAccessor.all()).to(beEmpty())
+				}
+			}
 		}
 		describe("WebsiteList") {
 			context("WebsiteListViewModel") {

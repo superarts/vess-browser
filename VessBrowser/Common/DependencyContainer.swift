@@ -167,7 +167,7 @@ extension HostDatabaseAccessorDependencyInjectable {
 protocol HostDatabaseAccessorDependencyInjectorProtocol {
 
 	func hostDatabaseAccessor() -> RealmDatabaseAccessor<RealmHost>
-	//func registerEmpty()
+	func registerEmpty()
 }
 
 struct DefaultHostDatabaseAccessorDependencyInjector: HostDatabaseAccessorDependencyInjectorProtocol {
@@ -180,22 +180,31 @@ struct DefaultHostDatabaseAccessorDependencyInjector: HostDatabaseAccessorDepend
 	}
 
 	private func register() {
+		container.register(DatabaseAccessorBox.self) { _ in 
+			DatabaseAccessorBox<RealmDatabaseAccessor<RealmHost>>(object: RealmDatabaseAccessor<RealmHost>())
+		}
+		/*
 		container.register(RealmDatabaseAccessor<RealmHost>.self) { _ in
 			RealmDatabaseAccessor<RealmHost>()
 		}
+		*/
 	}
 
-	/*
 	func registerEmpty() {
-		container.register(HostAccessorProtocol.self) { _ in
-			EmptyHostAccessor()
+		container.register(DatabaseAccessorBox.self) { _ in 
+			DatabaseAccessorBox<EmptyDatabaseAccessor<RealmHost>>(object: EmptyDatabaseAccessor<RealmHost>())
 		}
+		/*
+		container.register(DatabaseAccessorProtocol.self) { (_: Resolver) -> EmptyDatabaseAccessor<RealmHost> in
+			EmptyDatabaseAccessor<RealmHost>()
+		}
+		*/
 	}
-	*/
 
 	// Resolver
 	func hostDatabaseAccessor() -> RealmDatabaseAccessor<RealmHost> {
-		return container.resolve(RealmDatabaseAccessor<RealmHost>.self)!
+		return container.resolve(DatabaseAccessorBox<RealmDatabaseAccessor<RealmHost>>.self)!.object
+		//return container.resolve(RealmDatabaseAccessor<RealmHost>.self)!
 	}
 }
 // MARK: WebsiteAccessor
@@ -286,6 +295,9 @@ struct DefaultUnitTestDependencyInjector: UnitTestDependencyInjectorProtocol {
 		container.register(WebsiteListViewModelProtocol.self) { (_, host: Host) -> WebsiteListViewModel in
 			return WebsiteListViewModel(host: host)
 		}
+		container.register(HostAccessorProtocol.self) { _ in
+			DefaultHostAccessor()
+		}
 	}
 
 	func hostListViewModel() -> HostListViewModelProtocol {
@@ -294,5 +306,9 @@ struct DefaultUnitTestDependencyInjector: UnitTestDependencyInjectorProtocol {
 
 	func websiteListViewModel() -> WebsiteListViewModelProtocol {
 		return container.resolve(WebsiteListViewModelProtocol.self, argument: RealmHost() as Host)!
+	}
+
+	func hostAccessor() -> HostAccessorProtocol {
+		return container.resolve(HostAccessorProtocol.self)!
 	}
 }
