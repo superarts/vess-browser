@@ -11,7 +11,7 @@ protocol PageListViewControllerProtocol: ViewControllerConvertable {
 // TODO: rename PageList to WebPageList?
 class PageListViewController: UIViewController, PageListViewControllerProtocol {
 
-	@IBOutlet var tableView: UITableView!
+	@IBOutlet private var tableView: UITableView!
 
 	var viewModel: PageListViewModelProtocol!
 	var handleSelectPage: PageClosure!

@@ -37,6 +37,8 @@
 		B3B4C67E222CCC2D0017DD85 /* TestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B4C67A222CC4EC0017DD85 /* TestManager.swift */; };
 		B3B4C682222CCE2B0017DD85 /* DependencyInjector+Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B4C680222CCE1C0017DD85 /* DependencyInjector+Manager.swift */; };
 		B3B4C683222CCE2F0017DD85 /* TestDependencyInjector.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B4C676222CC1DE0017DD85 /* TestDependencyInjector.swift */; };
+		B3B4C685222CDE6B0017DD85 /* StubTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B4C684222CDE6B0017DD85 /* StubTests.swift */; };
+		B3B4C688222CDEC60017DD85 /* AppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B4C687222CDEC60017DD85 /* AppTests.swift */; };
 		B3D246BB22165CA10083A76D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D246BA22165CA10083A76D /* AppDelegate.swift */; };
 		B3D246C022165CA10083A76D /* Browser.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B3D246BE22165CA10083A76D /* Browser.storyboard */; };
 		B3D246C222165CA20083A76D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3D246C122165CA20083A76D /* Assets.xcassets */; };
@@ -91,6 +93,8 @@
 		B3B4C67A222CC4EC0017DD85 /* TestManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestManager.swift; sourceTree = "<group>"; };
 		B3B4C67C222CC9C70017DD85 /* Protocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocol.swift; sourceTree = "<group>"; };
 		B3B4C680222CCE1C0017DD85 /* DependencyInjector+Manager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DependencyInjector+Manager.swift"; sourceTree = "<group>"; };
+		B3B4C684222CDE6B0017DD85 /* StubTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StubTests.swift; sourceTree = "<group>"; };
+		B3B4C687222CDEC60017DD85 /* AppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTests.swift; sourceTree = "<group>"; };
 		B3D246B722165CA10083A76D /* VessBrowser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VessBrowser.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3D246BA22165CA10083A76D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B3D246BF22165CA10083A76D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Browser.storyboard; sourceTree = "<group>"; };
@@ -344,6 +348,16 @@
 			path = Manager;
 			sourceTree = "<group>";
 		};
+		B3B4C686222CDE730017DD85 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				B3D246CF22165CA30083A76D /* VessBrowserTests.swift */,
+				B3B4C684222CDE6B0017DD85 /* StubTests.swift */,
+				B3B4C687222CDEC60017DD85 /* AppTests.swift */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
 		B3D246AE22165CA10083A76D = {
 			isa = PBXGroup;
 			children = (
@@ -383,9 +397,9 @@
 		B3D246CE22165CA30083A76D /* VessBrowserTests */ = {
 			isa = PBXGroup;
 			children = (
+				B3B4C686222CDE730017DD85 /* Tests */,
 				B3B4C679222CC3FA0017DD85 /* Manager */,
 				B3B4C678222CC3E90017DD85 /* DependencyInjector */,
-				B3D246CF22165CA30083A76D /* VessBrowserTests.swift */,
 				B3D246D122165CA30083A76D /* Info.plist */,
 			);
 			path = VessBrowserTests;
@@ -678,6 +692,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				B3B4C683222CCE2F0017DD85 /* TestDependencyInjector.swift in Sources */,
+				B3B4C688222CDEC60017DD85 /* AppTests.swift in Sources */,
+				B3B4C685222CDE6B0017DD85 /* StubTests.swift in Sources */,
 				B3D246D022165CA30083A76D /* VessBrowserTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

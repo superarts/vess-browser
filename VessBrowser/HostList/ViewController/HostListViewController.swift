@@ -11,7 +11,7 @@ protocol HostListViewControllerProtocol: ViewControllerConvertable {
 
 class HostListViewController: UIViewController, HostListViewControllerProtocol {
 
-	@IBOutlet var tableView: UITableView!
+	@IBOutlet private var tableView: UITableView!
 
 	var viewModel: HostListViewModelProtocol!
 	var handleSelectHost: HostClosure!
@@ -26,9 +26,9 @@ class HostListViewController: UIViewController, HostListViewControllerProtocol {
 			.bind(to: tableView.rx.items(
 				cellIdentifier: "HostListCell", cellType: UITableViewCell.self)) { (_, host, cell) in
 
-					cell.textLabel?.text = host.name
-					cell.detailTextLabel?.text = host.address
-					cell.imageView?.sd_setImage(with: URL(string: "http://\(host.name)/favicon.ico"), placeholderImage: UIImage(named: "placeholder-vess.png"))
+				cell.textLabel?.text = host.name
+				cell.detailTextLabel?.text = host.address
+				cell.imageView?.sd_setImage(with: URL(string: "http://\(host.name)/favicon.ico"), placeholderImage: UIImage(named: "placeholder-vess.png"))
 			}
 			.disposed(by: disposeBag)
 

@@ -12,8 +12,8 @@ protocol BrowserViewControllerProtocol: ViewControllerConvertable {
 
 class BrowserViewController: UIViewController, BrowserViewControllerProtocol {
 
-	@IBOutlet var webView: WKWebView!
-	@IBOutlet var progressBar: UIProgressView!
+	@IBOutlet private var webView: WKWebView!
+	@IBOutlet private var progressBar: UIProgressView!
 
 	var viewModel: BrowserViewModelProtocol!
 	var handleHome: VoidClosure!
@@ -40,7 +40,10 @@ class BrowserViewController: UIViewController, BrowserViewControllerProtocol {
 
 		viewModel.page.asObservable()
 			.subscribe(onNext: { page in
-				self.webView.load(URLRequest(url: URL(string: page.address)!))
+				guard let url = URL(string: page.address) else {
+					return
+				}
+				self.webView.load(URLRequest(url: url))
 			})
 			.disposed(by: disposeBag)
 	}
@@ -110,6 +113,7 @@ extension BrowserViewController: WKUIDelegate {
 }
 
 extension BrowserViewController: WKNavigationDelegate, HostAccessible, PageAccessible {
+	/*
 	func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
 		print("COMMIT")
 		// TODO: visit with placeholder entry
@@ -124,11 +128,9 @@ extension BrowserViewController: WKNavigationDelegate, HostAccessible, PageAcces
 		print("REDIRECTION")
 	}
 
-	/*
 	func webView(_ webView: WKWebView, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
 	print("CHALLENGE")
 	}
-	*/
 
 	func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
 		print("FAILED", error)
@@ -138,13 +140,14 @@ extension BrowserViewController: WKNavigationDelegate, HostAccessible, PageAcces
 		print("FAILED provisional nav", error)
 	}
 
+	func webViewWebContentProcessDidTerminate(_ webView: WKWebView) {
+		print("TERMINATED")
+	}
+	*/
+
 	func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
 		print("FINISHED")
 		visit()
-	}
-
-	func webViewWebContentProcessDidTerminate(_ webView: WKWebView) {
-		print("TERMINATED")
 	}
 
 	func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {

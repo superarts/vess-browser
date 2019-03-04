@@ -11,6 +11,12 @@ import Swinject
 
 // MARK: - Dependency injector for ViewModels
 
+/*
+	Discussion: In our MVVM-Navigator model, ViewModels are injected in AppNavigator level.
+	AppNavigator owns ViewControllers directly, so ViewModels are not exposed.
+	This DependencyInjector is created to handle ViewModels dependency injection.
+*/
+
 protocol TestViewModelDependencyInjectable {
 	var sharedTestViewModelDependencyInjector: TestViewModelDependencyInjectorProtocol { get }
 }
@@ -25,6 +31,7 @@ protocol TestViewModelDependencyInjectorProtocol {
 
 	func hostListViewModel() -> HostListViewModelProtocol
 	func pageListViewModel() -> PageListViewModelProtocol
+	func browserViewModel() -> BrowserViewModelProtocol
 }
 
 struct DefaultTestViewModelDependencyInjector: TestViewModelDependencyInjectorProtocol {
@@ -43,6 +50,9 @@ struct DefaultTestViewModelDependencyInjector: TestViewModelDependencyInjectorPr
 		container.register(PageListViewModelProtocol.self) { (_, host: Host) -> PageListViewModel in
 			return PageListViewModel(host: host)
 		}
+		container.register(BrowserViewModelProtocol.self) { (_, page: Page) -> BrowserViewModel in
+			return BrowserViewModel(page: page)
+		}
 	}
 
 	func hostListViewModel() -> HostListViewModelProtocol {
@@ -51,5 +61,9 @@ struct DefaultTestViewModelDependencyInjector: TestViewModelDependencyInjectorPr
 
 	func pageListViewModel() -> PageListViewModelProtocol {
 		return container.resolve(PageListViewModelProtocol.self, argument: RealmHost() as Host)!
+	}
+
+	func browserViewModel() -> BrowserViewModelProtocol {
+		return container.resolve(BrowserViewModelProtocol.self, argument: RealmPage() as Page)!
 	}
 }

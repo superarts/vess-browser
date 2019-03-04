@@ -16,6 +16,7 @@ class HostAccessorTests: QuickSpec, HostAccessible {
 			it("is empty if database is empty") {
 				let accessor: HostAccessorProtocol = self.sharedHostAccessorDependencyInjector.hostAccessor()
 				accessor.sharedHostDatabaseAccessorDependencyInjector.registerEmpty()
+				expect(accessor.visit(host: RealmHost())).toNot(throwError())
 				expect(accessor.all()).to(beEmpty())
 			}
 		}
@@ -28,7 +29,9 @@ class PageAccessorTests: QuickSpec, PageAccessible {
 			it("is empty if database is empty") {
 				let accessor: PageAccessorProtocol = self.sharedPageAccessorDependencyInjector.pageAccessor()
 				accessor.sharedPageDatabaseAccessorDependencyInjector.registerEmpty()
+				expect(accessor.visit(page: RealmPage())).toNot(throwError())
 				expect(accessor.all()).to(beEmpty())
+				expect(accessor.pages(hostAddress: "*")).to(beEmpty())
 			}
 		}
 	}
@@ -53,6 +56,11 @@ class ViewModelTests: QuickSpec, TestViewModelDependencyInjectable {
 		}
 		describe("PageList") {
 			context("PageListViewModel") {
+				it("should have a valid searchPage") {
+					let viewModel: PageListViewModelProtocol = self.sharedTestViewModelDependencyInjector.pageListViewModel()
+					expect(viewModel.searchPage).toNot(beNil())
+					expect(viewModel.searchPage.address).toNot(beEmpty())
+				}
 				it("is empty if it's not reloaded") {
 					let viewModel: PageListViewModelProtocol = self.sharedTestViewModelDependencyInjector.pageListViewModel()
 					viewModel.sharedPageAccessorDependencyInjector.registerEmpty()
@@ -69,6 +77,14 @@ class ViewModelTests: QuickSpec, TestViewModelDependencyInjectable {
 					viewModel.sharedPageAccessorDependencyInjector.registerSingle()
 					viewModel.reload()
 					expect(viewModel.pages.value).to(haveCount(1))
+				}
+			}
+		}
+		describe("Browser") {
+			context("BrowserViewModel") {
+				it("should have a Page after initialized") {
+					let viewModel: BrowserViewModelProtocol = self.sharedTestViewModelDependencyInjector.browserViewModel()
+					expect(viewModel.page).toNot(beNil())
 				}
 			}
 		}

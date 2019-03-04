@@ -2,17 +2,17 @@ import UIKit
 import SCLAlertView
 
 /// AppNavigator should be owned by app entry point, which is AppDelegate in iOS
-protocol AppNavigatable {
-	var sharedAppNavigator: AppNavigable { get }
+protocol AppNavigable {
+	var sharedAppNavigator: AppNavigatorProtocol { get }
 }
 
-extension AppNavigatable {
-	var sharedAppNavigator: AppNavigable {
-		return AppNavigator.shared
+extension AppNavigable {
+	var sharedAppNavigator: AppNavigatorProtocol {
+		return DefaultAppNavigator.shared
 	}
 }
 
-protocol AppNavigable {
+protocol AppNavigatorProtocol {
 
 	func setupNavigation(window: UIWindow)
 	func setRootAsHostList()
@@ -21,9 +21,9 @@ protocol AppNavigable {
 /// App navigation handling
 // AppXXX means it depends on UIKit
 // TODO: mutability, single responsibility
-class AppNavigator: AppNavigable, AppNavigatorDependencyInjectable {
+class DefaultAppNavigator: AppNavigatorProtocol, AppNavigatorDependencyInjectable {
 
-	static var shared: AppNavigable = AppNavigator()
+	static var shared: AppNavigatorProtocol = DefaultAppNavigator()
 	private var navigationController: MainNavigationController!
 
 	func setupNavigation(window: UIWindow) {
@@ -64,7 +64,7 @@ class AppNavigator: AppNavigable, AppNavigatorDependencyInjectable {
 	}
 
 	private func pushBrowser(page: Page) {
-		let browserViewController = appNavigatorDependencyInjector.browserViewController(page: page)
+		var browserViewController = appNavigatorDependencyInjector.browserViewController(page: page)
 		browserViewController.handleHome = { [unowned self] in
 			self.navigationController.popToRootViewController(animated: true)
 		}
@@ -74,7 +74,7 @@ class AppNavigator: AppNavigable, AppNavigatorDependencyInjectable {
 				browserViewController.visit(address: text)
 			}
 		}
-		navigationController.pushViewController(browserViewController, animated: true)
+		navigationController.pushViewController(browserViewController.viewController, animated: true)
 	}
 
 	private func set(root: ViewControllerConvertable) {
@@ -88,6 +88,14 @@ class AppNavigator: AppNavigable, AppNavigatorDependencyInjectable {
 			completion(txt.text ?? "")
 		}
 		alert.showEdit("Visit Page", subTitle: "Enter URL Address", closeButtonTitle: "Cancel")
+	}
+}
+
+extension DefaultAppNavigator {
+	func testWorkaround() {
+		pushPageList(host: RealmHost())
+		pushBrowser(page: RealmPage())
+		showAlert { _ in }
 	}
 }
 

@@ -28,7 +28,7 @@ protocol AppNavigatorDependencyInjectorProtocol {
 
 	func hostListViewController() -> HostListViewControllerProtocol
 	func pageListViewController(host: Host) -> PageListViewControllerProtocol
-	func browserViewController(page: Page) -> BrowserViewController
+	func browserViewController(page: Page) -> BrowserViewControllerProtocol
 }
 
 /**
@@ -49,8 +49,8 @@ struct DefaultAppNavigatorDependencyInjector: AppNavigatorDependencyInjectorProt
 	}
 
 	private func register() {
-		container.register(AppNavigable.self) { _ in
-			AppNavigator.shared
+		container.register(AppNavigatorProtocol.self) { _ in
+			DefaultAppNavigator.shared
 		}
 
 		// HostList
@@ -102,7 +102,7 @@ struct DefaultAppNavigatorDependencyInjector: AppNavigatorDependencyInjectorProt
 		return container.resolve(PageListViewControllerProtocol.self, argument: host)!
 	}
 
-	func browserViewController(page: Page) -> BrowserViewController {
+	func browserViewController(page: Page) -> BrowserViewControllerProtocol {
 		return container.resolve(BrowserViewControllerProtocol.self, argument: page) as! BrowserViewController
 	}
 }
