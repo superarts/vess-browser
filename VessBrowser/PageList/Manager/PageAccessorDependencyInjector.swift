@@ -12,39 +12,23 @@ extension PageAccessorDependencyInjectable {
 	}
 }
 
-protocol PageListDependencyInjectorProtocol {
+protocol PageListDependencyInjectorProtocol: EmptyRegistrable, SingleRegistrable {
 
 	func pageAccessor() -> PageAccessorProtocol
-	func register()
-	func registerEmpty()
-	func registerSingle()
 }
 
 struct DefaultPageListDependencyInjector: PageListDependencyInjectorProtocol {
 
 	static var shared: PageListDependencyInjectorProtocol = DefaultPageListDependencyInjector()
-	private let container = Container()
+	let container = Container()
 
 	init() {
 		register()
 	}
 
-	func register() {
+	private func register() {
 		container.register(PageAccessorProtocol.self) { _ in
 			DefaultPageAccessor()
-		}
-	}
-
-	// Tests
-	func registerEmpty() {
-		container.register(PageAccessorProtocol.self) { _ in
-			EmptyPageAccessor()
-		}
-	}
-
-	func registerSingle() {
-		container.register(PageAccessorProtocol.self) { _ in
-			SinglePageAccessor()
 		}
 	}
 

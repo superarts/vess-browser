@@ -12,12 +12,12 @@ extension HostAccessible {
 	}
 }
 
-protocol HostAccessorProtocol {
+protocol HostAccessorProtocol: HostDatabaseAccessible {
 	func visit(host: Host)
 	func all() -> [Host]
 }
 
-struct DefaultHostAccessor: HostAccessorProtocol, HostDatabaseAccessible {
+struct DefaultHostAccessor: HostAccessorProtocol {
 
 	func visit(host: Host) {
 		if hostDatabaseAccessor.first(filter: "address == \"\(host.address)\"") == nil {
@@ -29,11 +29,4 @@ struct DefaultHostAccessor: HostAccessorProtocol, HostDatabaseAccessible {
 		let hosts = hostDatabaseAccessor.all()
 		return hosts.reversed()
 	}
-}
-
-/// Test target
-
-struct EmptyHostAccessor: HostAccessorProtocol {
-	func visit(host: Host) { }
-	func all() -> [Host] { return [] }
 }

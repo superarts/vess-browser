@@ -12,7 +12,7 @@
 		B3056D2F22191C5B0069AB5B /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3056D2E22191C5B0069AB5B /* StoreKit.framework */; };
 		B3056D31221A483E0069AB5B /* PageList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B3056D30221A483E0069AB5B /* PageList.storyboard */; };
 		B3056D3A221A6D300069AB5B /* Navigator.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B3056D39221A6D300069AB5B /* Navigator.storyboard */; };
-		B3056D3C221A6DDA0069AB5B /* Navigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3056D3B221A6DDA0069AB5B /* Navigator.swift */; };
+		B3056D3C221A6DDA0069AB5B /* AppNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3056D3B221A6DDA0069AB5B /* AppNavigator.swift */; };
 		B3B4C6322223A56A0017DD85 /* HostList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B3B4C6312223A56A0017DD85 /* HostList.storyboard */; };
 		B3B4C634222AEB000017DD85 /* Type.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B4C633222AEB000017DD85 /* Type.swift */; };
 		B3B4C645222C9BF90017DD85 /* HostListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B4C63C222C9BF90017DD85 /* HostListViewModel.swift */; };
@@ -32,13 +32,18 @@
 		B3B4C66F222CA2060017DD85 /* PageAccessorDependencyInjector.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B4C66E222CA2060017DD85 /* PageAccessorDependencyInjector.swift */; };
 		B3B4C672222CA3100017DD85 /* HostAccessorDependencyInjector.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B4C670222CA30F0017DD85 /* HostAccessorDependencyInjector.swift */; };
 		B3B4C673222CA3100017DD85 /* HostDatabaseAccessorDependencyInjector.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B4C671222CA3100017DD85 /* HostDatabaseAccessorDependencyInjector.swift */; };
+		B3B4C675222CB32E0017DD85 /* PageDatabaseAccessorDependencyInjector.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B4C674222CB32E0017DD85 /* PageDatabaseAccessorDependencyInjector.swift */; };
+		B3B4C67D222CC9C70017DD85 /* Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B4C67C222CC9C70017DD85 /* Protocol.swift */; };
+		B3B4C67E222CCC2D0017DD85 /* TestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B4C67A222CC4EC0017DD85 /* TestManager.swift */; };
+		B3B4C682222CCE2B0017DD85 /* DependencyInjector+Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B4C680222CCE1C0017DD85 /* DependencyInjector+Manager.swift */; };
+		B3B4C683222CCE2F0017DD85 /* TestDependencyInjector.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B4C676222CC1DE0017DD85 /* TestDependencyInjector.swift */; };
 		B3D246BB22165CA10083A76D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D246BA22165CA10083A76D /* AppDelegate.swift */; };
 		B3D246C022165CA10083A76D /* Browser.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B3D246BE22165CA10083A76D /* Browser.storyboard */; };
 		B3D246C222165CA20083A76D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3D246C122165CA20083A76D /* Assets.xcassets */; };
 		B3D246C522165CA20083A76D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B3D246C322165CA20083A76D /* LaunchScreen.storyboard */; };
 		B3D246D022165CA30083A76D /* VessBrowserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D246CF22165CA30083A76D /* VessBrowserTests.swift */; };
 		B3E2F121221E62BB0043E03E /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E2F120221E62BA0043E03E /* Database.swift */; };
-		B3E2F1272222197C0043E03E /* DependencyContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E2F1262222197C0043E03E /* DependencyContainer.swift */; };
+		B3E2F1272222197C0043E03E /* AppNavigatorDependencyInjectable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E2F1262222197C0043E03E /* AppNavigatorDependencyInjectable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,7 +66,7 @@
 		B3056D2E22191C5B0069AB5B /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		B3056D30221A483E0069AB5B /* PageList.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PageList.storyboard; sourceTree = "<group>"; };
 		B3056D39221A6D300069AB5B /* Navigator.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Navigator.storyboard; sourceTree = "<group>"; };
-		B3056D3B221A6DDA0069AB5B /* Navigator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Navigator.swift; sourceTree = "<group>"; };
+		B3056D3B221A6DDA0069AB5B /* AppNavigator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppNavigator.swift; sourceTree = "<group>"; };
 		B3B4C6312223A56A0017DD85 /* HostList.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = HostList.storyboard; sourceTree = "<group>"; };
 		B3B4C633222AEB000017DD85 /* Type.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Type.swift; sourceTree = "<group>"; };
 		B3B4C63C222C9BF90017DD85 /* HostListViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HostListViewModel.swift; sourceTree = "<group>"; };
@@ -81,6 +86,11 @@
 		B3B4C66E222CA2060017DD85 /* PageAccessorDependencyInjector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageAccessorDependencyInjector.swift; sourceTree = "<group>"; };
 		B3B4C670222CA30F0017DD85 /* HostAccessorDependencyInjector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HostAccessorDependencyInjector.swift; sourceTree = "<group>"; };
 		B3B4C671222CA3100017DD85 /* HostDatabaseAccessorDependencyInjector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HostDatabaseAccessorDependencyInjector.swift; sourceTree = "<group>"; };
+		B3B4C674222CB32E0017DD85 /* PageDatabaseAccessorDependencyInjector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageDatabaseAccessorDependencyInjector.swift; sourceTree = "<group>"; };
+		B3B4C676222CC1DE0017DD85 /* TestDependencyInjector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestDependencyInjector.swift; sourceTree = "<group>"; };
+		B3B4C67A222CC4EC0017DD85 /* TestManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestManager.swift; sourceTree = "<group>"; };
+		B3B4C67C222CC9C70017DD85 /* Protocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocol.swift; sourceTree = "<group>"; };
+		B3B4C680222CCE1C0017DD85 /* DependencyInjector+Manager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DependencyInjector+Manager.swift"; sourceTree = "<group>"; };
 		B3D246B722165CA10083A76D /* VessBrowser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VessBrowser.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3D246BA22165CA10083A76D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B3D246BF22165CA10083A76D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Browser.storyboard; sourceTree = "<group>"; };
@@ -91,7 +101,7 @@
 		B3D246CF22165CA30083A76D /* VessBrowserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VessBrowserTests.swift; sourceTree = "<group>"; };
 		B3D246D122165CA30083A76D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B3E2F120221E62BA0043E03E /* Database.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
-		B3E2F1262222197C0043E03E /* DependencyContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DependencyContainer.swift; sourceTree = "<group>"; };
+		B3E2F1262222197C0043E03E /* AppNavigatorDependencyInjectable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppNavigatorDependencyInjectable.swift; sourceTree = "<group>"; };
 		C668BA4B94B724FFD0A1891C /* Pods-VessBrowser.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VessBrowser.debug.xcconfig"; path = "Pods/Target Support Files/Pods-VessBrowser/Pods-VessBrowser.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -140,8 +150,9 @@
 		B3056D32221A48440069AB5B /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				B3056D3B221A6DDA0069AB5B /* Navigator.swift */,
 				B3056D38221A488D0069AB5B /* Storyboard */,
+				B3056D3B221A6DDA0069AB5B /* AppNavigator.swift */,
+				B3E2F1262222197C0043E03E /* AppNavigatorDependencyInjectable.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -295,6 +306,7 @@
 				B3B4C66C222CA0120017DD85 /* PageAccessor.swift */,
 				B3B4C66E222CA2060017DD85 /* PageAccessorDependencyInjector.swift */,
 				B3B4C65B222C9C9A0017DD85 /* PageDatabaseAccessor.swift */,
+				B3B4C674222CB32E0017DD85 /* PageDatabaseAccessorDependencyInjector.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -313,6 +325,23 @@
 				B3B4C65F222C9C9A0017DD85 /* PageListViewController.swift */,
 			);
 			path = ViewController;
+			sourceTree = "<group>";
+		};
+		B3B4C678222CC3E90017DD85 /* DependencyInjector */ = {
+			isa = PBXGroup;
+			children = (
+				B3B4C676222CC1DE0017DD85 /* TestDependencyInjector.swift */,
+			);
+			path = DependencyInjector;
+			sourceTree = "<group>";
+		};
+		B3B4C679222CC3FA0017DD85 /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				B3B4C680222CCE1C0017DD85 /* DependencyInjector+Manager.swift */,
+				B3B4C67A222CC4EC0017DD85 /* TestManager.swift */,
+			);
+			path = Manager;
 			sourceTree = "<group>";
 		};
 		B3D246AE22165CA10083A76D = {
@@ -354,6 +383,8 @@
 		B3D246CE22165CA30083A76D /* VessBrowserTests */ = {
 			isa = PBXGroup;
 			children = (
+				B3B4C679222CC3FA0017DD85 /* Manager */,
+				B3B4C678222CC3E90017DD85 /* DependencyInjector */,
 				B3D246CF22165CA30083A76D /* VessBrowserTests.swift */,
 				B3D246D122165CA30083A76D /* Info.plist */,
 			);
@@ -366,7 +397,7 @@
 				B3056D32221A48440069AB5B /* UI */,
 				B3B4C633222AEB000017DD85 /* Type.swift */,
 				B3E2F120221E62BA0043E03E /* Database.swift */,
-				B3E2F1262222197C0043E03E /* DependencyContainer.swift */,
+				B3B4C67C222CC9C70017DD85 /* Protocol.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -624,12 +655,16 @@
 				B3B4C66D222CA0120017DD85 /* PageAccessor.swift in Sources */,
 				B3B4C662222C9C9A0017DD85 /* BrowserManager.swift in Sources */,
 				B3B4C647222C9BF90017DD85 /* HostDatabaseAccessor.swift in Sources */,
-				B3056D3C221A6DDA0069AB5B /* Navigator.swift in Sources */,
+				B3B4C67D222CC9C70017DD85 /* Protocol.swift in Sources */,
+				B3B4C682222CCE2B0017DD85 /* DependencyInjector+Manager.swift in Sources */,
+				B3056D3C221A6DDA0069AB5B /* AppNavigator.swift in Sources */,
 				B3B4C664222C9C9A0017DD85 /* BrowserViewController.swift in Sources */,
+				B3B4C675222CB32E0017DD85 /* PageDatabaseAccessorDependencyInjector.swift in Sources */,
 				B3E2F121221E62BB0043E03E /* Database.swift in Sources */,
-				B3E2F1272222197C0043E03E /* DependencyContainer.swift in Sources */,
+				B3E2F1272222197C0043E03E /* AppNavigatorDependencyInjectable.swift in Sources */,
 				B3B4C672222CA3100017DD85 /* HostAccessorDependencyInjector.swift in Sources */,
 				B3D246BB22165CA10083A76D /* AppDelegate.swift in Sources */,
+				B3B4C67E222CCC2D0017DD85 /* TestManager.swift in Sources */,
 				B3B4C668222C9C9A0017DD85 /* PageListModel.swift in Sources */,
 				B3B4C66F222CA2060017DD85 /* PageAccessorDependencyInjector.swift in Sources */,
 				B3B4C665222C9C9A0017DD85 /* PageListViewModel.swift in Sources */,
@@ -642,6 +677,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B3B4C683222CCE2F0017DD85 /* TestDependencyInjector.swift in Sources */,
 				B3D246D022165CA30083A76D /* VessBrowserTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

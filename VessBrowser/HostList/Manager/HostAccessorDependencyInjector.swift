@@ -16,16 +16,15 @@ extension HostAccessorDependencyInjectable {
 
 // MARK: - Features
 
-protocol HostAccessorDependencyInjectorProtocol {
+protocol HostAccessorDependencyInjectorProtocol: EmptyRegistrable {
 
 	func hostAccessor() -> HostAccessorProtocol
-	func registerEmpty()
 }
 
 struct DefaultHostAccessorDependencyInjector: HostAccessorDependencyInjectorProtocol {
 
 	static var shared: HostAccessorDependencyInjectorProtocol = DefaultHostAccessorDependencyInjector()
-	private let container = Container()
+	let container = Container()
 
 	init() {
 		register()
@@ -34,12 +33,6 @@ struct DefaultHostAccessorDependencyInjector: HostAccessorDependencyInjectorProt
 	private func register() {
 		container.register(HostAccessorProtocol.self) { _ in
 			DefaultHostAccessor()
-		}
-	}
-
-	func registerEmpty() {
-		container.register(HostAccessorProtocol.self) { _ in
-			EmptyHostAccessor()
 		}
 	}
 

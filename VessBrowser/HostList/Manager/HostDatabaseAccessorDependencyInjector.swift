@@ -12,37 +12,28 @@ extension HostDatabaseAccessorDependencyInjectable {
 	}
 }
 
-protocol HostDatabaseAccessorDependencyInjectorProtocol {
+protocol HostDatabaseAccessorDependencyInjectorProtocol: EmptyRegistrable {
 
-	func hostDatabaseAccessor() -> RealmDatabaseAccessor<RealmHost>
-	//func registerEmpty()
+	func hostDatabaseAccessor() -> HostDatabaseAccessorProtocol
 }
 
 struct DefaultHostDatabaseAccessorDependencyInjector: HostDatabaseAccessorDependencyInjectorProtocol {
 
 	static var shared: HostDatabaseAccessorDependencyInjectorProtocol = DefaultHostDatabaseAccessorDependencyInjector()
-	private let container = Container()
+	let container = Container()
 
 	init() {
 		register()
 	}
 
 	private func register() {
-		container.register(RealmDatabaseAccessor<RealmHost>.self) { _ in
-			RealmDatabaseAccessor<RealmHost>()
+		container.register(HostDatabaseAccessorProtocol.self) { _ in
+			RealmHostDatabaseAccessor()
 		}
 	}
 
-	/*
-	func registerEmpty() {
-	container.register(HostAccessorProtocol.self) { _ in
-	EmptyHostAccessor()
-	}
-	}
-	*/
-
 	// Resolver
-	func hostDatabaseAccessor() -> RealmDatabaseAccessor<RealmHost> {
-		return container.resolve(RealmDatabaseAccessor<RealmHost>.self)!
+	func hostDatabaseAccessor() -> HostDatabaseAccessorProtocol {
+		return container.resolve(HostDatabaseAccessorProtocol.self)!
 	}
 }

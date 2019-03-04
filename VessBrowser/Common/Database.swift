@@ -3,6 +3,7 @@ import RealmSwift
 protocol Storable {
 }
 
+/*
 protocol DatabaseAccessorProtocol {
 	associatedtype ModelType
 
@@ -34,5 +35,4 @@ struct RealmDatabaseAccessor<ModelType: RealmSwift.Object>: DatabaseAccessorProt
 		return Array(realm.objects(ModelType.self).filter(filter))
 	}
 }
-
-///
+*/

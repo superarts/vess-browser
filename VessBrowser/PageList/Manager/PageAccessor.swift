@@ -12,13 +12,13 @@ extension PageAccessible {
 	}
 }
 
-protocol PageAccessorProtocol {
+protocol PageAccessorProtocol: PageDatabaseAccessible {
 	func visit(page: Page)
 	func all() -> [Page]
 	func pages(hostAddress: String) -> [Page]
 }
 
-struct DefaultPageAccessor: PageAccessorProtocol, PageDatabaseAccessible {
+struct DefaultPageAccessor: PageAccessorProtocol {
 
 	func visit(page: Page) {
 		if pageDatabaseAccessor.first(filter: "address == \"\(page.address)\"") == nil {
@@ -35,18 +35,4 @@ struct DefaultPageAccessor: PageAccessorProtocol, PageDatabaseAccessible {
 		let pages = pageDatabaseAccessor.all(filter: "host == \"\(hostAddress)\"")
 		return pages.reversed()
 	}
-}
-
-/// Test target
-
-struct EmptyPageAccessor: PageAccessorProtocol {
-	func visit(page: Page) { }
-	func all() -> [Page] { return [] }
-	func pages(hostAddress: String) -> [Page] { return [] }
-}
-
-struct SinglePageAccessor: PageAccessorProtocol {
-	func visit(page: Page) { }
-	func all() -> [Page] { return [RealmPage()] }
-	func pages(hostAddress: String) -> [Page] { return [RealmPage()] }
 }
