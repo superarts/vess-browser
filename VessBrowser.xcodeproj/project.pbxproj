@@ -11,14 +11,28 @@
 		8D9DE6EDD31052C7CFC848F9 /* Pods_VessBrowser.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 987D8C2FA32AFEE0CDC70EDB /* Pods_VessBrowser.framework */; };
 		B3056D2F22191C5B0069AB5B /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3056D2E22191C5B0069AB5B /* StoreKit.framework */; };
 		B3056D31221A483E0069AB5B /* PageList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B3056D30221A483E0069AB5B /* PageList.storyboard */; };
-		B3056D36221A487D0069AB5B /* PageListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3056D35221A487D0069AB5B /* PageListViewController.swift */; };
 		B3056D3A221A6D300069AB5B /* Navigator.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B3056D39221A6D300069AB5B /* Navigator.storyboard */; };
 		B3056D3C221A6DDA0069AB5B /* Navigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3056D3B221A6DDA0069AB5B /* Navigator.swift */; };
-		B3B4C6302223A54B0017DD85 /* HostListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B4C62F2223A54A0017DD85 /* HostListViewController.swift */; };
 		B3B4C6322223A56A0017DD85 /* HostList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B3B4C6312223A56A0017DD85 /* HostList.storyboard */; };
 		B3B4C634222AEB000017DD85 /* Type.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B4C633222AEB000017DD85 /* Type.swift */; };
+		B3B4C645222C9BF90017DD85 /* HostListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B4C63C222C9BF90017DD85 /* HostListViewModel.swift */; };
+		B3B4C647222C9BF90017DD85 /* HostDatabaseAccessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B4C640222C9BF90017DD85 /* HostDatabaseAccessor.swift */; };
+		B3B4C648222C9BF90017DD85 /* HostListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B4C642222C9BF90017DD85 /* HostListModel.swift */; };
+		B3B4C649222C9BF90017DD85 /* HostListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B4C644222C9BF90017DD85 /* HostListViewController.swift */; };
+		B3B4C660222C9C9A0017DD85 /* BrowserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B4C64C222C9C9A0017DD85 /* BrowserViewModel.swift */; };
+		B3B4C662222C9C9A0017DD85 /* BrowserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B4C650222C9C9A0017DD85 /* BrowserManager.swift */; };
+		B3B4C663222C9C9A0017DD85 /* BrowserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B4C652222C9C9A0017DD85 /* BrowserModel.swift */; };
+		B3B4C664222C9C9A0017DD85 /* BrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B4C654222C9C9A0017DD85 /* BrowserViewController.swift */; };
+		B3B4C665222C9C9A0017DD85 /* PageListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B4C657222C9C9A0017DD85 /* PageListViewModel.swift */; };
+		B3B4C667222C9C9A0017DD85 /* PageDatabaseAccessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B4C65B222C9C9A0017DD85 /* PageDatabaseAccessor.swift */; };
+		B3B4C668222C9C9A0017DD85 /* PageListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B4C65D222C9C9A0017DD85 /* PageListModel.swift */; };
+		B3B4C669222C9C9A0017DD85 /* PageListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B4C65F222C9C9A0017DD85 /* PageListViewController.swift */; };
+		B3B4C66B222C9FC50017DD85 /* HostAccessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B4C66A222C9FC50017DD85 /* HostAccessor.swift */; };
+		B3B4C66D222CA0120017DD85 /* PageAccessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B4C66C222CA0120017DD85 /* PageAccessor.swift */; };
+		B3B4C66F222CA2060017DD85 /* PageAccessorDependencyInjector.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B4C66E222CA2060017DD85 /* PageAccessorDependencyInjector.swift */; };
+		B3B4C672222CA3100017DD85 /* HostAccessorDependencyInjector.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B4C670222CA30F0017DD85 /* HostAccessorDependencyInjector.swift */; };
+		B3B4C673222CA3100017DD85 /* HostDatabaseAccessorDependencyInjector.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B4C671222CA3100017DD85 /* HostDatabaseAccessorDependencyInjector.swift */; };
 		B3D246BB22165CA10083A76D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D246BA22165CA10083A76D /* AppDelegate.swift */; };
-		B3D246BD22165CA10083A76D /* BrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D246BC22165CA10083A76D /* BrowserViewController.swift */; };
 		B3D246C022165CA10083A76D /* Browser.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B3D246BE22165CA10083A76D /* Browser.storyboard */; };
 		B3D246C222165CA20083A76D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3D246C122165CA20083A76D /* Assets.xcassets */; };
 		B3D246C522165CA20083A76D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B3D246C322165CA20083A76D /* LaunchScreen.storyboard */; };
@@ -46,15 +60,29 @@
 		B3056D2C221919870069AB5B /* VessBrowser.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = VessBrowser.entitlements; sourceTree = "<group>"; };
 		B3056D2E22191C5B0069AB5B /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		B3056D30221A483E0069AB5B /* PageList.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PageList.storyboard; sourceTree = "<group>"; };
-		B3056D35221A487D0069AB5B /* PageListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageListViewController.swift; sourceTree = "<group>"; };
 		B3056D39221A6D300069AB5B /* Navigator.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Navigator.storyboard; sourceTree = "<group>"; };
 		B3056D3B221A6DDA0069AB5B /* Navigator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Navigator.swift; sourceTree = "<group>"; };
-		B3B4C62F2223A54A0017DD85 /* HostListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HostListViewController.swift; sourceTree = "<group>"; };
 		B3B4C6312223A56A0017DD85 /* HostList.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = HostList.storyboard; sourceTree = "<group>"; };
 		B3B4C633222AEB000017DD85 /* Type.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Type.swift; sourceTree = "<group>"; };
+		B3B4C63C222C9BF90017DD85 /* HostListViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HostListViewModel.swift; sourceTree = "<group>"; };
+		B3B4C640222C9BF90017DD85 /* HostDatabaseAccessor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HostDatabaseAccessor.swift; sourceTree = "<group>"; };
+		B3B4C642222C9BF90017DD85 /* HostListModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HostListModel.swift; sourceTree = "<group>"; };
+		B3B4C644222C9BF90017DD85 /* HostListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HostListViewController.swift; sourceTree = "<group>"; };
+		B3B4C64C222C9C9A0017DD85 /* BrowserViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowserViewModel.swift; sourceTree = "<group>"; };
+		B3B4C650222C9C9A0017DD85 /* BrowserManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowserManager.swift; sourceTree = "<group>"; };
+		B3B4C652222C9C9A0017DD85 /* BrowserModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowserModel.swift; sourceTree = "<group>"; };
+		B3B4C654222C9C9A0017DD85 /* BrowserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowserViewController.swift; sourceTree = "<group>"; };
+		B3B4C657222C9C9A0017DD85 /* PageListViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageListViewModel.swift; sourceTree = "<group>"; };
+		B3B4C65B222C9C9A0017DD85 /* PageDatabaseAccessor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageDatabaseAccessor.swift; sourceTree = "<group>"; };
+		B3B4C65D222C9C9A0017DD85 /* PageListModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageListModel.swift; sourceTree = "<group>"; };
+		B3B4C65F222C9C9A0017DD85 /* PageListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageListViewController.swift; sourceTree = "<group>"; };
+		B3B4C66A222C9FC50017DD85 /* HostAccessor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HostAccessor.swift; sourceTree = "<group>"; };
+		B3B4C66C222CA0120017DD85 /* PageAccessor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageAccessor.swift; sourceTree = "<group>"; };
+		B3B4C66E222CA2060017DD85 /* PageAccessorDependencyInjector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageAccessorDependencyInjector.swift; sourceTree = "<group>"; };
+		B3B4C670222CA30F0017DD85 /* HostAccessorDependencyInjector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HostAccessorDependencyInjector.swift; sourceTree = "<group>"; };
+		B3B4C671222CA3100017DD85 /* HostDatabaseAccessorDependencyInjector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HostDatabaseAccessorDependencyInjector.swift; sourceTree = "<group>"; };
 		B3D246B722165CA10083A76D /* VessBrowser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VessBrowser.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3D246BA22165CA10083A76D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		B3D246BC22165CA10083A76D /* BrowserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowserViewController.swift; sourceTree = "<group>"; };
 		B3D246BF22165CA10083A76D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Browser.storyboard; sourceTree = "<group>"; };
 		B3D246C122165CA20083A76D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B3D246C422165CA20083A76D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -114,37 +142,177 @@
 			children = (
 				B3056D3B221A6DDA0069AB5B /* Navigator.swift */,
 				B3056D38221A488D0069AB5B /* Storyboard */,
-				B3056D37221A48860069AB5B /* ViewController */,
 			);
 			path = UI;
-			sourceTree = "<group>";
-		};
-		B3056D37221A48860069AB5B /* ViewController */ = {
-			isa = PBXGroup;
-			children = (
-				B3B4C62F2223A54A0017DD85 /* HostListViewController.swift */,
-				B3056D35221A487D0069AB5B /* PageListViewController.swift */,
-				B3D246BC22165CA10083A76D /* BrowserViewController.swift */,
-			);
-			path = ViewController;
 			sourceTree = "<group>";
 		};
 		B3056D38221A488D0069AB5B /* Storyboard */ = {
 			isa = PBXGroup;
 			children = (
-				B3D246BE22165CA10083A76D /* Browser.storyboard */,
 				B3056D39221A6D300069AB5B /* Navigator.storyboard */,
+			);
+			path = Storyboard;
+			sourceTree = "<group>";
+		};
+		B3B4C63A222C9BF90017DD85 /* HostList */ = {
+			isa = PBXGroup;
+			children = (
+				B3B4C63B222C9BF90017DD85 /* ViewModel */,
+				B3B4C63D222C9BF90017DD85 /* Storyboard */,
+				B3B4C63F222C9BF90017DD85 /* Manager */,
+				B3B4C641222C9BF90017DD85 /* Model */,
+				B3B4C643222C9BF90017DD85 /* ViewController */,
+			);
+			path = HostList;
+			sourceTree = "<group>";
+		};
+		B3B4C63B222C9BF90017DD85 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				B3B4C63C222C9BF90017DD85 /* HostListViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		B3B4C63D222C9BF90017DD85 /* Storyboard */ = {
+			isa = PBXGroup;
+			children = (
 				B3B4C6312223A56A0017DD85 /* HostList.storyboard */,
+			);
+			path = Storyboard;
+			sourceTree = "<group>";
+		};
+		B3B4C63F222C9BF90017DD85 /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				B3B4C66A222C9FC50017DD85 /* HostAccessor.swift */,
+				B3B4C670222CA30F0017DD85 /* HostAccessorDependencyInjector.swift */,
+				B3B4C640222C9BF90017DD85 /* HostDatabaseAccessor.swift */,
+				B3B4C671222CA3100017DD85 /* HostDatabaseAccessorDependencyInjector.swift */,
+			);
+			path = Manager;
+			sourceTree = "<group>";
+		};
+		B3B4C641222C9BF90017DD85 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				B3B4C642222C9BF90017DD85 /* HostListModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		B3B4C643222C9BF90017DD85 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				B3B4C644222C9BF90017DD85 /* HostListViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		B3B4C64A222C9C9A0017DD85 /* Browser */ = {
+			isa = PBXGroup;
+			children = (
+				B3B4C64B222C9C9A0017DD85 /* ViewModel */,
+				B3B4C64D222C9C9A0017DD85 /* Storyboard */,
+				B3B4C64F222C9C9A0017DD85 /* Manager */,
+				B3B4C651222C9C9A0017DD85 /* Model */,
+				B3B4C653222C9C9A0017DD85 /* ViewController */,
+			);
+			path = Browser;
+			sourceTree = "<group>";
+		};
+		B3B4C64B222C9C9A0017DD85 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				B3B4C64C222C9C9A0017DD85 /* BrowserViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		B3B4C64D222C9C9A0017DD85 /* Storyboard */ = {
+			isa = PBXGroup;
+			children = (
+				B3D246BE22165CA10083A76D /* Browser.storyboard */,
+			);
+			path = Storyboard;
+			sourceTree = "<group>";
+		};
+		B3B4C64F222C9C9A0017DD85 /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				B3B4C650222C9C9A0017DD85 /* BrowserManager.swift */,
+			);
+			path = Manager;
+			sourceTree = "<group>";
+		};
+		B3B4C651222C9C9A0017DD85 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				B3B4C652222C9C9A0017DD85 /* BrowserModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		B3B4C653222C9C9A0017DD85 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				B3B4C654222C9C9A0017DD85 /* BrowserViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		B3B4C655222C9C9A0017DD85 /* PageList */ = {
+			isa = PBXGroup;
+			children = (
+				B3B4C656222C9C9A0017DD85 /* ViewModel */,
+				B3B4C658222C9C9A0017DD85 /* Storyboard */,
+				B3B4C65A222C9C9A0017DD85 /* Manager */,
+				B3B4C65C222C9C9A0017DD85 /* Model */,
+				B3B4C65E222C9C9A0017DD85 /* ViewController */,
+			);
+			path = PageList;
+			sourceTree = "<group>";
+		};
+		B3B4C656222C9C9A0017DD85 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				B3B4C657222C9C9A0017DD85 /* PageListViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		B3B4C658222C9C9A0017DD85 /* Storyboard */ = {
+			isa = PBXGroup;
+			children = (
 				B3056D30221A483E0069AB5B /* PageList.storyboard */,
 			);
 			path = Storyboard;
 			sourceTree = "<group>";
 		};
-		B3B4C635222C8DE00017DD85 /* HostList */ = {
+		B3B4C65A222C9C9A0017DD85 /* Manager */ = {
 			isa = PBXGroup;
 			children = (
+				B3B4C66C222CA0120017DD85 /* PageAccessor.swift */,
+				B3B4C66E222CA2060017DD85 /* PageAccessorDependencyInjector.swift */,
+				B3B4C65B222C9C9A0017DD85 /* PageDatabaseAccessor.swift */,
 			);
-			path = HostList;
+			path = Manager;
+			sourceTree = "<group>";
+		};
+		B3B4C65C222C9C9A0017DD85 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				B3B4C65D222C9C9A0017DD85 /* PageListModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		B3B4C65E222C9C9A0017DD85 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				B3B4C65F222C9C9A0017DD85 /* PageListViewController.swift */,
+			);
+			path = ViewController;
 			sourceTree = "<group>";
 		};
 		B3D246AE22165CA10083A76D = {
@@ -170,9 +338,10 @@
 		B3D246B922165CA10083A76D /* VessBrowser */ = {
 			isa = PBXGroup;
 			children = (
-				B3B4C635222C8DE00017DD85 /* HostList */,
 				B3E2F1222220FBED0043E03E /* Common */,
-				B3056D32221A48440069AB5B /* UI */,
+				B3B4C63A222C9BF90017DD85 /* HostList */,
+				B3B4C655222C9C9A0017DD85 /* PageList */,
+				B3B4C64A222C9C9A0017DD85 /* Browser */,
 				B3056D2C221919870069AB5B /* VessBrowser.entitlements */,
 				B3D246BA22165CA10083A76D /* AppDelegate.swift */,
 				B3D246C122165CA20083A76D /* Assets.xcassets */,
@@ -194,6 +363,7 @@
 		B3E2F1222220FBED0043E03E /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				B3056D32221A48440069AB5B /* UI */,
 				B3B4C633222AEB000017DD85 /* Type.swift */,
 				B3E2F120221E62BA0043E03E /* Database.swift */,
 				B3E2F1262222197C0043E03E /* DependencyContainer.swift */,
@@ -443,13 +613,27 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B3056D36221A487D0069AB5B /* PageListViewController.swift in Sources */,
-				B3B4C6302223A54B0017DD85 /* HostListViewController.swift in Sources */,
+				B3B4C667222C9C9A0017DD85 /* PageDatabaseAccessor.swift in Sources */,
+				B3B4C648222C9BF90017DD85 /* HostListModel.swift in Sources */,
+				B3B4C645222C9BF90017DD85 /* HostListViewModel.swift in Sources */,
+				B3B4C66B222C9FC50017DD85 /* HostAccessor.swift in Sources */,
+				B3B4C673222CA3100017DD85 /* HostDatabaseAccessorDependencyInjector.swift in Sources */,
+				B3B4C649222C9BF90017DD85 /* HostListViewController.swift in Sources */,
+				B3B4C660222C9C9A0017DD85 /* BrowserViewModel.swift in Sources */,
+				B3B4C669222C9C9A0017DD85 /* PageListViewController.swift in Sources */,
+				B3B4C66D222CA0120017DD85 /* PageAccessor.swift in Sources */,
+				B3B4C662222C9C9A0017DD85 /* BrowserManager.swift in Sources */,
+				B3B4C647222C9BF90017DD85 /* HostDatabaseAccessor.swift in Sources */,
 				B3056D3C221A6DDA0069AB5B /* Navigator.swift in Sources */,
-				B3D246BD22165CA10083A76D /* BrowserViewController.swift in Sources */,
+				B3B4C664222C9C9A0017DD85 /* BrowserViewController.swift in Sources */,
 				B3E2F121221E62BB0043E03E /* Database.swift in Sources */,
 				B3E2F1272222197C0043E03E /* DependencyContainer.swift in Sources */,
+				B3B4C672222CA3100017DD85 /* HostAccessorDependencyInjector.swift in Sources */,
 				B3D246BB22165CA10083A76D /* AppDelegate.swift in Sources */,
+				B3B4C668222C9C9A0017DD85 /* PageListModel.swift in Sources */,
+				B3B4C66F222CA2060017DD85 /* PageAccessorDependencyInjector.swift in Sources */,
+				B3B4C665222C9C9A0017DD85 /* PageListViewModel.swift in Sources */,
+				B3B4C663222C9C9A0017DD85 /* BrowserModel.swift in Sources */,
 				B3B4C634222AEB000017DD85 /* Type.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

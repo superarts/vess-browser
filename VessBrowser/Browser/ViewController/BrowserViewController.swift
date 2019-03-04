@@ -1,11 +1,3 @@
-//
-//  ViewController.swift
-//  VessBrowser
-//
-//  Created by Leo on 2/14/19.
-//  Copyright © 2019 Super Art Software. All rights reserved.
-//
-
 import UIKit
 import WebKit
 import RxSwift
@@ -48,9 +40,9 @@ class BrowserViewController: UIViewController, BrowserViewControllerProtocol {
 
 		viewModel.page.asObservable()
 			.subscribe(onNext: { page in
-        		self.webView.load(URLRequest(url: URL(string: page.address)!))
-    		})
-            .disposed(by: disposeBag)
+				self.webView.load(URLRequest(url: URL(string: page.address)!))
+			})
+			.disposed(by: disposeBag)
 	}
 
 	deinit {
@@ -78,11 +70,11 @@ class BrowserViewController: UIViewController, BrowserViewControllerProtocol {
 
 	/*
 	func nextBrowser() -> BrowserViewController {
-		let storyboard = UIStoryboard(name: "Browser", bundle: nil)
-		if let controller = storyboard.instantiateInitialViewController() as? BrowserViewController {
-			return controller
-		}
-		fatalError("BROWSER failed initializing nextBrowser")
+	let storyboard = UIStoryboard(name: "Browser", bundle: nil)
+	if let controller = storyboard.instantiateInitialViewController() as? BrowserViewController {
+	return controller
+	}
+	fatalError("BROWSER failed initializing nextBrowser")
 	}
 	*/
 
@@ -116,7 +108,7 @@ extension BrowserViewController: WKUIDelegate {
 		return nil
 	}
 }
-  
+
 extension BrowserViewController: WKNavigationDelegate, HostAccessible, PageAccessible {
 	func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
 		print("COMMIT")
@@ -134,7 +126,7 @@ extension BrowserViewController: WKNavigationDelegate, HostAccessible, PageAcces
 
 	/*
 	func webView(_ webView: WKWebView, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
-		print("CHALLENGE")
+	print("CHALLENGE")
 	}
 	*/
 
@@ -181,19 +173,5 @@ extension BrowserViewController: WKNavigationDelegate, HostAccessible, PageAcces
 			page.host = webView.url?.host ?? urlAddress
 			pageAccessor.visit(page: page)
 		}
-	}
-}
-
-///
-
-protocol BrowserViewModelProtocol {
-    var page: Variable<Page> { get }
-}
-
-struct BrowserViewModel: BrowserViewModelProtocol {
-    var page = Variable<Page>(RealmPage())
-
-	init(page: Page) {
-		self.page.value = page
 	}
 }
