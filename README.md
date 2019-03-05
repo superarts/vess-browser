@@ -4,7 +4,22 @@ A working-in-progress iOS browser. This README file is also WIP.
 
 ## Architecture
 
-### POP
+### MVVM
+
+Other than Navigator it's the usual MVVM approach based on RxSwift. This part will be discussed in details in future.
+
+- View
+  - AppNavigator 
+  - ViewControllers
+- ViewModel
+  - Reactive programming
+- Model
+  - App level models: reflect business logic
+  - Low level models, e.g. RealmObjects, network models, etc.
+- Helpers and composition: see [Protocol Oriented Programming](#pop)
+
+<a name="pop"></a>
+### Protocol Oriented Programming
 
 This project is heavily based on Protocol Oriented Programming, and composition is highly used. 
 
@@ -32,7 +47,7 @@ Based on the consideration above, we have the following design:
 - Mutability and state: unless a component is a shared instance like `sharedHostAccessorDependencyInjector`, it is not only immutable, but also must be totally stateless.
   - Although memory reallocation is an inevitable cost, it's a reasonable price to pay for the sake of code maintainability and testibility.
   - If state needs to be maintained, it should be handled in `ViewModels`.
-  - Shared instances should only be used in limited occasions (like Navigator or DependencyInjector - will be discussed later).
+  - Shared instances should only be used in limited occasions (like Navigator or DependencyInjector - will be discussed in future).
 
 Code of `HostAccessor`:
 
@@ -118,3 +133,7 @@ struct DefaultHostAccessorDependencyInjector: HostAccessorDependencyInjectorProt
 }
 
 ```
+
+### References
+
+- [Mutability vs MVVM](https://softwareengineering.stackexchange.com/questions/335956/immutable-vs-mutable-mobile-object/388047#388047)
