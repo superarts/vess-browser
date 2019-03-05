@@ -20,7 +20,11 @@ protocol HostAccessorProtocol: HostDatabaseAccessible {
 struct DefaultHostAccessor: HostAccessorProtocol {
 
 	func visit(host: Host) {
-		if hostDatabaseAccessor.first(filter: "address == \"\(host.address)\"") == nil {
+		if var first = hostDatabaseAccessor.first(filter: "address == \"\(host.address)\"") {
+			hostDatabaseAccessor.update(host: first) {
+				first.updated = Date()
+			}
+		} else {
 			hostDatabaseAccessor.store(host)
 		}
 	}

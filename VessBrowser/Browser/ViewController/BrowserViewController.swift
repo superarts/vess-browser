@@ -46,6 +46,19 @@ class BrowserViewController: UIViewController, BrowserViewControllerProtocol {
 				self.webView.load(URLRequest(url: url))
 			})
 			.disposed(by: disposeBag)
+
+		// TODO
+		let item = UIBarButtonItem()
+		item.image = UIImage(named: "back")
+		//item.title = "< Back"
+		item.rx.tap.asObservable().subscribe { _ in
+			if self.webView.canGoBack {
+        		self.webView.goBack()
+			} else {
+				self.navigationController?.popViewController(animated: true)
+			}
+		}.disposed(by: disposeBag)
+		navigationItem.leftBarButtonItem = item
 	}
 
 	deinit {

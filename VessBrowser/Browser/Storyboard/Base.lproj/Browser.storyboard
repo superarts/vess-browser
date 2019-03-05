@@ -49,14 +49,14 @@
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="7a7-KA-WyB"/>
+                                    <barButtonItem title="  ☛  " id="aUx-I1-mQa">
+                                        <connections>
+                                            <action selector="actionManualEntry" destination="BYZ-38-t0r" id="odN-Vc-hEt"/>
+                                        </connections>
+                                    </barButtonItem>
                                     <barButtonItem systemItem="search" id="5CH-tO-ifE">
                                         <connections>
                                             <action selector="actionSearch" destination="BYZ-38-t0r" id="jvw-7i-9l2"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem title="✋" id="aUx-I1-mQa">
-                                        <connections>
-                                            <action selector="actionManualEntry" destination="BYZ-38-t0r" id="odN-Vc-hEt"/>
                                         </connections>
                                     </barButtonItem>
                                 </items>

@@ -3,6 +3,14 @@ import RealmSwift
 protocol Storable {
 }
 
+class RealmObject: Object {
+	@objc dynamic var uid = UUID().uuidString
+
+	override static func primaryKey() -> String? {
+		return "uid"
+	}
+}
+
 /*
 protocol DatabaseAccessorProtocol {
 	associatedtype ModelType

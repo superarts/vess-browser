@@ -2,6 +2,7 @@ import RxSwift
 
 protocol PageListViewModelProtocol: LifeCycleManagable, PageAccessible {
 
+	var host: Variable<Host> { get }
 	var pages: Variable<[Page]> { get }
 	var searchPage: Page { get }
 }
@@ -20,6 +21,7 @@ protocol PageListViewModelProtocol: LifeCycleManagable, PageAccessible {
 * - Perform tests
 */
 struct PageListViewModel: PageListViewModelProtocol {
+	var host = Variable<Host>(RealmHost())
 	var pages = Variable<[Page]>([Page]())
 
 	/// The `Page` that is used for search in the current PageList
@@ -29,7 +31,6 @@ struct PageListViewModel: PageListViewModelProtocol {
 		return page
 	}
 
-	private var host = Variable<Host>(RealmHost())
 	//private let disposeBag = DisposeBag()
 
 	init(host: Host) {

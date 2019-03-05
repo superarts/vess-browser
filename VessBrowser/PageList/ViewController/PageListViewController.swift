@@ -22,6 +22,12 @@ class PageListViewController: UIViewController, PageListViewControllerProtocol {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
+		viewModel.host.asObservable()
+			.subscribe(onNext: { host in
+				self.title = host.name
+			})
+			.disposed(by: disposeBag)
+
 		viewModel.pages.asObservable()
 			.bind(to: tableView.rx.items(
 				cellIdentifier: "PageListCell", cellType: UITableViewCell.self)) { (_, page, cell) in

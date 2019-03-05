@@ -21,7 +21,11 @@ protocol PageAccessorProtocol: PageDatabaseAccessible {
 struct DefaultPageAccessor: PageAccessorProtocol {
 
 	func visit(page: Page) {
-		if pageDatabaseAccessor.first(filter: "address == \"\(page.address)\"") == nil {
+		if var first = pageDatabaseAccessor.first(filter: "address == \"\(page.address)\"") {
+			pageDatabaseAccessor.update(page: first) {
+				first.updated = Date()
+			}
+		} else {
 			pageDatabaseAccessor.store(page)
 		}
 	}
