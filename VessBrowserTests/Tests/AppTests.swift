@@ -11,18 +11,25 @@ import Nimble
 @testable import VessBrowser
 
 /**
-    Discussion: test coverage counts `@IBOutlet private func`.
+Discussion: we are testing implementation instead of protocol for the following components:
+- UIKit componenets, due to things like `viewDidLoad`, `applicationDidFinishLaunching` etc.
+- `AppTestable` components, because `testApp()` is an add-on to a specific implementation
 */
 
-class AppTests: QuickSpec, AppNavigatorDependencyInjectable {
+class AppTests: QuickSpec, AppNavigatorDependencyInjectable, TestModelProvidable {
+
 	override func spec() {
+
+		let host = testModelProvider.GoogleHost
+		let page = testModelProvider.GooglePage
+
 		describe("Application") {
 			context("Navigator") {
 				it("is AppNavigator") {
 					let navigator = DefaultAppNavigator()
 					expect(navigator.setupNavigation(window: UIWindow())).toNot(throwError())
 					expect(navigator.setRootAsHostList()).toNot(throwError())
-					expect(navigator.testWorkaround()).toNot(throwError())
+					expect(navigator.testApp()).toNot(throwError())
 				}
 			}
 		}
@@ -40,7 +47,7 @@ class AppTests: QuickSpec, AppNavigatorDependencyInjectable {
 			}
 			context("ViewController") {
 				it("is HostListViewController") {
-					let controller: HostListViewController = self.appNavigatorDependencyInjector.hostListViewController() as! HostListViewController
+					let controller = self.sharedAppNavigatorDependencyInjector.hostListViewController() as! HostListViewController
 					expect(controller.loadView()).toNot(throwError())
 					expect(controller.viewDidLoad()).toNot(throwError())
 					expect(controller.viewWillAppear(true)).toNot(throwError())
@@ -52,28 +59,24 @@ class AppTests: QuickSpec, AppNavigatorDependencyInjectable {
 					*/
 					expect(controller.handleSearch = { } ).toNot(throwError())
 					//expect(controller.handleSearch).toNot(beNil())
-					expect(controller.actionSearch()).toNot(throwError())
+					expect(controller.testApp()).toNot(throwError())
 				}
 				it("is PageListViewController") {
-					let controller: PageListViewController = self.appNavigatorDependencyInjector.pageListViewController(host: RealmHost()) as! PageListViewController
+					let controller = self.sharedAppNavigatorDependencyInjector.pageListViewController(host: host) as! PageListViewController
 					expect(controller.loadView()).toNot(throwError())
 					expect(controller.viewDidLoad()).toNot(throwError())
 					expect(controller.viewWillAppear(true)).toNot(throwError())
 					expect(controller.handleSearchPage = { _ in } ).toNot(throwError())
-					expect(controller.actionSearch()).toNot(throwError())
+					expect(controller.testApp()).toNot(throwError())
 				}
 				it("is BrowserViewController") {
-					let controller: BrowserViewController = self.appNavigatorDependencyInjector.browserViewController(page: RealmPage()) as! BrowserViewController
+					let controller = self.sharedAppNavigatorDependencyInjector.browserViewController(page: page) as! BrowserViewController
 					expect(controller.loadView()).toNot(throwError())
 					expect(controller.viewDidLoad()).toNot(throwError())
 					expect(controller.visit(address: "https://www.google.com")).toNot(throwError())
 					expect(controller.handleHome = { } ).toNot(throwError())
 					expect(controller.handleManualEntry = { } ).toNot(throwError())
-					expect(controller.actionBack()).toNot(throwError())
-					expect(controller.actionForward()).toNot(throwError())
-					expect(controller.actionSearch()).toNot(throwError())
-					expect(controller.actionHome()).toNot(throwError())
-					expect(controller.actionManualEntry()).toNot(throwError())
+					expect(controller.testApp()).toNot(throwError())
 				}
 			}
 		}

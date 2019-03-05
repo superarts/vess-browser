@@ -15,6 +15,12 @@ import Foundation
  * Unfortunately, for the same reason, EmptyDataManagers have to be put inside App target.
  */
 
+/// Test private IBOutlets and IBActions
+protocol AppTestable {
+	func testApp()
+}
+
+/// Register Empty Dependency
 protocol EmptyRegistrable {
 	func registerEmpty()
 }
@@ -23,6 +29,7 @@ extension EmptyRegistrable {
 	func registerEmpty() { }
 }
 
+/// Register dependency that provides only 1 result
 protocol SingleRegistrable {
 	func registerSingle()
 }

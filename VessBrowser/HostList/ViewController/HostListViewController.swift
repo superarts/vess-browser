@@ -54,7 +54,15 @@ class HostListViewController: UIViewController, HostListViewControllerProtocol {
 		viewModel.reload()
 	}
 
-	@IBAction func actionSearch() {
+	@IBAction private func actionSearch() {
 		self.handleSearch()
+	}
+}
+
+// MARK: - AppTestable
+
+extension HostListViewController: AppTestable {
+	func testApp() {
+		actionSearch()
 	}
 }

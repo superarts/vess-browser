@@ -8,6 +8,7 @@
 
 import Quick
 import Nimble
+import RealmSwift
 @testable import VessBrowser
 
 class HostAccessorTests: QuickSpec, HostAccessible {
@@ -85,6 +86,53 @@ class ViewModelTests: QuickSpec, TestViewModelDependencyInjectable {
 				it("should have a Page after initialized") {
 					let viewModel: BrowserViewModelProtocol = self.sharedTestViewModelDependencyInjector.browserViewModel()
 					expect(viewModel.page).toNot(beNil())
+				}
+			}
+		}
+	}
+}
+
+class DatabaseTests: QuickSpec, TestModelProvidable {
+	override func spec() {
+		super.spec()
+
+		beforeSuite {
+			Realm.Configuration.defaultConfiguration.inMemoryIdentifier = "TestDatabase"
+		}
+
+		beforeEach {
+    		let realm = try! Realm()
+			try! realm.write {
+				realm.deleteAll()
+			}
+		}
+
+		describe("Host") {
+			context("HostDatabaseAccessor") {
+				it("can store and retrieve 1 item") {
+        			let host = self.testModelProvider.GoogleHost
+					let accessor: HostDatabaseAccessorProtocol = RealmHostDatabaseAccessor()
+					expect(accessor.store(host)).toNot(throwError())
+					expect(accessor.all()).to(haveCount(1))
+					expect(accessor.first(filter: "address == 'https://www.bing.com'")).to(beNil())
+					expect(accessor.first(filter: "address == '\(host.address)'")).toNot(beNil())
+					expect(accessor.all(filter: "address == 'https://www.bing.com'")).to(beEmpty())
+					expect(accessor.all(filter: "address == '\(host.address)'")).to(haveCount(1))
+				}
+			}
+		}
+
+		describe("Page") {
+			context("PageDatabaseAccessor") {
+				it("can store and retrieve 1 item") {
+        			let page = self.testModelProvider.GooglePage
+					let accessor: PageDatabaseAccessorProtocol = RealmPageDatabaseAccessor()
+					expect(accessor.store(page)).toNot(throwError())
+					expect(accessor.all()).to(haveCount(1))
+					expect(accessor.first(filter: "address == 'https://www.bing.com'")).to(beNil())
+					expect(accessor.first(filter: "address == '\(page.address)'")).toNot(beNil())
+					expect(accessor.all(filter: "address == 'https://www.bing.com'")).to(beEmpty())
+					expect(accessor.all(filter: "address == '\(page.address)'")).to(haveCount(1))
 				}
 			}
 		}

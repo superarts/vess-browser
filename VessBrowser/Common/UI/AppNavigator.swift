@@ -2,13 +2,13 @@ import UIKit
 import SCLAlertView
 
 /// AppNavigator should be owned by app entry point, which is AppDelegate in iOS
-protocol AppNavigable {
+protocol AppNavigable: AppNavigatorDependencyInjectable {
 	var sharedAppNavigator: AppNavigatorProtocol { get }
 }
 
 extension AppNavigable {
 	var sharedAppNavigator: AppNavigatorProtocol {
-		return DefaultAppNavigator.shared
+		return sharedAppNavigatorDependencyInjector.sharedAppNavigator()
 	}
 }
 
@@ -40,7 +40,7 @@ class DefaultAppNavigator: AppNavigatorProtocol, AppNavigatorDependencyInjectabl
 	}
 
 	func setRootAsHostList() {
-		var hostListViewController = appNavigatorDependencyInjector.hostListViewController()
+		var hostListViewController = sharedAppNavigatorDependencyInjector.hostListViewController()
 		hostListViewController.handleSelectHost = { [unowned self] host in
 			self.pushPageList(host: host)
 		}
@@ -53,7 +53,7 @@ class DefaultAppNavigator: AppNavigatorProtocol, AppNavigatorDependencyInjectabl
 	}
 
 	private func pushPageList(host: Host) {
-		var pageListViewController = appNavigatorDependencyInjector.pageListViewController(host: host)
+		var pageListViewController = sharedAppNavigatorDependencyInjector.pageListViewController(host: host)
 		pageListViewController.handleSelectPage = { [unowned self] page in
 			self.pushBrowser(page: page)
 		}
@@ -64,7 +64,7 @@ class DefaultAppNavigator: AppNavigatorProtocol, AppNavigatorDependencyInjectabl
 	}
 
 	private func pushBrowser(page: Page) {
-		var browserViewController = appNavigatorDependencyInjector.browserViewController(page: page)
+		var browserViewController = sharedAppNavigatorDependencyInjector.browserViewController(page: page)
 		browserViewController.handleHome = { [unowned self] in
 			self.navigationController.popToRootViewController(animated: true)
 		}
@@ -91,13 +91,21 @@ class DefaultAppNavigator: AppNavigatorProtocol, AppNavigatorDependencyInjectabl
 	}
 }
 
-extension DefaultAppNavigator {
-	func testWorkaround() {
+// MARK: - AppTestable
+
+/*
+Discussion: AppTestable is a workaround to improve test coverage.
+Proper UI tests should be used to address this issue.
+*/
+extension DefaultAppNavigator: AppTestable {
+	func testApp() {
 		pushPageList(host: RealmHost())
 		pushBrowser(page: RealmPage())
 		showAlert { _ in }
 	}
 }
+
+// MARK: - MainNavigationController
 
 class MainNavigationController: UINavigationController {
 }

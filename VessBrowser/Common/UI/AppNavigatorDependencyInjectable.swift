@@ -10,11 +10,11 @@ import Swinject
  */
 
 protocol AppNavigatorDependencyInjectable {
-	var appNavigatorDependencyInjector: AppNavigatorDependencyInjectorProtocol { get }
+	var sharedAppNavigatorDependencyInjector: AppNavigatorDependencyInjectorProtocol { get }
 }
 
 extension AppNavigatorDependencyInjectable {
-	var appNavigatorDependencyInjector: AppNavigatorDependencyInjectorProtocol {
+	var sharedAppNavigatorDependencyInjector: AppNavigatorDependencyInjectorProtocol {
 		return DefaultAppNavigatorDependencyInjector.shared
 	}
 }
@@ -26,6 +26,7 @@ extension AppNavigatorDependencyInjectable {
 
 protocol AppNavigatorDependencyInjectorProtocol {
 
+	func sharedAppNavigator() -> AppNavigatorProtocol
 	func hostListViewController() -> HostListViewControllerProtocol
 	func pageListViewController(host: Host) -> PageListViewControllerProtocol
 	func browserViewController(page: Page) -> BrowserViewControllerProtocol
@@ -94,6 +95,10 @@ struct DefaultAppNavigatorDependencyInjector: AppNavigatorDependencyInjectorProt
 	}
 
 	// Resolvers
+	func sharedAppNavigator() -> AppNavigatorProtocol {
+		return container.resolve(AppNavigatorProtocol.self)!
+	}
+
 	func hostListViewController() -> HostListViewControllerProtocol {
 		return container.resolve(HostListViewControllerProtocol.self)!
 	}

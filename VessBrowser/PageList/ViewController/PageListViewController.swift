@@ -57,3 +57,11 @@ class PageListViewController: UIViewController, PageListViewControllerProtocol {
 		handleSearchPage(viewModel.searchPage)
 	}
 }
+
+// MARK: - AppTestable
+
+extension PageListViewController: AppTestable {
+	func testApp() {
+		actionSearch()
+	}
+}

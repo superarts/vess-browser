@@ -15,61 +15,61 @@ class StubTests: QuickSpec {
 		describe("Empty stubs") {
 			context("EmptyHostAccessor") {
 				it("can visit") {
-					let accessor = EmptyHostAccessor()
+					let accessor: HostAccessorProtocol = EmptyHostAccessor()
 					expect(accessor.visit(host: RealmHost())).toNot(throwError())
 				}
 				it("has nothing") {
-					let accessor = EmptyHostAccessor()
+					let accessor: HostAccessorProtocol = EmptyHostAccessor()
 					expect(accessor.all()).to(beEmpty())
 				}
 			}
 			context("EmptyHostDatabaseAccessor") {
 				it("can store") {
-					let accessor = EmptyHostDatabaseAccessor()
+					let accessor: HostDatabaseAccessorProtocol = EmptyHostDatabaseAccessor()
 					expect(accessor.store(RealmHost())).toNot(throwError())
 				}
 				it("returns nothing for filter") {
-					let accessor = EmptyHostDatabaseAccessor()
+					let accessor: HostDatabaseAccessorProtocol = EmptyHostDatabaseAccessor()
 					expect(accessor.first(filter: "*")).to(beNil())
 				}
 				it("has nothing") {
-					let accessor = EmptyHostDatabaseAccessor()
+					let accessor: HostDatabaseAccessorProtocol = EmptyHostDatabaseAccessor()
 					expect(accessor.all()).to(beEmpty())
 				}
 				it("has nothing for filter") {
-					let accessor = EmptyHostDatabaseAccessor()
+					let accessor: HostDatabaseAccessorProtocol = EmptyHostDatabaseAccessor()
 					expect(accessor.all(filter: "*")).to(beEmpty())
 				}
 			}
 			context("EmptyPageAccessor") {
 				it("can visit") {
-					let accessor = EmptyPageAccessor()
+					let accessor: PageAccessorProtocol = EmptyPageAccessor()
 					expect(accessor.visit(page: RealmPage())).toNot(throwError())
 				}
 				it("has nothing") {
-					let accessor = EmptyPageAccessor()
+					let accessor: PageAccessorProtocol = EmptyPageAccessor()
 					expect(accessor.all()).to(beEmpty())
 				}
 				it("has nothing for given hostAddress") {
-					let accessor = EmptyPageAccessor()
+					let accessor: PageAccessorProtocol = EmptyPageAccessor()
 					expect(accessor.pages(hostAddress: "www.google.com")).to(beEmpty())
 				}
 			}
 			context("EmptyPageDatabaseAccessor") {
 				it("can store") {
-					let accessor = EmptyPageDatabaseAccessor()
+					let accessor: PageDatabaseAccessorProtocol = EmptyPageDatabaseAccessor()
 					expect(accessor.store(RealmPage())).toNot(throwError())
 				}
 				it("returns nothing for filter") {
-					let accessor = EmptyPageDatabaseAccessor()
+					let accessor: PageDatabaseAccessorProtocol = EmptyPageDatabaseAccessor()
 					expect(accessor.first(filter: "*")).to(beNil())
 				}
 				it("has nothing") {
-					let accessor = EmptyPageDatabaseAccessor()
+					let accessor: PageDatabaseAccessorProtocol = EmptyPageDatabaseAccessor()
 					expect(accessor.all()).to(beEmpty())
 				}
 				it("has nothing for filter") {
-					let accessor = EmptyPageDatabaseAccessor()
+					let accessor: PageDatabaseAccessorProtocol = EmptyPageDatabaseAccessor()
 					expect(accessor.all(filter: "*")).to(beEmpty())
 				}
 			}
@@ -78,15 +78,15 @@ class StubTests: QuickSpec {
 		describe("Single stubs") {
 			context("SinglePageAccessor") {
 				it("can visit") {
-					let accessor = SinglePageAccessor()
+					let accessor: PageAccessorProtocol = SinglePageAccessor()
 					expect(accessor.visit(page: RealmPage())).toNot(throwError())
 				}
 				it("has 1 Page") {
-					let accessor = SinglePageAccessor()
+					let accessor: PageAccessorProtocol = SinglePageAccessor()
 					expect(accessor.all()).to(haveCount(1))
 				}
 				it("has 1 Page for any given hostAddress") {
-					let accessor = SinglePageAccessor()
+					let accessor: PageAccessorProtocol = SinglePageAccessor()
 					expect(accessor.pages(hostAddress: "www.google.com")).to(haveCount(1))
 				}
 			}

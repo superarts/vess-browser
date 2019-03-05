@@ -81,23 +81,23 @@ class BrowserViewController: UIViewController, BrowserViewControllerProtocol {
 	}
 	*/
 
-	@IBAction func actionBack() {
+	@IBAction private func actionBack() {
 		webView.goBack()
 	}
 
-	@IBAction func actionForward() {
+	@IBAction private func actionForward() {
 		webView.goForward()
 	}
 
-	@IBAction func actionSearch() {
+	@IBAction private func actionSearch() {
 		webView.load(URLRequest(url: URL(string: "https://www.google.com")!))	// TODO
 	}
 
-	@IBAction func actionHome() {
+	@IBAction private func actionHome() {
 		handleHome()
 	}
 
-	@IBAction func actionManualEntry() {
+	@IBAction private func actionManualEntry() {
 		handleManualEntry()
 	}
 }
@@ -176,5 +176,17 @@ extension BrowserViewController: WKNavigationDelegate, HostAccessible, PageAcces
 			page.host = webView.url?.host ?? urlAddress
 			pageAccessor.visit(page: page)
 		}
+	}
+}
+
+// MARK: - AppTestable
+
+extension BrowserViewController: AppTestable {
+	func testApp() {
+		actionBack()
+		actionForward()
+		actionSearch()
+		actionHome()
+		actionManualEntry()
 	}
 }

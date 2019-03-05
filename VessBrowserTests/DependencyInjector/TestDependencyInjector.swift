@@ -67,3 +67,33 @@ struct DefaultTestViewModelDependencyInjector: TestViewModelDependencyInjectorPr
 		return container.resolve(BrowserViewModelProtocol.self, argument: RealmPage() as Page)!
 	}
 }
+
+// MARK: - TestModelProvider
+
+protocol TestModelProvidable {
+	var testModelProvider: TestModelProviderProtocol { get }
+}
+
+extension TestModelProvidable {
+	var testModelProvider: TestModelProviderProtocol {
+		return TestModelProvider()
+	}
+}
+
+protocol TestModelProviderProtocol {
+	var GoogleHost: Host { get }
+	var GooglePage: Page { get }
+}
+
+struct TestModelProvider: TestModelProviderProtocol {
+	var GoogleHost: Host {
+		let host = RealmHost()
+		host.address = "https://www.google.com"
+		return host
+	}
+	var GooglePage: Page {
+		let page = RealmPage()
+		page.address = "https://www.google.com"
+		return page
+	}
+}
