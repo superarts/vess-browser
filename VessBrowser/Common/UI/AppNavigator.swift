@@ -74,6 +74,9 @@ class DefaultAppNavigator: AppNavigatorProtocol, AppNavigatorDependencyInjectabl
 				browserViewController.visit(address: text)
 			}
 		}
+		browserViewController.handleBack = { [unowned self] in
+			self.navigationController.popViewController(animated: true)
+		}
 		navigationController.pushViewController(browserViewController.viewController, animated: true)
 	}
 

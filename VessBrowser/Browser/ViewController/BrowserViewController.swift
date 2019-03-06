@@ -3,10 +3,19 @@ import WebKit
 import RxSwift
 
 protocol BrowserViewControllerProtocol: ViewControllerConvertable {
+
 	var viewModel: BrowserViewModelProtocol! { get set }
+
+	/// When user selects home
 	var handleHome: VoidClosure! { get set }
+
+	/// When user tries to enter URL manually
 	var handleManualEntry: VoidClosure! { get set }
 
+	/// When user goes back from browser
+	var handleBack: VoidClosure! { get set }
+
+	/// Go to a certain URL
 	func visit(address: String)
 }
 
@@ -18,6 +27,7 @@ class BrowserViewController: UIViewController, BrowserViewControllerProtocol {
 	var viewModel: BrowserViewModelProtocol!
 	var handleHome: VoidClosure!
 	var handleManualEntry: VoidClosure!
+	var handleBack: VoidClosure!
 
 	private let disposeBag = DisposeBag()
 
@@ -55,7 +65,7 @@ class BrowserViewController: UIViewController, BrowserViewControllerProtocol {
 			if self.webView.canGoBack {
         		self.webView.goBack()
 			} else {
-				self.navigationController?.popViewController(animated: true)
+				self.handleBack()
 			}
 		}.disposed(by: disposeBag)
 		navigationItem.leftBarButtonItem = item
