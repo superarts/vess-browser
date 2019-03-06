@@ -9,6 +9,7 @@ def shared_dependency
 	pod 'Swinject'
 	pod 'SDWebImage'
 	pod 'SCLAlertView'
+	pod 'FavIcon'
 end
 
 target 'VessBrowser' do
