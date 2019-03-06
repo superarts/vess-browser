@@ -2,6 +2,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 import SDWebImage
+import FavIcon
 
 protocol HostListViewControllerProtocol: ViewControllerConvertable {
 	var viewModel: HostListViewModelProtocol! { get set }
@@ -27,7 +28,19 @@ class HostListViewController: UIViewController, HostListViewControllerProtocol {
 				cellIdentifier: "HostListCell", cellType: HostListCell.self)) { (_, host, cell) in
 
 				cell.titleLabel.text = host.name
-				cell.faviconImageView.sd_setImage(with: URL(string: "http://\(host.name)/favicon.ico"), placeholderImage: UIImage(named: "placeholder-vess.png"))
+				cell.faviconImageView.image = UIImage(named: "placeholder-vess.png")
+				//cell.faviconImageView.layer.borderWidth = 1
+				//cell.faviconImageView.layer.masksToBounds = false
+				//cell.faviconImageView.layer.borderColor = UIColor.black.cgColor
+				cell.faviconImageView.layer.cornerRadius = cell.faviconImageView.frame.height / 2
+				cell.faviconImageView.clipsToBounds = true
+				try? FavIcon.downloadPreferred("http://\(host.name)") { result in
+					if case let .success(image) = result {
+						cell.faviconImageView.image = image
+					} else {
+        				cell.faviconImageView.sd_setImage(with: URL(string: "http://\(host.name)/favicon.ico"))
+					}
+				}
 			}
 			.disposed(by: disposeBag)
 
