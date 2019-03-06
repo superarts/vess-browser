@@ -40,6 +40,20 @@ class BrowserViewController: UIViewController, BrowserViewControllerProtocol {
 		webView.load(URLRequest(url: url))
 	}
 
+	private lazy var backBarButtonItem: UIBarButtonItem = {
+		let item = UIBarButtonItem()
+		item.image = UIImage(named: "back")
+		//item.title = "< Back"
+		item.rx.tap.asObservable().subscribe { _ in
+			if self.webView.canGoBack {
+				self.webView.goBack()
+			} else {
+				self.handleBack()
+			}
+			}.disposed(by: self.disposeBag)
+		return item
+	}()
+
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		webView.navigationDelegate = self
@@ -57,18 +71,7 @@ class BrowserViewController: UIViewController, BrowserViewControllerProtocol {
 			})
 			.disposed(by: disposeBag)
 
-		// TODO
-		let item = UIBarButtonItem()
-		item.image = UIImage(named: "back")
-		//item.title = "< Back"
-		item.rx.tap.asObservable().subscribe { _ in
-			if self.webView.canGoBack {
-        		self.webView.goBack()
-			} else {
-				self.handleBack()
-			}
-		}.disposed(by: disposeBag)
-		navigationItem.leftBarButtonItem = item
+		navigationItem.leftBarButtonItem = backBarButtonItem
 	}
 
 	deinit {
@@ -91,6 +94,8 @@ class BrowserViewController: UIViewController, BrowserViewControllerProtocol {
 			}
 		} else if keyPath == "title" {
 			title = webView.title
+			//navigationItem.prompt = viewModel.page.value.address
+    		//navigationItem.leftBarButtonItem = backBarButtonItem
 		}
 	}
 

@@ -24,11 +24,10 @@ class HostListViewController: UIViewController, HostListViewControllerProtocol {
 
 		viewModel.hosts.asObservable()
 			.bind(to: tableView.rx.items(
-				cellIdentifier: "HostListCell", cellType: UITableViewCell.self)) { (_, host, cell) in
+				cellIdentifier: "HostListCell", cellType: HostListCell.self)) { (_, host, cell) in
 
-				cell.textLabel?.text = host.name
-				cell.detailTextLabel?.text = host.address
-				cell.imageView?.sd_setImage(with: URL(string: "http://\(host.name)/favicon.ico"), placeholderImage: UIImage(named: "placeholder-vess.png"))
+				cell.titleLabel.text = host.name
+				cell.faviconImageView.sd_setImage(with: URL(string: "http://\(host.name)/favicon.ico"), placeholderImage: UIImage(named: "placeholder-vess.png"))
 			}
 			.disposed(by: disposeBag)
 
@@ -65,4 +64,11 @@ extension HostListViewController: AppTestable {
 	func testApp() {
 		actionSearch()
 	}
+}
+
+// MARK: - HostListCell
+
+class HostListCell: UITableViewCell {
+	@IBOutlet var titleLabel: UILabel!
+	@IBOutlet var faviconImageView: UIImageView!
 }

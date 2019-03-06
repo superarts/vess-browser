@@ -22,26 +22,41 @@
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="HostListCell" textLabel="Qb8-be-HQ5" imageView="CCe-fD-UDs" rowHeight="56" style="IBUITableViewCellStyleDefault" id="6oP-iR-Yfw">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="HostListCell" rowHeight="56" id="6oP-iR-Yfw" customClass="HostListCell" customModule="VessBrowser" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="56"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="6oP-iR-Yfw" id="wfQ-Js-Z2k">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="6oP-iR-Yfw" id="wfQ-Js-Z2k">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="55.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Page Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Qb8-be-HQ5">
-                                                    <rect key="frame" x="86" y="0.0" width="274" height="55.5"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder-vess" translatesAutoresizingMaskIntoConstraints="NO" id="qgz-oD-de1">
+                                                    <rect key="frame" x="4" y="4.5" width="48" height="48"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="48" id="3t0-lD-kMO"/>
+                                                        <constraint firstAttribute="width" secondItem="qgz-oD-de1" secondAttribute="height" multiplier="1:1" id="qpf-K5-9g1"/>
+                                                        <constraint firstAttribute="width" constant="48" id="sfw-YV-e4g"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="www.google.com" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R2h-zy-bRc">
+                                                    <rect key="frame" x="60" y="18" width="300" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" image="placeholder-vess" id="CCe-fD-UDs">
-                                                    <rect key="frame" x="15" y="0.0" width="56" height="55.5"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                </imageView>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="R2h-zy-bRc" firstAttribute="trailing" secondItem="wfQ-Js-Z2k" secondAttribute="trailingMargin" id="5aa-Rj-U4R"/>
+                                                <constraint firstItem="qgz-oD-de1" firstAttribute="leading" secondItem="wfQ-Js-Z2k" secondAttribute="leading" constant="4" id="CRd-WA-cg5"/>
+                                                <constraint firstItem="qgz-oD-de1" firstAttribute="top" secondItem="wfQ-Js-Z2k" secondAttribute="top" constant="4" id="QMt-dq-hkh"/>
+                                                <constraint firstAttribute="bottom" secondItem="qgz-oD-de1" secondAttribute="bottom" constant="4" id="Yzh-TX-Zfh"/>
+                                                <constraint firstItem="R2h-zy-bRc" firstAttribute="leading" secondItem="qgz-oD-de1" secondAttribute="trailing" constant="8" id="rKv-cO-Fuu"/>
+                                                <constraint firstItem="R2h-zy-bRc" firstAttribute="centerY" secondItem="qgz-oD-de1" secondAttribute="centerY" id="vHe-QN-iqR"/>
+                                            </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="faviconImageView" destination="qgz-oD-de1" id="Jlx-Br-UJ6"/>
+                                            <outlet property="titleLabel" destination="R2h-zy-bRc" id="u6u-23-DHS"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
