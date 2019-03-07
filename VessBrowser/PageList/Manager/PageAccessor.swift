@@ -23,6 +23,10 @@ struct DefaultPageAccessor: PageAccessorProtocol {
 	func visit(page: Page) {
 		if var first = pageDatabaseAccessor.first(filter: "address == \"\(page.address)\"") {
 			pageDatabaseAccessor.update(page: first) {
+				// TODO
+				if !page.name.isEmpty {
+					first.name = page.name
+				}
 				first.updated = Date()
 			}
 		} else {

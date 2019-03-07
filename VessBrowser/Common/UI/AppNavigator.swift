@@ -71,6 +71,7 @@ class DefaultAppNavigator: AppNavigatorProtocol, AppNavigatorDependencyInjectabl
 		browserViewController.handleManualEntry = { [unowned self] in
 			self.showAlert { text in
 				print("NAVIGATOR browser visit: \(text)")
+				//let host = RealmHost(address: text)
 				browserViewController.visit(address: text)
 			}
 		}

@@ -25,6 +25,7 @@ class BrowserViewController: UIViewController, BrowserViewControllerProtocol {
 	@IBOutlet private var progressBar: UIProgressView!
 
 	var viewModel: BrowserViewModelProtocol!
+	//var webViewViewModel: BrowserWebViewViewModel!
 	var handleHome: VoidClosure!
 	var handleManualEntry: VoidClosure!
 	var handleBack: VoidClosure!
@@ -50,17 +51,21 @@ class BrowserViewController: UIViewController, BrowserViewControllerProtocol {
 			} else {
 				self.handleBack()
 			}
-			}.disposed(by: self.disposeBag)
+		}.disposed(by: self.disposeBag)
+
 		return item
 	}()
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
+		//webViewViewModel = BrowserWebViewViewModel(webView: webView)
 		webView.navigationDelegate = self
 		webView.uiDelegate = self
 		webView.allowsBackForwardNavigationGestures = true
 		webView.addObserver(self, forKeyPath: #keyPath(WKWebView.estimatedProgress), options: .new, context: nil)
 		webView.addObserver(self, forKeyPath: #keyPath(WKWebView.title), options: .new, context: nil)
+		/*
+		*/
 
 		viewModel.page.asObservable()
 			.subscribe(onNext: { page in
@@ -141,13 +146,14 @@ extension BrowserViewController: WKUIDelegate {
 }
 
 extension BrowserViewController: WKNavigationDelegate, HostAccessible, PageAccessible {
-	/*
+
 	func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
 		print("COMMIT")
 		// TODO: visit with placeholder entry
-		//visit()
+		visit()
 	}
 
+	/*
 	func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
 		print("START")
 	}
@@ -218,3 +224,25 @@ extension BrowserViewController: AppTestable {
 		actionManualEntry()
 	}
 }
+
+///
+
+/*
+struct BrowserWebViewViewModel {
+
+	private let webView: WKWebView
+
+	init(webView: WKWebView) {
+		self.webView = webView
+		setup()
+	}
+
+	private func setup() {
+		webView.navigationDelegate = self
+		webView.uiDelegate = self
+		webView.allowsBackForwardNavigationGestures = true
+		webView.addObserver(self, forKeyPath: #keyPath(WKWebView.estimatedProgress), options: .new, context: nil)
+		webView.addObserver(self, forKeyPath: #keyPath(WKWebView.title), options: .new, context: nil)
+	}
+}
+*/

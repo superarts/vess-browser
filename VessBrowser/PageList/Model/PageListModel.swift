@@ -1,7 +1,7 @@
 import RealmSwift
 
 protocol Page: Storable {
-	var name: String { get }
+	var name: String { get set }
 	var address: String { get }
 	var host: String { get }
 	var created: Date { get }
