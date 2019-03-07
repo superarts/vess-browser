@@ -435,6 +435,7 @@
 				429079A783EB515F5ACB6CD7 /* [CP] Check Pods Manifest.lock */,
 				B3D246B322165CA10083A76D /* Sources */,
 				B3D246B422165CA10083A76D /* Frameworks */,
+				B3B4C6922230CC730017DD85 /* ShellScript */,
 				B3D246B522165CA10083A76D /* Resources */,
 				159FC63CD6715734B6721EF7 /* [CP] Embed Pods Frameworks */,
 			);
@@ -641,6 +642,23 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
+		};
+		B3B4C6922230CC730017DD85 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#Update build number with number of git commits if in release mode\n# if [ ${CONFIGURATION} == \"Release\" ]; then\n# enable the following line to enable auto commit\n#git commit -a -m \"auto-commit: version number increased\"\nversionNumber=$(/usr/libexec/plistbuddy -c Print:CFBundleShortVersionString: \"${PROJECT_DIR}/${INFOPLIST_FILE}\")\nbuildNumber=$(git rev-list HEAD | wc -l | tr -d ' ')\nbuildHash=$(git rev-parse HEAD | cut -c1-4)\n#/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $versionNumber.$buildNumber ($buildHash)\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\"\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $versionNumber.$buildNumber\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\"\n# fi;\n";
 		};
 		C7009185B0DF964E3B563099 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
