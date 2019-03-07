@@ -39,6 +39,9 @@
 		B3B4C683222CCE2F0017DD85 /* TestDependencyInjector.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B4C676222CC1DE0017DD85 /* TestDependencyInjector.swift */; };
 		B3B4C685222CDE6B0017DD85 /* StubTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B4C684222CDE6B0017DD85 /* StubTests.swift */; };
 		B3B4C688222CDEC60017DD85 /* AppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B4C687222CDEC60017DD85 /* AppTests.swift */; };
+		B3B4C68D2230C9FE0017DD85 /* BrowserWebViewDelegateTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B4C68C2230C9FE0017DD85 /* BrowserWebViewDelegateTest.swift */; };
+		B3B4C6902230CA390017DD85 /* BrowserWebViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B4C68E2230CA380017DD85 /* BrowserWebViewDelegate.swift */; };
+		B3B4C6912230CA390017DD85 /* BrowserWebViewDelegateDependencyInjector.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B4C68F2230CA380017DD85 /* BrowserWebViewDelegateDependencyInjector.swift */; };
 		B3D246BB22165CA10083A76D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D246BA22165CA10083A76D /* AppDelegate.swift */; };
 		B3D246C022165CA10083A76D /* Browser.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B3D246BE22165CA10083A76D /* Browser.storyboard */; };
 		B3D246C222165CA20083A76D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3D246C122165CA20083A76D /* Assets.xcassets */; };
@@ -95,6 +98,9 @@
 		B3B4C680222CCE1C0017DD85 /* DependencyInjector+Manager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DependencyInjector+Manager.swift"; sourceTree = "<group>"; };
 		B3B4C684222CDE6B0017DD85 /* StubTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StubTests.swift; sourceTree = "<group>"; };
 		B3B4C687222CDEC60017DD85 /* AppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTests.swift; sourceTree = "<group>"; };
+		B3B4C68C2230C9FE0017DD85 /* BrowserWebViewDelegateTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowserWebViewDelegateTest.swift; sourceTree = "<group>"; };
+		B3B4C68E2230CA380017DD85 /* BrowserWebViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowserWebViewDelegate.swift; sourceTree = "<group>"; };
+		B3B4C68F2230CA380017DD85 /* BrowserWebViewDelegateDependencyInjector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowserWebViewDelegateDependencyInjector.swift; sourceTree = "<group>"; };
 		B3D246B722165CA10083A76D /* VessBrowser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VessBrowser.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3D246BA22165CA10083A76D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B3D246BF22165CA10083A76D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Browser.storyboard; sourceTree = "<group>"; };
@@ -256,6 +262,8 @@
 			isa = PBXGroup;
 			children = (
 				B3B4C650222C9C9A0017DD85 /* BrowserManager.swift */,
+				B3B4C68E2230CA380017DD85 /* BrowserWebViewDelegate.swift */,
+				B3B4C68F2230CA380017DD85 /* BrowserWebViewDelegateDependencyInjector.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -351,6 +359,7 @@
 		B3B4C686222CDE730017DD85 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				B3B4C68C2230C9FE0017DD85 /* BrowserWebViewDelegateTest.swift */,
 				B3D246CF22165CA30083A76D /* VessBrowserTests.swift */,
 				B3B4C684222CDE6B0017DD85 /* StubTests.swift */,
 				B3B4C687222CDEC60017DD85 /* AppTests.swift */,
@@ -670,11 +679,13 @@
 				B3B4C649222C9BF90017DD85 /* HostListViewController.swift in Sources */,
 				B3B4C660222C9C9A0017DD85 /* BrowserViewModel.swift in Sources */,
 				B3B4C669222C9C9A0017DD85 /* PageListViewController.swift in Sources */,
+				B3B4C6902230CA390017DD85 /* BrowserWebViewDelegate.swift in Sources */,
 				B3B4C66D222CA0120017DD85 /* PageAccessor.swift in Sources */,
 				B3B4C662222C9C9A0017DD85 /* BrowserManager.swift in Sources */,
 				B3B4C647222C9BF90017DD85 /* HostDatabaseAccessor.swift in Sources */,
 				B3B4C67D222CC9C70017DD85 /* Protocol.swift in Sources */,
 				B3B4C682222CCE2B0017DD85 /* DependencyInjector+Manager.swift in Sources */,
+				B3B4C6912230CA390017DD85 /* BrowserWebViewDelegateDependencyInjector.swift in Sources */,
 				B3056D3C221A6DDA0069AB5B /* AppNavigator.swift in Sources */,
 				B3B4C664222C9C9A0017DD85 /* BrowserViewController.swift in Sources */,
 				B3B4C675222CB32E0017DD85 /* PageDatabaseAccessorDependencyInjector.swift in Sources */,
@@ -696,6 +707,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B3B4C683222CCE2F0017DD85 /* TestDependencyInjector.swift in Sources */,
+				B3B4C68D2230C9FE0017DD85 /* BrowserWebViewDelegateTest.swift in Sources */,
 				B3B4C688222CDEC60017DD85 /* AppTests.swift in Sources */,
 				B3B4C685222CDE6B0017DD85 /* StubTests.swift in Sources */,
 				B3D246D022165CA30083A76D /* VessBrowserTests.swift in Sources */,
