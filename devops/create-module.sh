@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# Example: devops/create-module.sh Browser ViewController UIKit
+
 # TODO: check if under project root directory
 
 printf "Creating module: $1..."
@@ -7,6 +9,7 @@ printf "Creating module: $1..."
 # $1: ModuleName, e.g. HostList
 # $2: ModuleType, e.g. ViewController
 # $3: DefaultDependency, e.g. UIKit
+
 create_swift_file () {
 	printf "import $3\n\n" > VessBrowser/$1/$2/$1$2.swift
 }

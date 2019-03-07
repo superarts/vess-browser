@@ -1,6 +1,8 @@
 #!/bin/bash
 
-# Example: script/create-helper.sh BrowserWebViewDelegatable BrowserWebViewDelegate Browser
+# Example: devops/create-helper.sh BrowserWebViewDelegatable BrowserWebViewDelegate Browser
+
+# TODO: check if under project root directory
 
 # $1: protocol, e.g. HostAccessible
 # $2: implmentation, e.g. HostAccessor
