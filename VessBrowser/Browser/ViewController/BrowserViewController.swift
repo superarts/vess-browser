@@ -79,11 +79,6 @@ class BrowserViewController: UIViewController, BrowserViewControllerProtocol {
 		navigationItem.leftBarButtonItem = backBarButtonItem
 	}
 
-	deinit {
-		webView.removeObserver(self, forKeyPath: "estimatedProgress")
-		webView.removeObserver(self, forKeyPath: "title")
-	}
-
 	override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
 		if keyPath == "estimatedProgress" {
 			print("PROGRESS", webView.estimatedProgress)
@@ -234,15 +229,40 @@ struct BrowserWebViewViewModel {
 
 	init(webView: WKWebView) {
 		self.webView = webView
+		webView.addObserver(self, forKeyPath: #keyPath(WKWebView.estimatedProgress), options: .new, context: nil)
+		webView.addObserver(self, forKeyPath: #keyPath(WKWebView.title), options: .new, context: nil)
 		setup()
+	}
+
+	deinit {
+		webView.removeObserver(self, forKeyPath: "estimatedProgress")
+		webView.removeObserver(self, forKeyPath: "title")
 	}
 
 	private func setup() {
 		webView.navigationDelegate = self
 		webView.uiDelegate = self
 		webView.allowsBackForwardNavigationGestures = true
-		webView.addObserver(self, forKeyPath: #keyPath(WKWebView.estimatedProgress), options: .new, context: nil)
-		webView.addObserver(self, forKeyPath: #keyPath(WKWebView.title), options: .new, context: nil)
+	}
+
+	override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+		if keyPath == "estimatedProgress" {
+			print("PROGRESS", webView.estimatedProgress)
+			//progressBar.alpha = CGFloat(1 - webView.estimatedProgress)
+			progressBar.progress = Float(webView.estimatedProgress)
+			if webView.estimatedProgress == 1 {
+				DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+					self.progressBar.progress = 0
+					self.progressBar.isHidden = true
+				}
+			} else {
+				progressBar.isHidden = false
+			}
+		} else if keyPath == "title" {
+			title = webView.title
+			//navigationItem.prompt = viewModel.page.value.address
+    		//navigationItem.leftBarButtonItem = backBarButtonItem
+		}
 	}
 }
 */
