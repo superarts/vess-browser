@@ -18,7 +18,7 @@ protocol HostListViewModelProtocol: LifeCycleManagable, HostAccessible {
 * - Inject test dependencies from constractor
 * - Perform tests
 */
-struct HostListViewModel: HostListViewModelProtocol {
+struct HostListViewModel: HostListViewModelProtocol, HostCreatable {
 	var hosts = BehaviorRelay<[Host]>(value: [Host]())
 
 	init() {
@@ -41,26 +41,12 @@ struct HostListViewModel: HostListViewModelProtocol {
 	}
 
 	private func loadDefaultHosts() {
-		let host = RealmHost()
-		host.name = "Search"
-		host.address = "blank"
-		host.created = Date()
-
 		/*
-		let reddit = RealmHost()
-		reddit.name = "Reddit"
-		reddit.address = "https://www.reddit.com/"
-		reddit.host = "www.reddit.com"
-		reddit.created = Date()
-
-		let youtube = RealmHost()
-		youtube.name = "YouTube"
-		youtube.address = "https://www.youtube.com/"
-		youtube.host = "www.youtube.com"
-		youtube.created = Date()
+		let reddit = hostCreator.reddit
+		let youtube = hostCreator.youtube
 		*/
 
 		//hosts.value.append(contentsOf: [host, reddit, youtube])
-		hosts.accept([host])
+		hosts.accept([hostCreator.blank])
 	}
 }

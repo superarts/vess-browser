@@ -140,7 +140,7 @@ extension BrowserViewController: WKUIDelegate {
 	}
 }
 
-extension BrowserViewController: WKNavigationDelegate, HostAccessible, PageAccessible {
+extension BrowserViewController: WKNavigationDelegate, HostAccessible, PageAccessible, HostCreatable {
 
 	func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
 		print("COMMIT")
@@ -192,10 +192,7 @@ extension BrowserViewController: WKNavigationDelegate, HostAccessible, PageAcces
 	private func visit() {
 		// TODO: business logic - what if any of these fails?
 		if let hostAddress = webView.url?.host {
-			let host = RealmHost()
-			host.name = hostAddress
-			host.address = hostAddress
-			hostAccessor.visit(host: host)
+			hostAccessor.visit(host: hostCreator.host(name: hostAddress, address: hostAddress))
 		}
 
 		if let urlAddress = webView.url?.absoluteString {

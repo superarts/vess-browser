@@ -34,7 +34,7 @@ protocol TestViewModelDependencyInjectorProtocol {
 	func browserViewModel() -> BrowserViewModelProtocol
 }
 
-struct DefaultTestViewModelDependencyInjector: TestViewModelDependencyInjectorProtocol {
+struct DefaultTestViewModelDependencyInjector: TestViewModelDependencyInjectorProtocol, HostCreatable {
 
 	static let shared: TestViewModelDependencyInjectorProtocol = DefaultTestViewModelDependencyInjector()
 	private let container = Container()
@@ -60,7 +60,7 @@ struct DefaultTestViewModelDependencyInjector: TestViewModelDependencyInjectorPr
 	}
 
 	func pageListViewModel() -> PageListViewModelProtocol {
-		return container.resolve(PageListViewModelProtocol.self, argument: RealmHost() as Host)!
+		return container.resolve(PageListViewModelProtocol.self, argument: hostCreator.empty)!
 	}
 
 	func browserViewModel() -> BrowserViewModelProtocol {
@@ -81,16 +81,16 @@ extension TestModelProvidable {
 }
 
 protocol TestModelProviderProtocol {
-	var GoogleHost: Host { get }
+//	var GoogleHost: Host { get }
 	var GooglePage: Page { get }
 }
 
 struct TestModelProvider: TestModelProviderProtocol {
-	var GoogleHost: Host {
-		let host = RealmHost()
-		host.address = "https://www.google.com"
-		return host
-	}
+//	var GoogleHost: Host {
+//		let host = RealmHost()
+//		host.address = "https://www.google.com"
+//		return host
+//	}
 	var GooglePage: Page {
 		let page = RealmPage()
 		page.address = "https://www.google.com"

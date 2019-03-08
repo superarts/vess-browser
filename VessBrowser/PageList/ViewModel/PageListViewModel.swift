@@ -20,8 +20,8 @@ protocol PageListViewModelProtocol: LifeCycleManagable, PageAccessible {
 * - Inject test dependencies from constractor
 * - Perform tests
 */
-struct PageListViewModel: PageListViewModelProtocol {
-	var host = BehaviorRelay<Host>(value: RealmHost())
+struct PageListViewModel: PageListViewModelProtocol, HostCreatable {
+	let host: BehaviorRelay<Host>
 	var pages = BehaviorRelay<[Page]>(value: [Page]())
 
 	/// The `Page` that is used for search in the current PageList
@@ -34,7 +34,7 @@ struct PageListViewModel: PageListViewModelProtocol {
 	//private let disposeBag = DisposeBag()
 
 	init(host: Host) {
-		self.host.accept(host)
+    	self.host = BehaviorRelay<Host>(value: host)
 		//setup()
 	}
 

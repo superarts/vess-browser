@@ -10,13 +10,13 @@ import Quick
 import Nimble
 @testable import VessBrowser
 
-class StubTests: QuickSpec {
+class StubTests: QuickSpec, HostCreatable {
 	override func spec() {
 		describe("Empty stubs") {
 			context("EmptyHostAccessor") {
 				it("can visit") {
 					let accessor: HostAccessorProtocol = EmptyHostAccessor()
-					expect(accessor.visit(host: RealmHost())).toNot(throwError())
+					expect(accessor.visit(host: self.hostCreator.empty)).toNot(throwError())
 				}
 				it("has nothing") {
 					let accessor: HostAccessorProtocol = EmptyHostAccessor()
@@ -26,7 +26,7 @@ class StubTests: QuickSpec {
 			context("EmptyHostDatabaseAccessor") {
 				it("can store") {
 					let accessor: HostDatabaseAccessorProtocol = EmptyHostDatabaseAccessor()
-					expect(accessor.store(host: RealmHost())).toNot(throwError())
+					expect(accessor.store(host: self.hostCreator.empty)).toNot(throwError())
 				}
 				it("returns nothing for filter") {
 					let accessor: HostDatabaseAccessorProtocol = EmptyHostDatabaseAccessor()

@@ -11,13 +11,13 @@ import Nimble
 import RealmSwift
 @testable import VessBrowser
 
-class HostAccessorTests: QuickSpec, HostAccessible {
+class HostAccessorTests: QuickSpec, HostAccessible, HostCreatable {
 	override func spec() {
 		context("HostAccessor") {
 			it("is empty if database is empty") {
 				let accessor: HostAccessorProtocol = self.sharedHostAccessorDependencyInjector.hostAccessor()
 				accessor.sharedHostDatabaseAccessorDependencyInjector.registerEmpty()
-				expect(accessor.visit(host: RealmHost())).toNot(throwError())
+				expect(accessor.visit(host: self.hostCreator.empty)).toNot(throwError())
 				expect(accessor.all()).to(beEmpty())
 			}
 		}
@@ -92,7 +92,7 @@ class ViewModelTests: QuickSpec, TestViewModelDependencyInjectable {
 	}
 }
 
-class DatabaseTests: QuickSpec, TestModelProvidable {
+class DatabaseTests: QuickSpec, TestModelProvidable, HostCreatable {
 	override func spec() {
 		super.spec()
 
@@ -110,7 +110,7 @@ class DatabaseTests: QuickSpec, TestModelProvidable {
 		describe("Host") {
 			context("HostDatabaseAccessor") {
 				it("can store and retrieve 1 item") {
-        			let host = self.testModelProvider.GoogleHost
+        			let host = self.hostCreator.empty
 					let accessor: HostDatabaseAccessorProtocol = RealmHostDatabaseAccessor()
 					expect(accessor.store(host: host)).toNot(throwError())
 					expect(accessor.all()).to(haveCount(1))

@@ -71,7 +71,7 @@ class DefaultAppNavigator: AppNavigatorProtocol, AppNavigatorDependencyInjectabl
 		browserViewController.handleManualEntry = { [unowned self] in
 			self.showAlert { text in
 				print("NAVIGATOR browser visit: \(text)")
-				//let host = RealmHost(address: text)
+				//let host = hostCreator.host(address: text)
 				browserViewController.visit(address: text)
 			}
 		}
@@ -101,9 +101,9 @@ class DefaultAppNavigator: AppNavigatorProtocol, AppNavigatorDependencyInjectabl
 Discussion: AppTestable is a workaround to improve test coverage.
 Proper UI tests should be used to address this issue.
 */
-extension DefaultAppNavigator: AppTestable {
+extension DefaultAppNavigator: AppTestable, HostCreatable {
 	func testApp() {
-		pushPageList(host: RealmHost())
+		pushPageList(host: hostCreator.empty)
 		pushBrowser(page: RealmPage())
 		showAlert { _ in }
 	}

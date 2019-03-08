@@ -16,11 +16,11 @@ Discussion: we are testing implementation instead of protocol for the following 
 - `AppTestable` components, because `testApp()` is an add-on to a specific implementation
 */
 
-class AppTests: QuickSpec, AppNavigatorDependencyInjectable, TestModelProvidable {
+class AppTests: QuickSpec, AppNavigatorDependencyInjectable, TestModelProvidable, HostCreatable {
 
 	override func spec() {
 
-		let host = testModelProvider.GoogleHost
+		let host = hostCreator.empty
 		let page = testModelProvider.GooglePage
 
 		describe("Application") {

@@ -42,6 +42,9 @@
 		B3B4C68D2230C9FE0017DD85 /* BrowserWebViewDelegateTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B4C68C2230C9FE0017DD85 /* BrowserWebViewDelegateTest.swift */; };
 		B3B4C6902230CA390017DD85 /* BrowserWebViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B4C68E2230CA380017DD85 /* BrowserWebViewDelegate.swift */; };
 		B3B4C6912230CA390017DD85 /* BrowserWebViewDelegateDependencyInjector.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B4C68F2230CA380017DD85 /* BrowserWebViewDelegateDependencyInjector.swift */; };
+		B3B4C695223208D70017DD85 /* HostCreatorTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B4C694223208D70017DD85 /* HostCreatorTest.swift */; };
+		B3B4C698223208F80017DD85 /* HostCreatorDependencyInjector.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B4C696223208F80017DD85 /* HostCreatorDependencyInjector.swift */; };
+		B3B4C699223208F80017DD85 /* HostCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B4C697223208F80017DD85 /* HostCreator.swift */; };
 		B3D246BB22165CA10083A76D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D246BA22165CA10083A76D /* AppDelegate.swift */; };
 		B3D246C022165CA10083A76D /* Browser.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B3D246BE22165CA10083A76D /* Browser.storyboard */; };
 		B3D246C222165CA20083A76D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3D246C122165CA20083A76D /* Assets.xcassets */; };
@@ -101,6 +104,9 @@
 		B3B4C68C2230C9FE0017DD85 /* BrowserWebViewDelegateTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowserWebViewDelegateTest.swift; sourceTree = "<group>"; };
 		B3B4C68E2230CA380017DD85 /* BrowserWebViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowserWebViewDelegate.swift; sourceTree = "<group>"; };
 		B3B4C68F2230CA380017DD85 /* BrowserWebViewDelegateDependencyInjector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowserWebViewDelegateDependencyInjector.swift; sourceTree = "<group>"; };
+		B3B4C694223208D70017DD85 /* HostCreatorTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HostCreatorTest.swift; sourceTree = "<group>"; };
+		B3B4C696223208F80017DD85 /* HostCreatorDependencyInjector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HostCreatorDependencyInjector.swift; sourceTree = "<group>"; };
+		B3B4C697223208F80017DD85 /* HostCreator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HostCreator.swift; sourceTree = "<group>"; };
 		B3D246B722165CA10083A76D /* VessBrowser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VessBrowser.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3D246BA22165CA10083A76D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B3D246BF22165CA10083A76D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Browser.storyboard; sourceTree = "<group>"; };
@@ -208,6 +214,8 @@
 			children = (
 				B3B4C66A222C9FC50017DD85 /* HostAccessor.swift */,
 				B3B4C670222CA30F0017DD85 /* HostAccessorDependencyInjector.swift */,
+				B3B4C697223208F80017DD85 /* HostCreator.swift */,
+				B3B4C696223208F80017DD85 /* HostCreatorDependencyInjector.swift */,
 				B3B4C640222C9BF90017DD85 /* HostDatabaseAccessor.swift */,
 				B3B4C671222CA3100017DD85 /* HostDatabaseAccessorDependencyInjector.swift */,
 			);
@@ -359,6 +367,7 @@
 		B3B4C686222CDE730017DD85 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				B3B4C694223208D70017DD85 /* HostCreatorTest.swift */,
 				B3B4C68C2230C9FE0017DD85 /* BrowserWebViewDelegateTest.swift */,
 				B3D246CF22165CA30083A76D /* VessBrowserTests.swift */,
 				B3B4C684222CDE6B0017DD85 /* StubTests.swift */,
@@ -693,12 +702,14 @@
 				B3B4C648222C9BF90017DD85 /* HostListModel.swift in Sources */,
 				B3B4C645222C9BF90017DD85 /* HostListViewModel.swift in Sources */,
 				B3B4C66B222C9FC50017DD85 /* HostAccessor.swift in Sources */,
+				B3B4C699223208F80017DD85 /* HostCreator.swift in Sources */,
 				B3B4C673222CA3100017DD85 /* HostDatabaseAccessorDependencyInjector.swift in Sources */,
 				B3B4C649222C9BF90017DD85 /* HostListViewController.swift in Sources */,
 				B3B4C660222C9C9A0017DD85 /* BrowserViewModel.swift in Sources */,
 				B3B4C669222C9C9A0017DD85 /* PageListViewController.swift in Sources */,
 				B3B4C6902230CA390017DD85 /* BrowserWebViewDelegate.swift in Sources */,
 				B3B4C66D222CA0120017DD85 /* PageAccessor.swift in Sources */,
+				B3B4C698223208F80017DD85 /* HostCreatorDependencyInjector.swift in Sources */,
 				B3B4C662222C9C9A0017DD85 /* BrowserManager.swift in Sources */,
 				B3B4C647222C9BF90017DD85 /* HostDatabaseAccessor.swift in Sources */,
 				B3B4C67D222CC9C70017DD85 /* Protocol.swift in Sources */,
@@ -724,6 +735,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B3B4C695223208D70017DD85 /* HostCreatorTest.swift in Sources */,
 				B3B4C683222CCE2F0017DD85 /* TestDependencyInjector.swift in Sources */,
 				B3B4C68D2230C9FE0017DD85 /* BrowserWebViewDelegateTest.swift in Sources */,
 				B3B4C688222CDEC60017DD85 /* AppTests.swift in Sources */,
