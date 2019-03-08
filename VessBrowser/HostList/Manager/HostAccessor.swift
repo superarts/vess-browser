@@ -25,7 +25,7 @@ struct DefaultHostAccessor: HostAccessorProtocol {
 				first.updated = Date()
 			}
 		} else {
-			hostDatabaseAccessor.store(host)
+			hostDatabaseAccessor.store(host: host)
 		}
 	}
 

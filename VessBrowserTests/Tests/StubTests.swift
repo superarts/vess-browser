@@ -26,7 +26,7 @@ class StubTests: QuickSpec {
 			context("EmptyHostDatabaseAccessor") {
 				it("can store") {
 					let accessor: HostDatabaseAccessorProtocol = EmptyHostDatabaseAccessor()
-					expect(accessor.store(RealmHost())).toNot(throwError())
+					expect(accessor.store(host: RealmHost())).toNot(throwError())
 				}
 				it("returns nothing for filter") {
 					let accessor: HostDatabaseAccessorProtocol = EmptyHostDatabaseAccessor()
@@ -58,7 +58,7 @@ class StubTests: QuickSpec {
 			context("EmptyPageDatabaseAccessor") {
 				it("can store") {
 					let accessor: PageDatabaseAccessorProtocol = EmptyPageDatabaseAccessor()
-					expect(accessor.store(RealmPage())).toNot(throwError())
+					expect(accessor.store(page: RealmPage())).toNot(throwError())
 				}
 				it("returns nothing for filter") {
 					let accessor: PageDatabaseAccessorProtocol = EmptyPageDatabaseAccessor()

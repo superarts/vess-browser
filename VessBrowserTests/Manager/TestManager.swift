@@ -33,7 +33,7 @@ struct SinglePageAccessor: PageAccessorProtocol {
 
 struct EmptyHostDatabaseAccessor: HostDatabaseAccessorProtocol {
 
-	func store(_ host: Host) { }
+	func store(host: Host) { }
 	func update(host: Host, transaction: VoidClosure?) { }
 	func first(filter: String) -> Host? { return nil }
 	func all() -> [Host] { return [] }
@@ -44,7 +44,7 @@ struct EmptyHostDatabaseAccessor: HostDatabaseAccessorProtocol {
 
 struct EmptyPageDatabaseAccessor: PageDatabaseAccessorProtocol {
 
-	func store(_ page: Page) { }
+	func store(page: Page) { }
 	func update(page: Page, transaction: VoidClosure?) { }
 	func first(filter: String) -> Page? { return nil }
 	func all() -> [Page] { return [] }

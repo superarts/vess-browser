@@ -14,7 +14,7 @@ extension HostDatabaseAccessible {
 
 protocol HostDatabaseAccessorProtocol {
 
-	func store(_ host: Host)
+	func store(host: Host)
 	func update(host: Host, transaction: VoidClosure?)
 	func first(filter: String) -> Host?
 	func all() -> [Host]
@@ -25,7 +25,7 @@ struct RealmHostDatabaseAccessor: HostDatabaseAccessorProtocol {
 
 	private	let realm = try! Realm()
 
-	func store(_ host: Host) {
+	func store(host: Host) {
 		try! realm.write() {
 			realm.add(host as! RealmHost)
 		}

@@ -14,7 +14,7 @@ extension PageDatabaseAccessible {
 
 protocol PageDatabaseAccessorProtocol {
 
-	func store(_ page: Page)
+	func store(page: Page)
 	func update(page: Page, transaction: VoidClosure?)
 	func first(filter: String) -> Page?
 	func all() -> [Page]
@@ -25,7 +25,7 @@ struct RealmPageDatabaseAccessor: PageDatabaseAccessorProtocol {
 
 	private	let realm = try! Realm()
 
-	func store(_ page: Page) {
+	func store(page: Page) {
 		try! realm.write() {
 			realm.add(page as! RealmPage)
 		}

@@ -112,7 +112,7 @@ class DatabaseTests: QuickSpec, TestModelProvidable {
 				it("can store and retrieve 1 item") {
         			let host = self.testModelProvider.GoogleHost
 					let accessor: HostDatabaseAccessorProtocol = RealmHostDatabaseAccessor()
-					expect(accessor.store(host)).toNot(throwError())
+					expect(accessor.store(host: host)).toNot(throwError())
 					expect(accessor.all()).to(haveCount(1))
 					expect(accessor.first(filter: "address == 'https://www.bing.com'")).to(beNil())
 					expect(accessor.first(filter: "address == '\(host.address)'")).toNot(beNil())
@@ -127,7 +127,7 @@ class DatabaseTests: QuickSpec, TestModelProvidable {
 				it("can store and retrieve 1 item") {
         			let page = self.testModelProvider.GooglePage
 					let accessor: PageDatabaseAccessorProtocol = RealmPageDatabaseAccessor()
-					expect(accessor.store(page)).toNot(throwError())
+					expect(accessor.store(page: page)).toNot(throwError())
 					expect(accessor.all()).to(haveCount(1))
 					expect(accessor.first(filter: "address == 'https://www.bing.com'")).to(beNil())
 					expect(accessor.first(filter: "address == '\(page.address)'")).toNot(beNil())

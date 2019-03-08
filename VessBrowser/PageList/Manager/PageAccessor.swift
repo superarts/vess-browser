@@ -30,7 +30,7 @@ struct DefaultPageAccessor: PageAccessorProtocol {
 				first.updated = Date()
 			}
 		} else {
-			pageDatabaseAccessor.store(page)
+			pageDatabaseAccessor.store(page: page)
 		}
 	}
 
