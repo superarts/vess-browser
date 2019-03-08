@@ -1,8 +1,8 @@
-import RxSwift
+import RxCocoa
 
 protocol HostListViewModelProtocol: LifeCycleManagable, HostAccessible {
 
-	var hosts: Variable<[Host]> { get }
+	var hosts: BehaviorRelay<[Host]> { get }
 }
 
 /**
@@ -19,7 +19,7 @@ protocol HostListViewModelProtocol: LifeCycleManagable, HostAccessible {
 * - Perform tests
 */
 struct HostListViewModel: HostListViewModelProtocol {
-	var hosts = Variable<[Host]>([Host]())
+	var hosts = BehaviorRelay<[Host]>(value: [Host]())
 
 	init() {
 		//reload()
@@ -34,7 +34,7 @@ struct HostListViewModel: HostListViewModelProtocol {
 		let all = hostAccessor.all()
 		print("HOSTLIST count", all.count)
 		if !all.isEmpty {
-			hosts.value = all
+			hosts.accept(all)
 		} else {
 			self.loadDefaultHosts()
 		}
@@ -61,6 +61,6 @@ struct HostListViewModel: HostListViewModelProtocol {
 		*/
 
 		//hosts.value.append(contentsOf: [host, reddit, youtube])
-		hosts.value = [host]
+		hosts.accept([host])
 	}
 }

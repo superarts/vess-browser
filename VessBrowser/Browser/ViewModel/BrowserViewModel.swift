@@ -1,13 +1,13 @@
-import RxSwift
+import RxCocoa
 
 protocol BrowserViewModelProtocol {
-	var page: Variable<Page> { get }
+	var page: BehaviorRelay<Page> { get }
 }
 
 struct BrowserViewModel: BrowserViewModelProtocol {
-	var page = Variable<Page>(RealmPage())
+	var page = BehaviorRelay<Page>(value: RealmPage())
 
 	init(page: Page) {
-		self.page.value = page
+		self.page.accept(page)
 	}
 }

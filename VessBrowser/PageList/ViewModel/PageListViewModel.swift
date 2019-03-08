@@ -1,9 +1,9 @@
-import RxSwift
+import RxCocoa
 
 protocol PageListViewModelProtocol: LifeCycleManagable, PageAccessible {
 
-	var host: Variable<Host> { get }
-	var pages: Variable<[Page]> { get }
+	var host: BehaviorRelay<Host> { get }
+	var pages: BehaviorRelay<[Page]> { get }
 	var searchPage: Page { get }
 }
 
@@ -21,8 +21,8 @@ protocol PageListViewModelProtocol: LifeCycleManagable, PageAccessible {
 * - Perform tests
 */
 struct PageListViewModel: PageListViewModelProtocol {
-	var host = Variable<Host>(RealmHost())
-	var pages = Variable<[Page]>([Page]())
+	var host = BehaviorRelay<Host>(value: RealmHost())
+	var pages = BehaviorRelay<[Page]>(value: [Page]())
 
 	/// The `Page` that is used for search in the current PageList
 	var searchPage: Page {
@@ -34,7 +34,7 @@ struct PageListViewModel: PageListViewModelProtocol {
 	//private let disposeBag = DisposeBag()
 
 	init(host: Host) {
-		self.host.value = host
+		self.host.accept(host)
 		//setup()
 	}
 
@@ -42,7 +42,7 @@ struct PageListViewModel: PageListViewModelProtocol {
 		let all = self.pageAccessor.pages(hostAddress: host.value.address)
 		print("WEBSITELIST count updated", all.count)
 		if !all.isEmpty {
-			self.pages.value = all
+			self.pages.accept(all)
 		} else {
 			self.loadDefaultPages()
 		}
@@ -103,6 +103,6 @@ struct PageListViewModel: PageListViewModelProtocol {
 		youtube.created = Date()
 		*/
 
-		pages.value = [google, bing, yahoo, baidu]
+		pages.accept([google, bing, yahoo, baidu])
 	}
 }
