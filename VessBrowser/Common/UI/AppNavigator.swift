@@ -21,7 +21,7 @@ protocol AppNavigatorProtocol {
 /// App navigation handling
 // AppXXX means it depends on UIKit
 // TODO: mutability, single responsibility
-class DefaultAppNavigator: AppNavigatorProtocol, AppNavigatorDependencyInjectable {
+class DefaultAppNavigator: AppNavigatorProtocol, AppNavigatorDependencyInjectable, PageCreatable {
 
 	static var shared: AppNavigatorProtocol = DefaultAppNavigator()
 	private var navigationController: MainNavigationController!
@@ -45,9 +45,7 @@ class DefaultAppNavigator: AppNavigatorProtocol, AppNavigatorDependencyInjectabl
 			self.pushPageList(host: host)
 		}
 		hostListViewController.handleSearch = { [unowned self] in
-			let page = RealmPage()
-			page.address = "https://www.google.com"
-			self.pushBrowser(page: page)
+			self.pushBrowser(page: self.pageCreator.google)
 		}
 		set(root: hostListViewController)
 	}
@@ -104,7 +102,7 @@ Proper UI tests should be used to address this issue.
 extension DefaultAppNavigator: AppTestable, HostCreatable {
 	func testApp() {
 		pushPageList(host: hostCreator.empty)
-		pushBrowser(page: RealmPage())
+		pushBrowser(page: pageCreator.empty)
 		showAlert { _ in }
 	}
 }

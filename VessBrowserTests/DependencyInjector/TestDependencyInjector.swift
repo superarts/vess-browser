@@ -34,7 +34,7 @@ protocol TestViewModelDependencyInjectorProtocol {
 	func browserViewModel() -> BrowserViewModelProtocol
 }
 
-struct DefaultTestViewModelDependencyInjector: TestViewModelDependencyInjectorProtocol, HostCreatable {
+struct DefaultTestViewModelDependencyInjector: TestViewModelDependencyInjectorProtocol, HostCreatable, PageCreatable {
 
 	static let shared: TestViewModelDependencyInjectorProtocol = DefaultTestViewModelDependencyInjector()
 	private let container = Container()
@@ -64,12 +64,13 @@ struct DefaultTestViewModelDependencyInjector: TestViewModelDependencyInjectorPr
 	}
 
 	func browserViewModel() -> BrowserViewModelProtocol {
-		return container.resolve(BrowserViewModelProtocol.self, argument: RealmPage() as Page)!
+		return container.resolve(BrowserViewModelProtocol.self, argument: pageCreator.empty)!
 	}
 }
 
 // MARK: - TestModelProvider
 
+/*
 protocol TestModelProvidable {
 	var testModelProvider: TestModelProviderProtocol { get }
 }
@@ -97,3 +98,4 @@ struct TestModelProvider: TestModelProviderProtocol {
 		return page
 	}
 }
+*/

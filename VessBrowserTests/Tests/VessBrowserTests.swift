@@ -24,13 +24,13 @@ class HostAccessorTests: QuickSpec, HostAccessible, HostCreatable {
 	}
 }
 
-class PageAccessorTests: QuickSpec, PageAccessible {
+class PageAccessorTests: QuickSpec, PageAccessible, PageCreatable {
 	override func spec() {
 		context("PageAccessor") {
 			it("is empty if database is empty") {
 				let accessor: PageAccessorProtocol = self.sharedPageAccessorDependencyInjector.pageAccessor()
 				accessor.sharedPageDatabaseAccessorDependencyInjector.registerEmpty()
-				expect(accessor.visit(page: RealmPage())).toNot(throwError())
+				expect(accessor.visit(page: self.pageCreator.empty)).toNot(throwError())
 				expect(accessor.all()).to(beEmpty())
 				expect(accessor.pages(hostAddress: "*")).to(beEmpty())
 			}
@@ -92,7 +92,7 @@ class ViewModelTests: QuickSpec, TestViewModelDependencyInjectable {
 	}
 }
 
-class DatabaseTests: QuickSpec, TestModelProvidable, HostCreatable {
+class DatabaseTests: QuickSpec, HostCreatable, PageCreatable {
 	override func spec() {
 		super.spec()
 
@@ -125,7 +125,7 @@ class DatabaseTests: QuickSpec, TestModelProvidable, HostCreatable {
 		describe("Page") {
 			context("PageDatabaseAccessor") {
 				it("can store and retrieve 1 item") {
-        			let page = self.testModelProvider.GooglePage
+        			let page = self.pageCreator.google
 					let accessor: PageDatabaseAccessorProtocol = RealmPageDatabaseAccessor()
 					expect(accessor.store(page: page)).toNot(throwError())
 					expect(accessor.all()).to(haveCount(1))

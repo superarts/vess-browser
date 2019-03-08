@@ -5,9 +5,9 @@ protocol BrowserViewModelProtocol {
 }
 
 struct BrowserViewModel: BrowserViewModelProtocol {
-	var page = BehaviorRelay<Page>(value: RealmPage())
+	let page: BehaviorRelay<Page>
 
 	init(page: Page) {
-		self.page.accept(page)
+    	self.page = BehaviorRelay<Page>(value: page)
 	}
 }

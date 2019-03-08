@@ -10,7 +10,7 @@ import Quick
 import Nimble
 @testable import VessBrowser
 
-class StubTests: QuickSpec, HostCreatable {
+class StubTests: QuickSpec, HostCreatable, PageCreatable {
 	override func spec() {
 		describe("Empty stubs") {
 			context("EmptyHostAccessor") {
@@ -44,7 +44,7 @@ class StubTests: QuickSpec, HostCreatable {
 			context("EmptyPageAccessor") {
 				it("can visit") {
 					let accessor: PageAccessorProtocol = EmptyPageAccessor()
-					expect(accessor.visit(page: RealmPage())).toNot(throwError())
+					expect(accessor.visit(page: self.pageCreator.empty)).toNot(throwError())
 				}
 				it("has nothing") {
 					let accessor: PageAccessorProtocol = EmptyPageAccessor()
@@ -58,7 +58,7 @@ class StubTests: QuickSpec, HostCreatable {
 			context("EmptyPageDatabaseAccessor") {
 				it("can store") {
 					let accessor: PageDatabaseAccessorProtocol = EmptyPageDatabaseAccessor()
-					expect(accessor.store(page: RealmPage())).toNot(throwError())
+					expect(accessor.store(page: self.pageCreator.empty)).toNot(throwError())
 				}
 				it("returns nothing for filter") {
 					let accessor: PageDatabaseAccessorProtocol = EmptyPageDatabaseAccessor()
@@ -79,7 +79,7 @@ class StubTests: QuickSpec, HostCreatable {
 			context("SinglePageAccessor") {
 				it("can visit") {
 					let accessor: PageAccessorProtocol = SinglePageAccessor()
-					expect(accessor.visit(page: RealmPage())).toNot(throwError())
+					expect(accessor.visit(page: self.pageCreator.empty)).toNot(throwError())
 				}
 				it("has 1 Page") {
 					let accessor: PageAccessorProtocol = SinglePageAccessor()

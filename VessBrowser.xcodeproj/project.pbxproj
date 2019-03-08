@@ -45,6 +45,9 @@
 		B3B4C695223208D70017DD85 /* HostCreatorTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B4C694223208D70017DD85 /* HostCreatorTest.swift */; };
 		B3B4C698223208F80017DD85 /* HostCreatorDependencyInjector.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B4C696223208F80017DD85 /* HostCreatorDependencyInjector.swift */; };
 		B3B4C699223208F80017DD85 /* HostCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B4C697223208F80017DD85 /* HostCreator.swift */; };
+		B3B4C69B223215D20017DD85 /* PageCreatorTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B4C69A223215D20017DD85 /* PageCreatorTest.swift */; };
+		B3B4C69E223218C60017DD85 /* PageCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B4C69C223218C60017DD85 /* PageCreator.swift */; };
+		B3B4C69F223218C60017DD85 /* PageCreatorDependencyInjector.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B4C69D223218C60017DD85 /* PageCreatorDependencyInjector.swift */; };
 		B3D246BB22165CA10083A76D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D246BA22165CA10083A76D /* AppDelegate.swift */; };
 		B3D246C022165CA10083A76D /* Browser.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B3D246BE22165CA10083A76D /* Browser.storyboard */; };
 		B3D246C222165CA20083A76D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3D246C122165CA20083A76D /* Assets.xcassets */; };
@@ -107,6 +110,9 @@
 		B3B4C694223208D70017DD85 /* HostCreatorTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HostCreatorTest.swift; sourceTree = "<group>"; };
 		B3B4C696223208F80017DD85 /* HostCreatorDependencyInjector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HostCreatorDependencyInjector.swift; sourceTree = "<group>"; };
 		B3B4C697223208F80017DD85 /* HostCreator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HostCreator.swift; sourceTree = "<group>"; };
+		B3B4C69A223215D20017DD85 /* PageCreatorTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageCreatorTest.swift; sourceTree = "<group>"; };
+		B3B4C69C223218C60017DD85 /* PageCreator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageCreator.swift; sourceTree = "<group>"; };
+		B3B4C69D223218C60017DD85 /* PageCreatorDependencyInjector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageCreatorDependencyInjector.swift; sourceTree = "<group>"; };
 		B3D246B722165CA10083A76D /* VessBrowser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VessBrowser.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3D246BA22165CA10083A76D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B3D246BF22165CA10083A76D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Browser.storyboard; sourceTree = "<group>"; };
@@ -325,6 +331,8 @@
 			children = (
 				B3B4C66C222CA0120017DD85 /* PageAccessor.swift */,
 				B3B4C66E222CA2060017DD85 /* PageAccessorDependencyInjector.swift */,
+				B3B4C69C223218C60017DD85 /* PageCreator.swift */,
+				B3B4C69D223218C60017DD85 /* PageCreatorDependencyInjector.swift */,
 				B3B4C65B222C9C9A0017DD85 /* PageDatabaseAccessor.swift */,
 				B3B4C674222CB32E0017DD85 /* PageDatabaseAccessorDependencyInjector.swift */,
 			);
@@ -368,6 +376,7 @@
 			isa = PBXGroup;
 			children = (
 				B3B4C694223208D70017DD85 /* HostCreatorTest.swift */,
+				B3B4C69A223215D20017DD85 /* PageCreatorTest.swift */,
 				B3B4C68C2230C9FE0017DD85 /* BrowserWebViewDelegateTest.swift */,
 				B3D246CF22165CA30083A76D /* VessBrowserTests.swift */,
 				B3B4C684222CDE6B0017DD85 /* StubTests.swift */,
@@ -706,6 +715,7 @@
 				B3B4C673222CA3100017DD85 /* HostDatabaseAccessorDependencyInjector.swift in Sources */,
 				B3B4C649222C9BF90017DD85 /* HostListViewController.swift in Sources */,
 				B3B4C660222C9C9A0017DD85 /* BrowserViewModel.swift in Sources */,
+				B3B4C69F223218C60017DD85 /* PageCreatorDependencyInjector.swift in Sources */,
 				B3B4C669222C9C9A0017DD85 /* PageListViewController.swift in Sources */,
 				B3B4C6902230CA390017DD85 /* BrowserWebViewDelegate.swift in Sources */,
 				B3B4C66D222CA0120017DD85 /* PageAccessor.swift in Sources */,
@@ -715,6 +725,7 @@
 				B3B4C67D222CC9C70017DD85 /* Protocol.swift in Sources */,
 				B3B4C682222CCE2B0017DD85 /* DependencyInjector+Manager.swift in Sources */,
 				B3B4C6912230CA390017DD85 /* BrowserWebViewDelegateDependencyInjector.swift in Sources */,
+				B3B4C69E223218C60017DD85 /* PageCreator.swift in Sources */,
 				B3056D3C221A6DDA0069AB5B /* AppNavigator.swift in Sources */,
 				B3B4C664222C9C9A0017DD85 /* BrowserViewController.swift in Sources */,
 				B3B4C675222CB32E0017DD85 /* PageDatabaseAccessorDependencyInjector.swift in Sources */,
@@ -740,6 +751,7 @@
 				B3B4C68D2230C9FE0017DD85 /* BrowserWebViewDelegateTest.swift in Sources */,
 				B3B4C688222CDEC60017DD85 /* AppTests.swift in Sources */,
 				B3B4C685222CDE6B0017DD85 /* StubTests.swift in Sources */,
+				B3B4C69B223215D20017DD85 /* PageCreatorTest.swift in Sources */,
 				B3D246D022165CA30083A76D /* VessBrowserTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

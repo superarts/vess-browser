@@ -23,10 +23,10 @@ struct EmptyPageAccessor: PageAccessorProtocol {
 	func pages(hostAddress: String) -> [Page] { return [] }
 }
 
-struct SinglePageAccessor: PageAccessorProtocol {
+struct SinglePageAccessor: PageAccessorProtocol, PageCreatable {
 	func visit(page: Page) { }
-	func all() -> [Page] { return [RealmPage()] }
-	func pages(hostAddress: String) -> [Page] { return [RealmPage()] }
+	func all() -> [Page] { return [pageCreator.empty] }
+	func pages(hostAddress: String) -> [Page] { return [pageCreator.empty] }
 }
 
 /// Mark: - HostDatabaseAccessor
