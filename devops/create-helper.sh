@@ -1,12 +1,14 @@
 #!/bin/bash
 
-# Example: devops/create-helper.sh BrowserWebViewDelegatable BrowserWebViewDelegate Browser
-
 # TODO: check if under project root directory
 
-# $1: protocol, e.g. HostAccessible
-# $2: implmentation, e.g. HostAccessor
-# $3: module, e.g. HostList
+if [ "$#" -ne 3 ]; then
+	echo Example: devops/create-helper.sh BrowserWebViewDelegatable BrowserWebViewDelegate Browser
+	echo '$1: protocol, e.g. HostAccessible'
+	echo '$2: implmentation, e.g. HostAccessor'
+	echo '$3: module, e.g. HostList'
+	exit
+fi
 
 class=$2
 instance=`echo ${class:0:1} | tr  '[A-Z]' '[a-z]'`${class:1}
