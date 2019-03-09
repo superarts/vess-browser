@@ -1,6 +1,7 @@
 import UIKit
 import WebKit
 import RxSwift
+import RxCocoa
 
 protocol BrowserViewControllerProtocol: ViewControllerConvertable {
 
@@ -25,7 +26,7 @@ class BrowserViewController: UIViewController, BrowserViewControllerProtocol {
 	@IBOutlet private var progressBar: UIProgressView!
 
 	var viewModel: BrowserViewModelProtocol!
-	//var webViewViewModel: BrowserWebViewViewModel!
+	var webViewModel: BrowserWebViewModelProtocol!
 	var handleHome: VoidClosure!
 	var handleManualEntry: VoidClosure!
 	var handleBack: VoidClosure!
@@ -38,7 +39,7 @@ class BrowserViewController: UIViewController, BrowserViewControllerProtocol {
 			print("BROWSER invalid page", page)
 			return
 		}
-		webView.load(URLRequest(url: url))
+		webViewModel.webView.load(URLRequest(url: url))
 	}
 
 	private lazy var backBarButtonItem: UIBarButtonItem = {
@@ -46,8 +47,8 @@ class BrowserViewController: UIViewController, BrowserViewControllerProtocol {
 		item.image = UIImage(named: "back")
 		//item.title = "< Back"
 		item.rx.tap.asObservable().subscribe { _ in
-			if self.webView.canGoBack {
-				self.webView.goBack()
+			if self.webViewModel.webView.canGoBack {
+				self.webViewModel.webView.goBack()
 			} else {
 				self.handleBack()
 			}
@@ -58,13 +59,31 @@ class BrowserViewController: UIViewController, BrowserViewControllerProtocol {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		//webViewViewModel = BrowserWebViewViewModel(webView: webView)
+		webViewModel = BrowserWebViewModel(webView: webView)
+		webViewModel.title.asObservable()
+			.subscribe(onNext: { title in
+				self.title = title
+			})
+			.disposed(by: disposeBag)
+		webViewModel.progress.asObservable()
+			.subscribe(onNext: { progress in
+				self.progressBar.progress = progress
+				if progress == 1 {
+					DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+						self.progressBar.progress = 0
+						self.progressBar.isHidden = true
+					}
+				} else {
+					self.progressBar.isHidden = false
+				}
+			})
+			.disposed(by: disposeBag)
+		/*
 		webView.navigationDelegate = self
 		webView.uiDelegate = self
 		webView.allowsBackForwardNavigationGestures = true
 		webView.addObserver(self, forKeyPath: #keyPath(WKWebView.estimatedProgress), options: .new, context: nil)
 		webView.addObserver(self, forKeyPath: #keyPath(WKWebView.title), options: .new, context: nil)
-		/*
 		*/
 
 		viewModel.page.asObservable()
@@ -72,13 +91,14 @@ class BrowserViewController: UIViewController, BrowserViewControllerProtocol {
 				guard let url = URL(string: page.address) else {
 					return
 				}
-				self.webView.load(URLRequest(url: url))
+				self.webViewModel.webView.load(URLRequest(url: url))
 			})
 			.disposed(by: disposeBag)
 
 		navigationItem.leftBarButtonItem = backBarButtonItem
 	}
 
+	/*
 	override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
 		if keyPath == "estimatedProgress" {
 			print("PROGRESS", webView.estimatedProgress)
@@ -99,26 +119,25 @@ class BrowserViewController: UIViewController, BrowserViewControllerProtocol {
 		}
 	}
 
-	/*
 	func nextBrowser() -> BrowserViewController {
-	let storyboard = UIStoryboard(name: "Browser", bundle: nil)
-	if let controller = storyboard.instantiateInitialViewController() as? BrowserViewController {
-	return controller
-	}
-	fatalError("BROWSER failed initializing nextBrowser")
+		let storyboard = UIStoryboard(name: "Browser", bundle: nil)
+			if let controller = storyboard.instantiateInitialViewController() as? BrowserViewController {
+				return controller
+			}
+		fatalError("BROWSER failed initializing nextBrowser")
 	}
 	*/
 
 	@IBAction private func actionBack() {
-		webView.goBack()
+		webViewModel.webView.goBack()
 	}
 
 	@IBAction private func actionForward() {
-		webView.goForward()
+		webViewModel.webView.goForward()
 	}
 
 	@IBAction private func actionSearch() {
-		webView.load(URLRequest(url: URL(string: "https://www.google.com")!))	// TODO
+		webViewModel.webView.load(URLRequest(url: URL(string: "https://www.google.com")!))	// TODO
 	}
 
 	@IBAction private func actionHome() {
@@ -130,9 +149,69 @@ class BrowserViewController: UIViewController, BrowserViewControllerProtocol {
 	}
 }
 
-extension BrowserViewController: WKUIDelegate {
-	func webView(_ webView: WKWebView, createWebViewWith configuration: WKWebViewConfiguration, for navigationAction: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {
+// MARK: - AppTestable
 
+extension BrowserViewController: AppTestable {
+	func testApp() {
+		actionBack()
+		actionForward()
+		actionSearch()
+		actionHome()
+		actionManualEntry()
+	}
+}
+
+///
+
+protocol BrowserWebViewModelProtocol {
+	var webView: WKWebView { get }
+	var progress: BehaviorRelay<Float> { get }
+	var title: BehaviorRelay<String> { get }
+}
+
+class BrowserWebViewModel: NSObject, BrowserWebViewModelProtocol {
+
+	let webView: WKWebView
+
+	var progress = BehaviorRelay<Float>(value: 0)
+	var title = BehaviorRelay<String>(value: "")
+
+	private let kProgress = "estimatedProgress"
+	private let kTitle = "title"
+
+
+	init(webView: WKWebView) {
+		self.webView = webView
+		super.init()
+		webView.addObserver(self, forKeyPath: #keyPath(WKWebView.estimatedProgress), options: .new, context: nil)
+		webView.addObserver(self, forKeyPath: #keyPath(WKWebView.title), options: .new, context: nil)
+		setup()
+	}
+
+	deinit {
+		webView.removeObserver(self, forKeyPath: kProgress)
+		webView.removeObserver(self, forKeyPath: kTitle)
+	}
+
+	private func setup() {
+		webView.navigationDelegate = self
+		webView.uiDelegate = self
+		webView.allowsBackForwardNavigationGestures = true
+	}
+
+	override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+		if keyPath == kProgress {
+			print("WEBVIEW progress", webView.estimatedProgress)
+			progress.accept(Float(webView.estimatedProgress))
+		} else if keyPath == kTitle {
+			title.accept(webView.title ?? "Untitled")
+		}
+	}
+}
+
+extension BrowserWebViewModel: WKUIDelegate {
+	func webView(_ webView: WKWebView, createWebViewWith configuration: WKWebViewConfiguration, for navigationAction: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {
+		// Handle target=_blank inside the same WebView
 		if navigationAction.targetFrame == nil {
 			webView.load(navigationAction.request)
 		}
@@ -140,10 +219,10 @@ extension BrowserViewController: WKUIDelegate {
 	}
 }
 
-extension BrowserViewController: WKNavigationDelegate, HostAccessible, PageAccessible, HostCreatable, PageCreatable {
+extension BrowserWebViewModel: WKNavigationDelegate, HostAccessible, PageAccessible, HostCreatable, PageCreatable {
 
 	func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
-		print("COMMIT")
+		print("WEBVIEW commit")
 		// TODO: visit with placeholder entry
 		visit()
 	}
@@ -175,17 +254,17 @@ extension BrowserViewController: WKNavigationDelegate, HostAccessible, PageAcces
 	*/
 
 	func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-		print("FINISHED")
+		print("WEBVIEW finished")
 		visit()
 	}
 
 	func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
-		print("DECIDE action", navigationAction.request.url?.absoluteString ?? "N/A")
+		print("WEBVIEW decide action", navigationAction.request.url?.absoluteString ?? "N/A")
 		decisionHandler(.allow)
 	}
 
 	func webView(_ webView: WKWebView, decidePolicyFor navigationResponse: WKNavigationResponse, decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void) {
-		print("DECIDE response", navigationResponse.response.url?.absoluteString ?? "N/A")
+		print("WEBVIEW decide response", navigationResponse.response.url?.absoluteString ?? "N/A")
 		decisionHandler(.allow)
 	}
 
@@ -205,62 +284,3 @@ extension BrowserViewController: WKNavigationDelegate, HostAccessible, PageAcces
 		}
 	}
 }
-
-// MARK: - AppTestable
-
-extension BrowserViewController: AppTestable {
-	func testApp() {
-		actionBack()
-		actionForward()
-		actionSearch()
-		actionHome()
-		actionManualEntry()
-	}
-}
-
-///
-
-/*
-struct BrowserWebViewViewModel {
-
-	private let webView: WKWebView
-
-	init(webView: WKWebView) {
-		self.webView = webView
-		webView.addObserver(self, forKeyPath: #keyPath(WKWebView.estimatedProgress), options: .new, context: nil)
-		webView.addObserver(self, forKeyPath: #keyPath(WKWebView.title), options: .new, context: nil)
-		setup()
-	}
-
-	deinit {
-		webView.removeObserver(self, forKeyPath: "estimatedProgress")
-		webView.removeObserver(self, forKeyPath: "title")
-	}
-
-	private func setup() {
-		webView.navigationDelegate = self
-		webView.uiDelegate = self
-		webView.allowsBackForwardNavigationGestures = true
-	}
-
-	override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-		if keyPath == "estimatedProgress" {
-			print("PROGRESS", webView.estimatedProgress)
-			//progressBar.alpha = CGFloat(1 - webView.estimatedProgress)
-			progressBar.progress = Float(webView.estimatedProgress)
-			if webView.estimatedProgress == 1 {
-				DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-					self.progressBar.progress = 0
-					self.progressBar.isHidden = true
-				}
-			} else {
-				progressBar.isHidden = false
-			}
-		} else if keyPath == "title" {
-			title = webView.title
-			//navigationItem.prompt = viewModel.page.value.address
-    		//navigationItem.leftBarButtonItem = backBarButtonItem
-		}
-	}
-}
-*/
