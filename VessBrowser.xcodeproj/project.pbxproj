@@ -48,6 +48,7 @@
 		B3B4C69B223215D20017DD85 /* PageCreatorTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B4C69A223215D20017DD85 /* PageCreatorTest.swift */; };
 		B3B4C69E223218C60017DD85 /* PageCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B4C69C223218C60017DD85 /* PageCreator.swift */; };
 		B3B4C69F223218C60017DD85 /* PageCreatorDependencyInjector.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B4C69D223218C60017DD85 /* PageCreatorDependencyInjector.swift */; };
+		B3B4C6A1223459E30017DD85 /* BrowserWebViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B4C6A0223459E20017DD85 /* BrowserWebViewModel.swift */; };
 		B3D246BB22165CA10083A76D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D246BA22165CA10083A76D /* AppDelegate.swift */; };
 		B3D246C022165CA10083A76D /* Browser.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B3D246BE22165CA10083A76D /* Browser.storyboard */; };
 		B3D246C222165CA20083A76D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3D246C122165CA20083A76D /* Assets.xcassets */; };
@@ -113,6 +114,7 @@
 		B3B4C69A223215D20017DD85 /* PageCreatorTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageCreatorTest.swift; sourceTree = "<group>"; };
 		B3B4C69C223218C60017DD85 /* PageCreator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageCreator.swift; sourceTree = "<group>"; };
 		B3B4C69D223218C60017DD85 /* PageCreatorDependencyInjector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageCreatorDependencyInjector.swift; sourceTree = "<group>"; };
+		B3B4C6A0223459E20017DD85 /* BrowserWebViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowserWebViewModel.swift; sourceTree = "<group>"; };
 		B3D246B722165CA10083A76D /* VessBrowser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VessBrowser.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3D246BA22165CA10083A76D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B3D246BF22165CA10083A76D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Browser.storyboard; sourceTree = "<group>"; };
@@ -260,6 +262,7 @@
 			isa = PBXGroup;
 			children = (
 				B3B4C64C222C9C9A0017DD85 /* BrowserViewModel.swift */,
+				B3B4C6A0223459E20017DD85 /* BrowserWebViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -722,6 +725,7 @@
 				B3B4C698223208F80017DD85 /* HostCreatorDependencyInjector.swift in Sources */,
 				B3B4C662222C9C9A0017DD85 /* BrowserManager.swift in Sources */,
 				B3B4C647222C9BF90017DD85 /* HostDatabaseAccessor.swift in Sources */,
+				B3B4C6A1223459E30017DD85 /* BrowserWebViewModel.swift in Sources */,
 				B3B4C67D222CC9C70017DD85 /* Protocol.swift in Sources */,
 				B3B4C682222CCE2B0017DD85 /* DependencyInjector+Manager.swift in Sources */,
 				B3B4C6912230CA390017DD85 /* BrowserWebViewDelegateDependencyInjector.swift in Sources */,
