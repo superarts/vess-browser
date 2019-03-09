@@ -24,7 +24,7 @@ class HostAccessorTests: QuickSpec, HostAccessible, HostCreatable {
 	}
 }
 
-class PageAccessorTests: QuickSpec, PageAccessible, PageCreatable {
+class PageAccessorTests: QuickSpec, PageAccessible, HostCreatable, PageCreatable {
 	override func spec() {
 		context("PageAccessor") {
 			it("is empty if database is empty") {
@@ -32,7 +32,9 @@ class PageAccessorTests: QuickSpec, PageAccessible, PageCreatable {
 				accessor.sharedPageDatabaseAccessorDependencyInjector.registerEmpty()
 				expect(accessor.visit(page: self.pageCreator.empty)).toNot(throwError())
 				expect(accessor.all()).to(beEmpty())
-				expect(accessor.pages(hostAddress: "*")).to(beEmpty())
+				expect(accessor.pages(host: self.hostCreator.empty)).to(beEmpty())
+				expect(accessor.pages(host: self.hostCreator.blank)).to(beEmpty())
+				expect(accessor.pages(host: self.hostCreator.google)).to(beEmpty())
 			}
 		}
 	}

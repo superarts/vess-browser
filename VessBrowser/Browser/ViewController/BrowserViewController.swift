@@ -15,8 +15,8 @@ protocol BrowserViewControllerProtocol: ViewControllerConvertable {
 	/// When user goes back from browser
 	var handleBack: VoidClosure! { get set }
 
-	/// Go to a certain URL
-	func visit(address: String)
+	/// Go to a certain Page
+	func visit(page: Page)
 }
 
 class BrowserViewController: UIViewController, BrowserViewControllerProtocol {
@@ -32,10 +32,10 @@ class BrowserViewController: UIViewController, BrowserViewControllerProtocol {
 
 	private let disposeBag = DisposeBag()
 
-	func visit(address: String) {
+	func visit(page: Page) {
 		// TODO: use viewModel.page instead
-		guard let url = URL(string: address) else {
-			print("BROWSER invalid URL address", address)
+		guard let url = URL(string: page.address) else {
+			print("BROWSER invalid page", page)
 			return
 		}
 		webView.load(URLRequest(url: url))

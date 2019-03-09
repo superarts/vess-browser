@@ -20,13 +20,13 @@ struct EmptyHostAccessor: HostAccessorProtocol {
 struct EmptyPageAccessor: PageAccessorProtocol {
 	func visit(page: Page) { }
 	func all() -> [Page] { return [] }
-	func pages(hostAddress: String) -> [Page] { return [] }
+	func pages(host: Host) -> [Page] { return [] }
 }
 
 struct SinglePageAccessor: PageAccessorProtocol, PageCreatable {
 	func visit(page: Page) { }
 	func all() -> [Page] { return [pageCreator.empty] }
-	func pages(hostAddress: String) -> [Page] { return [pageCreator.empty] }
+	func pages(host: Host) -> [Page] { return [pageCreator.empty] }
 }
 
 /// Mark: - HostDatabaseAccessor

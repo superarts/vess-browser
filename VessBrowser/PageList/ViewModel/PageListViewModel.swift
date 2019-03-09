@@ -38,7 +38,7 @@ struct PageListViewModel: PageListViewModelProtocol, HostCreatable, PageCreatabl
 	}
 
 	func reload() {
-		let all = self.pageAccessor.pages(hostAddress: host.value.address)
+		let all = self.pageAccessor.pages(host: host.value)
 		print("WEBSITELIST count updated", all.count)
 		if !all.isEmpty {
 			self.pages.accept(all)

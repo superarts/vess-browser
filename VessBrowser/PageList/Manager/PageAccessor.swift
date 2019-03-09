@@ -15,7 +15,7 @@ extension PageAccessible {
 protocol PageAccessorProtocol: PageDatabaseAccessible {
 	func visit(page: Page)
 	func all() -> [Page]
-	func pages(hostAddress: String) -> [Page]
+	func pages(host: Host) -> [Page]
 }
 
 struct DefaultPageAccessor: PageAccessorProtocol {
@@ -39,8 +39,8 @@ struct DefaultPageAccessor: PageAccessorProtocol {
 		return pages.reversed()
 	}
 
-	func pages(hostAddress: String) -> [Page] {
-		let pages = pageDatabaseAccessor.all(filter: "host == \"\(hostAddress)\"")
+	func pages(host: Host) -> [Page] {
+		let pages = pageDatabaseAccessor.all(filter: "host == \"\(host.address)\"")
 		return pages.reversed()
 	}
 }

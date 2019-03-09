@@ -73,7 +73,7 @@ class AppTests: QuickSpec, AppNavigatorDependencyInjectable, HostCreatable, Page
 					let controller = self.sharedAppNavigatorDependencyInjector.browserViewController(page: page) as! BrowserViewController
 					expect(controller.loadView()).toNot(throwError())
 					expect(controller.viewDidLoad()).toNot(throwError())
-					expect(controller.visit(address: "https://www.google.com")).toNot(throwError())
+					expect(controller.visit(page: self.pageCreator.google)).toNot(throwError())
 					expect(controller.handleHome = { } ).toNot(throwError())
 					expect(controller.handleManualEntry = { } ).toNot(throwError())
 					expect(controller.testApp()).toNot(throwError())

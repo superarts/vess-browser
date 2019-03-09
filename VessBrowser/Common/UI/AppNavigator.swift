@@ -67,10 +67,10 @@ class DefaultAppNavigator: AppNavigatorProtocol, AppNavigatorDependencyInjectabl
 			self.navigationController.popToRootViewController(animated: true)
 		}
 		browserViewController.handleManualEntry = { [unowned self] in
-			self.showAlert { text in
-				print("NAVIGATOR browser visit: \(text)")
-				//let host = hostCreator.host(address: text)
-				browserViewController.visit(address: text)
+			self.showAlert { address in
+				print("NAVIGATOR browser visit: \(address)")
+				let page = self.pageCreator.page(address: address)
+				browserViewController.visit(page: page)
 			}
 		}
 		browserViewController.handleBack = { [unowned self] in

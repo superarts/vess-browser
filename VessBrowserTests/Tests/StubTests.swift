@@ -52,7 +52,7 @@ class StubTests: QuickSpec, HostCreatable, PageCreatable {
 				}
 				it("has nothing for given hostAddress") {
 					let accessor: PageAccessorProtocol = EmptyPageAccessor()
-					expect(accessor.pages(hostAddress: "www.google.com")).to(beEmpty())
+					expect(accessor.pages(host: self.hostCreator.google)).to(beEmpty())
 				}
 			}
 			context("EmptyPageDatabaseAccessor") {
@@ -87,7 +87,7 @@ class StubTests: QuickSpec, HostCreatable, PageCreatable {
 				}
 				it("has 1 Page for any given hostAddress") {
 					let accessor: PageAccessorProtocol = SinglePageAccessor()
-					expect(accessor.pages(hostAddress: "www.google.com")).to(haveCount(1))
+					expect(accessor.pages(host: self.hostCreator.google)).to(haveCount(1))
 				}
 			}
 		}
