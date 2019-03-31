@@ -56,6 +56,7 @@
 		B3D246D022165CA30083A76D /* VessBrowserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D246CF22165CA30083A76D /* VessBrowserTests.swift */; };
 		B3E2F121221E62BB0043E03E /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E2F120221E62BA0043E03E /* Database.swift */; };
 		B3E2F1272222197C0043E03E /* AppNavigatorDependencyInjectable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E2F1262222197C0043E03E /* AppNavigatorDependencyInjectable.swift */; };
+		D99CC456224D31F8001C6233 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D99CC455224D31F8001C6233 /* WebKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -127,6 +128,7 @@
 		B3E2F120221E62BA0043E03E /* Database.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
 		B3E2F1262222197C0043E03E /* AppNavigatorDependencyInjectable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppNavigatorDependencyInjectable.swift; sourceTree = "<group>"; };
 		C668BA4B94B724FFD0A1891C /* Pods-VessBrowser.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VessBrowser.debug.xcconfig"; path = "Pods/Target Support Files/Pods-VessBrowser/Pods-VessBrowser.debug.xcconfig"; sourceTree = "<group>"; };
+		D99CC455224D31F8001C6233 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -134,6 +136,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D99CC456224D31F8001C6233 /* WebKit.framework in Frameworks */,
 				B3056D2F22191C5B0069AB5B /* StoreKit.framework in Frameworks */,
 				8D9DE6EDD31052C7CFC848F9 /* Pods_VessBrowser.framework in Frameworks */,
 			);
@@ -164,6 +167,7 @@
 		B3056D2D22191C5B0069AB5B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D99CC455224D31F8001C6233 /* WebKit.framework */,
 				B3056D2E22191C5B0069AB5B /* StoreKit.framework */,
 				987D8C2FA32AFEE0CDC70EDB /* Pods_VessBrowser.framework */,
 				1DB3FA5A4D6636E666630AC3 /* Pods_VessBrowserTests.framework */,
