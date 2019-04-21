@@ -38,7 +38,7 @@ class HostListViewController: UIViewController, HostListViewControllerProtocol {
 				//cell.faviconImageView.layer.borderWidth = 1
 				//cell.faviconImageView.layer.masksToBounds = false
 				//cell.faviconImageView.layer.borderColor = UIColor.black.cgColor
-				cell.faviconImageView.layer.cornerRadius = cell.faviconImageView.frame.height / 2
+				cell.faviconImageView.layer.cornerRadius = cell.faviconImageView.frame.width / 2
 				cell.faviconImageView.clipsToBounds = true
 				try? FavIcon.downloadPreferred("http://\(host.name)") { result in
 					if case let .success(image) = result {

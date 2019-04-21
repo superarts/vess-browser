@@ -25,19 +25,18 @@
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="HostListCell" rowHeight="64" id="6oP-iR-Yfw" customClass="HostListCell" customModule="VessBrowser" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="64"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="6oP-iR-Yfw" id="wfQ-Js-Z2k">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="6oP-iR-Yfw" id="wfQ-Js-Z2k">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="63.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder-vess" translatesAutoresizingMaskIntoConstraints="NO" id="qgz-oD-de1">
-                                                    <rect key="frame" x="23" y="15" width="32" height="32"/>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder-vess" translatesAutoresizingMaskIntoConstraints="NO" id="qgz-oD-de1">
+                                                    <rect key="frame" x="23" y="15" width="33.5" height="33.5"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="32" id="j6o-6u-ULU"/>
                                                         <constraint firstAttribute="width" secondItem="qgz-oD-de1" secondAttribute="height" multiplier="1:1" id="j8x-Mf-fl5"/>
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Placeholder" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R2h-zy-bRc">
-                                                    <rect key="frame" x="71" y="8" width="280" height="21"/>
+                                                    <rect key="frame" x="72.5" y="8" width="278.5" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="dKN-0P-Dwr"/>
                                                     </constraints>
@@ -46,7 +45,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="www.placeholder.com" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gnl-md-hze">
-                                                    <rect key="frame" x="71" y="29" width="280" height="14"/>
+                                                    <rect key="frame" x="72.5" y="29" width="278.5" height="14"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="14" id="rA7-e3-3hF"/>
                                                     </constraints>
@@ -55,7 +54,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Last visited: Last Placeholder" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Szk-0n-VpN">
-                                                    <rect key="frame" x="71" y="45" width="280" height="14"/>
+                                                    <rect key="frame" x="72.5" y="45" width="278.5" height="14"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="14" id="q5t-4C-bZz"/>
                                                     </constraints>
