@@ -22,6 +22,8 @@ struct DefaultHostAccessor: HostAccessorProtocol {
 	func visit(host: Host) {
 		if var first = hostDatabaseAccessor.first(filter: "address == \"\(host.address)\"") {
 			hostDatabaseAccessor.update(host: first) {
+                first.name = host.name
+                first.lastTitle = host.lastTitle
 				first.updated = Date()
 			}
 		} else {

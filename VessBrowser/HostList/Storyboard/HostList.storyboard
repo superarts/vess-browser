@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -22,37 +22,66 @@
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="HostListCell" rowHeight="56" id="6oP-iR-Yfw" customClass="HostListCell" customModule="VessBrowser" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="56"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="HostListCell" rowHeight="64" id="6oP-iR-Yfw" customClass="HostListCell" customModule="VessBrowser" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="64"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="6oP-iR-Yfw" id="wfQ-Js-Z2k">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="55.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="63.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder-vess" translatesAutoresizingMaskIntoConstraints="NO" id="qgz-oD-de1">
-                                                    <rect key="frame" x="23" y="15.5" width="32" height="32"/>
+                                                    <rect key="frame" x="23" y="15" width="32" height="32"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="32" id="j6o-6u-ULU"/>
                                                         <constraint firstAttribute="width" secondItem="qgz-oD-de1" secondAttribute="height" multiplier="1:1" id="j8x-Mf-fl5"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="www.google.com" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R2h-zy-bRc">
-                                                    <rect key="frame" x="71" y="20.5" width="280" height="21.5"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Placeholder" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R2h-zy-bRc">
+                                                    <rect key="frame" x="71" y="8" width="280" height="21"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="21" id="dKN-0P-Dwr"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" weight="thin" pointSize="18"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="www.placeholder.com" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gnl-md-hze">
+                                                    <rect key="frame" x="71" y="29" width="280" height="14"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="14" id="rA7-e3-3hF"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" weight="ultraLight" pointSize="12"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Last visited: Last Placeholder" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Szk-0n-VpN">
+                                                    <rect key="frame" x="71" y="45" width="280" height="14"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="14" id="q5t-4C-bZz"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" weight="thin" pointSize="11"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="Szk-0n-VpN" firstAttribute="leading" secondItem="R2h-zy-bRc" secondAttribute="leading" id="A0Q-5W-tHV"/>
                                                 <constraint firstItem="qgz-oD-de1" firstAttribute="centerY" secondItem="wfQ-Js-Z2k" secondAttribute="centerY" id="B5a-YP-CMw"/>
+                                                <constraint firstItem="Gnl-md-hze" firstAttribute="top" secondItem="R2h-zy-bRc" secondAttribute="bottom" id="Gro-fI-RrS"/>
+                                                <constraint firstItem="R2h-zy-bRc" firstAttribute="top" secondItem="wfQ-Js-Z2k" secondAttribute="top" constant="8" id="Jgt-Ud-L72"/>
+                                                <constraint firstItem="Gnl-md-hze" firstAttribute="leading" secondItem="R2h-zy-bRc" secondAttribute="leading" id="LK5-3c-uPZ"/>
                                                 <constraint firstItem="qgz-oD-de1" firstAttribute="top" secondItem="wfQ-Js-Z2k" secondAttribute="topMargin" constant="4" id="MOu-0z-nar"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="R2h-zy-bRc" secondAttribute="trailing" constant="9" id="UAH-bs-taw"/>
+                                                <constraint firstItem="Szk-0n-VpN" firstAttribute="trailing" secondItem="R2h-zy-bRc" secondAttribute="trailing" id="UCU-Zs-WAn"/>
                                                 <constraint firstItem="R2h-zy-bRc" firstAttribute="leading" secondItem="qgz-oD-de1" secondAttribute="trailing" constant="16" id="XJy-8e-PSD"/>
                                                 <constraint firstItem="qgz-oD-de1" firstAttribute="leading" secondItem="wfQ-Js-Z2k" secondAttribute="leadingMargin" constant="8" id="cBB-a5-MI0"/>
-                                                <constraint firstItem="R2h-zy-bRc" firstAttribute="centerY" secondItem="qgz-oD-de1" secondAttribute="centerY" id="rK3-mU-toC"/>
+                                                <constraint firstItem="Gnl-md-hze" firstAttribute="trailing" secondItem="R2h-zy-bRc" secondAttribute="trailing" id="vO9-gA-88A"/>
+                                                <constraint firstItem="Szk-0n-VpN" firstAttribute="top" secondItem="Gnl-md-hze" secondAttribute="bottom" constant="2" id="yn0-FY-Yqu"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="addressLabel" destination="Gnl-md-hze" id="Wrr-Ej-Pcs"/>
+                                            <outlet property="detailLabel" destination="Szk-0n-VpN" id="oBW-JH-Hsz"/>
                                             <outlet property="faviconImageView" destination="qgz-oD-de1" id="Jlx-Br-UJ6"/>
                                             <outlet property="titleLabel" destination="R2h-zy-bRc" id="u6u-23-DHS"/>
                                         </connections>

@@ -23,11 +23,17 @@ class HostListViewController: UIViewController, HostListViewControllerProtocol {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
+		tableView
+			.rx.setDelegate(self)
+			.disposed(by: disposeBag)
+
 		viewModel.hosts.asObservable()
 			.bind(to: tableView.rx.items(
 				cellIdentifier: "HostListCell", cellType: HostListCell.self)) { (_, host, cell) in
 
 				cell.titleLabel.text = host.name
+				cell.addressLabel.text = host.address
+				cell.detailLabel.text = "Last visited: " + (host.lastTitle == "" ? "N/A" : host.lastTitle)
 				cell.faviconImageView.image = UIImage(named: "placeholder-vess.png")
 				//cell.faviconImageView.layer.borderWidth = 1
 				//cell.faviconImageView.layer.masksToBounds = false
@@ -38,7 +44,7 @@ class HostListViewController: UIViewController, HostListViewControllerProtocol {
 					if case let .success(image) = result {
 						cell.faviconImageView.image = image
 					} else {
-        				cell.faviconImageView.sd_setImage(with: URL(string: "http://\(host.name)/favicon.ico"))
+        				cell.faviconImageView.sd_setImage(with: URL(string: "http://\(host.address)/favicon.ico"))
 					}
 				}
 			}
@@ -71,6 +77,12 @@ class HostListViewController: UIViewController, HostListViewControllerProtocol {
 	}
 }
 
+extension HostListViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+		return 64
+	}
+}
+
 // MARK: - AppTestable
 
 extension HostListViewController: AppTestable {
@@ -83,5 +95,7 @@ extension HostListViewController: AppTestable {
 
 class HostListCell: UITableViewCell {
 	@IBOutlet var titleLabel: UILabel!
+	@IBOutlet var addressLabel: UILabel!
+	@IBOutlet var detailLabel: UILabel!
 	@IBOutlet var faviconImageView: UIImageView!
 }

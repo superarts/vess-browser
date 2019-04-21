@@ -109,7 +109,7 @@ extension BrowserWebViewModel: WKNavigationDelegate, HostAccessible, PageAccessi
 	private func visit() {
 		// TODO: business logic - what if any of these fails?
 		if let hostAddress = webView.url?.host {
-			hostAccessor.visit(host: hostCreator.host(name: hostAddress, address: hostAddress))
+            hostAccessor.visit(host: hostCreator.host(address: hostAddress, lastTitle: webView.title))
 		}
 
 		if let urlAddress = webView.url?.absoluteString {
