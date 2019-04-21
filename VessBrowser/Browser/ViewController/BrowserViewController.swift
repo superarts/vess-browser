@@ -58,6 +58,7 @@ class BrowserViewController: UIViewController, BrowserViewControllerProtocol {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
+		// TODO: setup in DependencyInjector; having problem with SwinjectStoryboard
 		webViewModel = BrowserWebViewModel(webView: webView)
 		webViewModel.title.asObservable()
 			.subscribe(onNext: { title in

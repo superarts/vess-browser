@@ -3,6 +3,9 @@ platform :ios, '11.0'
 use_frameworks!
 
 def shared_dependency
+    # ignore all warnings from all pods
+    inhibit_all_warnings!
+
 	pod 'RxSwift'
 	pod 'RxCocoa'
 	pod 'RealmSwift'
