@@ -17,6 +17,7 @@ protocol HostDatabaseAccessorProtocol {
 	func store(host: Host)
 	func update(host: Host, transaction: VoidClosure?)
 	func first(filter: String) -> Host?
+	func sorted() -> [Host]
 	func all() -> [Host]
 	func all(filter: String) -> [Host]
 }
@@ -40,6 +41,14 @@ struct RealmHostDatabaseAccessor: HostDatabaseAccessorProtocol {
 
 	func first(filter: String) -> Host? {
 		return realm.objects(RealmHost.self).filter(filter).first
+	}
+
+	func sorted() -> [Host] {
+		let descriptors = [
+			SortDescriptor(keyPath: "priority", ascending: false),
+			SortDescriptor(keyPath: "updated", ascending: false),
+		]
+        return Array(realm.objects(RealmHost.self).sorted(by: descriptors))
 	}
 
 	func all() -> [Host] {

@@ -36,7 +36,8 @@ struct EmptyHostDatabaseAccessor: HostDatabaseAccessorProtocol {
 	func store(host: Host) { }
 	func update(host: Host, transaction: VoidClosure?) { }
 	func first(filter: String) -> Host? { return nil }
-	func all() -> [Host] { return [] }
+	func sorted() -> [Host] { return [] }
+    func all() -> [Host] { return [] }
 	func all(filter: String) -> [Host] { return [] }
 }
 

@@ -45,7 +45,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AppNavigable {
 
 	// TODO: move out of AppDelegate
 	private func databaseMigrate() {
-		let version: UInt64 = 1
+		let version: UInt64 = 2
 		let config = Realm.Configuration(
 			// Set the new schema version. This must be greater than the previously used
 			// version (if you've never set a schema version before, the version is 0).

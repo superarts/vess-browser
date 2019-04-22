@@ -30,23 +30,15 @@ class HostListViewController: UIViewController, HostListViewControllerProtocol {
 		viewModel.hosts.asObservable()
 			.bind(to: tableView.rx.items(
 				cellIdentifier: "HostListCell", cellType: HostListCell.self)) { (_, host, cell) in
-
-				cell.titleLabel.text = host.name
-				cell.addressLabel.text = host.address
-				cell.detailLabel.text = "Last visited: " + (host.lastTitle == "" ? "N/A" : host.lastTitle)
-				cell.faviconImageView.image = UIImage(named: "placeholder-vess.png")
-				//cell.faviconImageView.layer.borderWidth = 1
-				//cell.faviconImageView.layer.masksToBounds = false
-				//cell.faviconImageView.layer.borderColor = UIColor.black.cgColor
-				cell.faviconImageView.layer.cornerRadius = cell.faviconImageView.frame.width / 2
-				cell.faviconImageView.clipsToBounds = true
-				try? FavIcon.downloadPreferred("http://\(host.name)") { result in
-					if case let .success(image) = result {
-						cell.faviconImageView.image = image
-					} else {
-        				cell.faviconImageView.sd_setImage(with: URL(string: "http://\(host.address)/favicon.ico"))
-					}
+				cell.load(host: host)
+				cell.handleReload = {
+					self.viewModel.reload()
+					self.tableView.reloadData()
 				}
+
+                // Better way to redraw cell circle mask?
+                cell.layoutIfNeeded()
+                cell.layoutSubviews()
 			}
 			.disposed(by: disposeBag)
 
@@ -93,9 +85,91 @@ extension HostListViewController: AppTestable {
 
 // MARK: - HostListCell
 
-class HostListCell: UITableViewCell {
+class HostListCell: UITableViewCell, HostDatabaseAccessible {
 	@IBOutlet var titleLabel: UILabel!
 	@IBOutlet var addressLabel: UILabel!
 	@IBOutlet var detailLabel: UILabel!
+	@IBOutlet var priorityLabel: UILabel!
 	@IBOutlet var faviconImageView: UIImageView!
+	@IBOutlet var priorityUpButton: UIButton!
+	@IBOutlet var priorityDownButton: UIButton!
+
+    var handleReload: VoidClosure!
+
+    private var host: Host!
+
+	private let kPriorityBoundary = 999
+	private let kPriorityUpTrue = "▲"
+	private let kPriorityUpFalse = "△"
+	private let kPriorityDownTrue = "▼"
+	private let kPriorityDownFalse = "▽"
+
+	func load(host: Host) {
+		self.host = host
+
+		faviconImageView.image = UIImage(named: "placeholder-vess.png")
+		//faviconImageView.layer.borderWidth = 1
+		//faviconImageView.layer.masksToBounds = false
+		//faviconImageView.layer.borderColor = UIColor.black.cgColor
+		faviconImageView.layer.cornerRadius = faviconImageView.frame.height / 2
+		faviconImageView.clipsToBounds = true
+
+		try? FavIcon.downloadPreferred("http://\(host.name)") { result in
+			if case let .success(image) = result {
+				self.faviconImageView.image = image
+			} else {
+				self.faviconImageView.sd_setImage(with: URL(string: "http://\(self.host.address)/favicon.ico"))
+			}
+		}
+	}
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+
+		titleLabel.text = host.name
+		addressLabel.text = host.address
+		detailLabel.text = "Last visited: " + (host.lastTitle == "" ? "N/A" : host.lastTitle)
+		priorityLabel.text = host.priority == 0 ? "" : "\(host.priority)"
+		if host.priority > 0 {
+			titleLabel.textColor = .black
+		} else if host.priority == 0 {
+			titleLabel.textColor = .darkGray
+		} else {
+			titleLabel.textColor = .lightGray
+		}
+
+		reloadPriority()
+	}
+
+	private func reloadPriority() {
+		priorityUpButton.setTitle(kPriorityUpFalse, for: .normal)
+		priorityDownButton.setTitle(kPriorityDownFalse, for: .normal)
+		if host.priority > 0 {
+			priorityUpButton.setTitle(kPriorityUpTrue, for: .normal)
+		} else if host.priority < 0 {
+			priorityDownButton.setTitle(kPriorityDownTrue, for: .normal)
+		}
+	}
+
+	@IBAction func actionPriorityUp() {
+		if host.priority < kPriorityBoundary {
+			hostDatabaseAccessor.update(host: host) {
+				self.host.priority += 1
+				self.host.updated = Date()
+				self.reloadPriority()
+				self.handleReload()
+			}
+		}
+	}
+
+	@IBAction func actionPriorityDown() {
+		if host.priority > -kPriorityBoundary {
+			hostDatabaseAccessor.update(host: host) {
+				self.host.priority -= 1
+				self.host.updated = Date()
+				self.reloadPriority()
+				self.handleReload()
+			}
+		}
+	}
 }

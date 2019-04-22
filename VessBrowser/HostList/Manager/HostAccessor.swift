@@ -24,6 +24,7 @@ struct DefaultHostAccessor: HostAccessorProtocol {
 			hostDatabaseAccessor.update(host: first) {
                 first.name = host.name
                 first.lastTitle = host.lastTitle
+                first.priority = host.priority
 				first.updated = Date()
 			}
 		} else {
@@ -32,7 +33,6 @@ struct DefaultHostAccessor: HostAccessorProtocol {
 	}
 
 	func all() -> [Host] {
-		let hosts = hostDatabaseAccessor.all()
-		return hosts.reversed()
+		return hostDatabaseAccessor.sorted()
 	}
 }
