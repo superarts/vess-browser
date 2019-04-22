@@ -106,22 +106,8 @@ class HostListCell: UITableViewCell, HostDatabaseAccessible {
 
 	func load(host: Host) {
 		self.host = host
-
-		faviconImageView.image = UIImage(named: "placeholder-vess.png")
-		//faviconImageView.layer.borderWidth = 1
-		//faviconImageView.layer.masksToBounds = false
-		//faviconImageView.layer.borderColor = UIColor.black.cgColor
-		faviconImageView.layer.cornerRadius = faviconImageView.frame.height / 2
-		faviconImageView.clipsToBounds = true
-
-		try? FavIcon.downloadPreferred("http://\(host.name)") { result in
-			if case let .success(image) = result {
-				self.faviconImageView.image = image
-			} else {
-				self.faviconImageView.sd_setImage(with: URL(string: "http://\(self.host.address)/favicon.ico"))
-			}
-		}
-	}
+        loadFaviconAsync()
+    }
 
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -138,8 +124,11 @@ class HostListCell: UITableViewCell, HostDatabaseAccessible {
 			titleLabel.textColor = .lightGray
 		}
 
+        loadFaviconAsync()
 		reloadPriority()
 	}
+
+    // MARK: - Reload
 
 	private func reloadPriority() {
 		priorityUpButton.setTitle(kPriorityUpFalse, for: .normal)
@@ -150,6 +139,49 @@ class HostListCell: UITableViewCell, HostDatabaseAccessible {
 			priorityDownButton.setTitle(kPriorityDownTrue, for: .normal)
 		}
 	}
+
+    private func loadFaviconAsync() {
+		DispatchQueue.main.async {
+			self.loadFavicon()
+		}
+	}
+
+    private func loadFavicon() {
+        //faviconImageView.layer.borderWidth = 1
+        //faviconImageView.layer.masksToBounds = false
+        //faviconImageView.layer.borderColor = UIColor.black.cgColor
+        faviconImageView.layer.cornerRadius = faviconImageView.frame.height / 2
+        faviconImageView.clipsToBounds = true
+
+        if host.favicon.count > 0, let image = UIImage(data: host.favicon) {
+            faviconImageView.image = image
+            return
+        }
+
+        faviconImageView.image = UIImage(named: "placeholder-vess.png")
+
+        try? FavIcon.downloadPreferred("http://\(host.name)") { result in
+            if case let .success(image) = result {
+                self.faviconImageView.image = image
+				self.updateHostFavicon(image: image)
+            } else {
+                self.faviconImageView.sd_setImage(with: URL(string: "http://\(self.host.address)/favicon.ico")) { image, error, type, url in
+					self.updateHostFavicon(image: image)
+                }
+            }
+        }
+    }
+
+	private func updateHostFavicon(image: UIImage?) {
+		self.hostDatabaseAccessor.update(host: self.host) {
+			guard let data = image?.pngData() else {
+				return
+			}
+			self.host.favicon = data
+		}
+	}
+
+    // MARK: - IBActions
 
 	@IBAction func actionPriorityUp() {
 		if host.priority < kPriorityBoundary {

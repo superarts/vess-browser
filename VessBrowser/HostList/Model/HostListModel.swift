@@ -5,7 +5,7 @@ protocol Host: Storable {
 	var name: String { get set }
 	var lastTitle: String { get set }
 	var priority: Int { get set }
-	var favicon: Data { get }
+	var favicon: Data { get set }
 	var created: Date { get }
 	var updated: Date { get set }
 }
