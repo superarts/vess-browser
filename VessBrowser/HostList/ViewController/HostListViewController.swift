@@ -155,7 +155,7 @@ class HostListCell: UITableViewCell, HostDatabaseAccessible {
 		if host.priority < kPriorityBoundary {
 			hostDatabaseAccessor.update(host: host) {
 				self.host.priority += 1
-				self.host.updated = Date()
+				//self.host.updated = Date()
 				self.reloadPriority()
 				self.handleReload()
 			}
@@ -166,7 +166,7 @@ class HostListCell: UITableViewCell, HostDatabaseAccessible {
 		if host.priority > -kPriorityBoundary {
 			hostDatabaseAccessor.update(host: host) {
 				self.host.priority -= 1
-				self.host.updated = Date()
+				//self.host.updated = Date()
 				self.reloadPriority()
 				self.handleReload()
 			}
